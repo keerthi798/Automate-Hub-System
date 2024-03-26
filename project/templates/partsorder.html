@@ -1,0 +1,727 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>sparx motors light vehicles</title>
+    <style>
+        .user-profile {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-image {
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        /* Styles for the dropdown menu */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            display: block;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Show the dropdown menu when hovering over the user profile */
+        .user-profile:hover .dropdown-menu {
+            display: block;
+        }
+        
+        /* Style the user dropdown */
+#user-dropdown {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+#user-dropdown:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+}
+
+/* Style the dropdown arrow icon (a small triangle) */
+#user-dropdown::before {
+    content: "\25BE"; /* Unicode character for a down-pointing triangle */
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Style the user name and user icon */
+#user-dropdown  strong {
+    font-weight: bold;
+}
+
+#user-dropdown img {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+/* Style the dropdown content */
+#user-dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+#user-dropdown-content .dropdown-item {
+    padding: 8px 15px;
+    font-weight: normal;
+}
+
+#user-dropdown-content .dropdown-item:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+}
+/* Style the dropdown items */
+#user-dropdown-content .dropdown-item {
+    padding: 8px 15px;
+    font-weight: normal;
+    text-decoration: none; /* To remove underline on links */
+    display: block; /* Ensure the items are displayed as blocks */
+    color: #333; /* Text color for the items */
+    transition: background-color 0.3s; /* Add a smooth transition on hover */
+}
+
+#user-dropdown-content .dropdown-item:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+    color: #000; /* Change text color on hover if needed */
+}
+
+/* Additional styles for the "My Profile" item */
+#user-dropdown-content .dropdown-item:last-child {
+    font-weight: bold;
+    background-color: #007bff; /* Change background color for the last item */
+    color: #fff; /* Text color for the last item */
+}
+/* Styles for the cart icon */
+.cart-icon {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px; /* Adjust spacing as needed */
+}
+
+/* Style for the cart image */
+.cart-icon img {
+  width: 40px; /* Set the width of the cart image */
+  height: auto; /* Maintain aspect ratio */
+  vertical-align: middle;
+}
+
+/* Style for the cart count */
+.cart-count {
+  position: absolute;
+  top: -8px; /* Adjust positioning as needed */
+  right: -8px; /* Adjust positioning as needed */
+  background-color: red; /* Change the background color */
+  color: white;
+  border-radius: 50%; /* To create a circular shape */
+  padding: 4px 8px; /* Adjust padding as needed */
+  font-size: 20px; /* Adjust font size */
+}
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+
+
+    <!-- TOP NAV -->
+    <div class="top-nav" id="home">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-auto">
+                    <p> <i class='bx bxs-envelope'></i> keerthi@gmail.com</p>
+                    <p> <i class='bx bxs-phone-call'></i> 9947601695</p>
+                </div>
+                <div class="col-auto social-icons">
+                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-instagram'></i></a>
+                    <a href="#"><i class='bx bxl-pinterest'></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">AutoMate HUB<span class="dot">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">vehicles</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'booking' %}">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="partsorder.html">Spare parts</a>
+                    </li>
+                    <li class="nav-item" style="display: flex; align-items: center;">
+                        <div id="user-dropdown" class="user-profile">
+                            {% if request.session.profile_image_updated %}
+                                <!-- Use the updated profile image -->
+                                <img src="{{ user_profile.image.url }}" alt="" class="profile-image">
+                            {% else %}
+                                <!-- Use the default image -->
+                                <img src="{% static 'img/img2.png' %}" alt="" class="profile-image">
+                            {% endif %}
+                            <strong style="font-weight: bold;">{{ user.username }}</strong>
+                            <div id="user-dropdown-content" class="dropdown" style="position: absolute; top: 100%; left: 0; display: none;">
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="">My Profile</a>
+                                    <a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile</a>
+                                    <a class="dropdown-item" href="{% url 'logout' %}" onclick="confirmLogout()">Logout</a>
+                                    {% csrf_token %}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    {% if user.is_authenticated %}
+                    <div class="cart-icon">
+                    <a href="{% url 'view_cart' %}" class="view-cart-link">
+                    <img src="{% static 'img/cart.png' %}" alt="Cart">
+                </a>
+                    {% if cart_count == 0 %}
+                        <span></span>
+                    {% else %}
+                     <span class="cart-count">{{ cart_count }}</span>
+                    {% endif %}
+                </div>
+                {% endif %}
+                    {% comment %} <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_cart' %}">
+                            <i class="fas fa-shopping-cart"></i> <!-- Assuming you're using Font Awesome for icons -->
+                            Cart
+                        </a>
+                    </li> {% endcomment %}
+                    {% comment %} <li class="nav-item">
+                        <a class="btn btn-outline-light ms-3" href="{% url 'logout' %}" onclick="confirmLogout()">Logout</a>
+                    </li> {% endcomment %}
+                    <script>
+                        function confirmLogout() {
+                            if (confirm("Are you sure you want to log out?")) {
+                                window.location.href = "{% url 'logout' %}";  // Redirect to the logout URL
+                            }
+                        }
+                        
+
+                        const userDropdown = document.getElementById("user-dropdown");
+                        const userDropdownContent = document.getElementById("user-dropdown-content");
+                    
+                        userDropdown.addEventListener("click", () => {
+                            userDropdownContent.style.display = userDropdownContent.style.display === "block" ? "none" : "block";
+                        });
+                        document.addEventListener("DOMContentLoaded", function () {
+                            // Disable the back button
+                            window.history.pushState(null, null, location.href);
+                            window.onpopstate = function () {
+                                window.history.go(0);
+                            };
+                        });
+                       
+                    </script>
+                    
+                    
+                    
+                    {% else %}
+                    
+                    <li class="nav-item">
+                        <a class="btn btn-brand" href="{% url 'login' %}">signin</a>
+                    </li>
+                  
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light ms-3" href="{% url 'signup' %}">signup</a>
+                    </li>
+                
+                {% endif %}
+                </ul>
+                
+            </div>
+        </div>
+    </nav>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Booking Dashboard</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <style>
+        /* Reset some default browser styles */
+        body, h1, h2, ul, li, p, button {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        header {
+            background-color: #F65C2C;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        
+        nav {
+            background-color: #F65C2C;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        
+        nav li {
+            margin: 0 20px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        nav .search-icon img {
+            width: 20px;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        
+        
+        #search-bar {
+            width: 600px; /* Set the width of the search input */
+            padding: 8px; /* Add some padding for better appearance */
+            border: 1px solid #ccc; /* Add a border */
+            border-radius: 5px; /* Add rounded corners */
+            margin-right: 10px; /* Add some spacing between input and button */
+          }
+          
+          #search-button {
+            background-color: #007BFF; /* Set a background color for the button */
+            color: #fff; /* Set text color to white for better visibility */
+            border: none; /* Remove the button border */
+            border-radius: 5px; /* Add rounded corners */
+            padding: 8px 16px; /* Add padding for a better visual appearance */
+            cursor: pointer;
+          }
+          
+          #search-button:hover {
+            background-color: #0056b3; /* Change background color on hover */
+          }
+         
+        #services {
+            height: 100%; /* Set the height to 100% of its container */
+            max-height: 1500px; /* Increase the max-height as needed */
+            max-width: 2800px;
+            padding: 20px;
+            background-image: url('{% static "img/Bearings-thump.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333;
+        }
+        
+        aside {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .sidebar-item {
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-item h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+        
+        li a:hover {
+            color: #ff6347; /* Change color on hover */
+        }
+        
+        
+    
+        .product-card .out-of-stock-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            z-index: 1;
+        }
+        .add-to-cart-button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+    
+        /* Styling for Buy Now button */
+        .buy-now-button {
+            background-color: #008CBA; /* Blue */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+    
+        /* Hover effect */
+        .add-to-cart-button:hover,  .view-more-button:hover {
+            background-color: red; /* Darker green */
+        }
+        aside {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 5px;
+            width: 250px; /* Adjust width as needed */
+        }
+        
+        .sidebar-item {
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-item h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+        
+        li a:hover {
+            color: #ff6347; /* Change color on hover */
+        }
+        
+        
+        button[type="submit"] {
+            padding: 8px 16px;
+            border: none;
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+        /* Additional styles can be added or modified based on your design preferences */
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .product-section {
+            width: 70%; /* Adjust the width of the product section */
+        }
+
+        aside {
+            width: 25%; /* Adjust the width of the sidebar */
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Add other styles as needed */
+        }
+        {% comment %} .content-container {
+            display: flex;
+            justify-content: flex-start;
+        } {% endcomment %}
+        
+        
+        .product-card {
+            width: calc(95.33% - 20px); /* Adjust the width as needed */
+            /* Other styles */
+        }
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust as needed */
+            gap: 10px; /* Adjust spacing between cards */
+        }
+        .add-to-cart-form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .out-of-stock-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            z-index: 1;
+        }
+        .product-image.out-of-stock {
+            position: relative;
+        }
+        
+        .out-of-stock-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 0, 0, 0.7); /* Red overlay, adjust as needed */
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+            .product-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin: 10px;
+            }
+        
+            .add-to-cart-form {
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+            }
+        
+            .add-to-cart-button,
+            .view-more-button {
+                padding: 10px 20px;
+                background-color: #4caf50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        
+            
+            
+       
+            .product-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin: 10px;
+                max-width: 300px; /* Set a maximum width for the product card */
+            }
+        
+            .product-image {
+                max-height: 200px; /* Set a maximum height for the product image */
+                overflow: hidden; /* Hide overflow if image is larger than the specified height */
+            }
+        
+            .product-image img {
+                width: 100%; /* Ensure the image takes 100% of the container width */
+                height: auto; /* Maintain the image's aspect ratio */
+            }
+        
+            .add-to-cart-form {
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+                margin-top: 10px; /* Add some margin between the product info and buttons */
+            }
+        
+            .add-to-cart-button,
+            .view-more-button {
+                padding: 10px 20px;
+                background-color: #4caf50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        
+            .out-of-stock-overlay {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(255, 0, 0, 0.7);
+                color: white;
+                padding: 5px;
+                border-radius: 5px;
+                z-index: 1;
+            }
+</style> 
+
+</head>
+<body>
+    
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="Search products">
+        <button id="search-button">Search</button>
+    </div>
+
+    <section class="product-list" id="product-list">
+        {% for part in parts_orders %}
+        <div class="product-card">
+            <div class="product-image">
+                <img src="{{ part.parts_image.url }}" alt="{{ part.partsname }} Image">
+                {% if part.quantity == 0 %}
+                <div class="out-of-stock-overlay">Out of Stock</div>
+                {% endif %}
+            </div>
+            <div class="product-info">
+                <h2>{{ part.partsname }}</h2>
+                <p>Description: {{ part.description }}</p>
+                <p>Price: {{ part.price }}</p>
+
+                <form action="{% url 'add_to_cart' part.id %}" method="post" class="add-to-cart-form">
+                    {% csrf_token %}
+                    <button class="add-to-cart-button">Add to Cart</button>
+                </form>
+                <button class="view-more-button">
+                    <a href="{% url 'view_more' part.id %}">View More</a>
+                </button>
+            </div>
+        </div>
+        {% empty %}
+        <p>No parts orders yet.</p>
+        {% endfor %}
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Function to filter vehicles based on the search query
+            function filterVehicles(searchQuery) {
+                const vehicleList = document.getElementById('vehicle-list');
+                const vehicles = vehicleList.getElementsByClassName('vehicle-card');
+    
+                for (let i = 0; i < vehicles.length; i++) {
+                    const vehicleName = vehicles[i].querySelector('h2').textContent.toLowerCase();
+                    const displayStyle = vehicleName.includes(searchQuery.toLowerCase()) ? 'block' : 'none';
+                    vehicles[i].style.display = displayStyle;
+                }
+            }
+    
+            // Event listener for the search button click
+            document.getElementById('search-button').addEventListener('click', function () {
+                const searchValue = document.getElementById('search-bar').value;
+                filterVehicles(searchValue);
+            });
+    
+            // Event listener for typing into the search bar
+            document.getElementById('search-bar').addEventListener('input', function () {
+                const searchValue = this.value;
+                filterVehicles(searchValue);
+            });
+        });
+    </script>
+
+</body>
+</html>

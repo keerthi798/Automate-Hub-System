@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        #order-details {
+            margin-top: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            margin-bottom: 5px;
+        }
+        strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Order Details</h1>
+        <div id="order-details-section" style="display: none;">
+            <div id="order-info"></div>
+        </div>
+    </div>
+    <body>
+        <div class="container">
+            <h1>Order Details</h1>
+            <div id="order-details">
+                <h2>Order ID: {{ order_details.order_id }}</h2>
+                <p>Total Amount: {{ order_details.total_amount }}</p>
+                <h3>Items:</h3>
+                <ul>
+                    {% for item in order_details.items %}
+                        <li>{{ item.product_name }} x {{ item.quantity }} - {{ item.item_total }}</li>
+                    {% endfor %}
+                </ul>
+                <!-- Other order details... -->
+            </div>
+        </div>
+        <!-- Any necessary scripts or JavaScript code -->
+    
+
+    <script>
+       // JavaScript code to fetch order details from the backend
+// This is just a basic example and should be modified to fit your application's structure
+
+const orderId = 123; // Replace with the actual order ID
+
+fetch(`/api/order/${orderId}`) // Replace with your actual API endpoint
+    .then(response => response.json())
+    .then(data => {
+        // Get the container element to display order details
+        const orderDetailsContainer = document.getElementById('order-details');
+
+        // Construct HTML to display order details
+        let orderHtml = `<h2>Order ID: ${data.orderId}</h2>`;
+        orderHtml += `<p>Total Amount: ${data.totalAmount}</p>`;
+        orderHtml += '<h3>Items:</h3>';
+        orderHtml += '<ul>';
+
+        data.items.forEach(item => {
+            orderHtml += `<li>${item.productName} x ${item.quantity} - ${item.itemTotal}</li>`;
+        });
+
+        orderHtml += '</ul>';
+
+        // Display order details in the container
+        orderDetailsContainer.innerHTML = orderHtml;
+    })
+    .catch(error => {
+        console.error('Error fetching order details:', error);
+    });
+
+    checkoutButton.addEventListener('click', function (event) {
+        event.preventDefault();
+    
+        const rawPrice = totalItemAmount.textContent;
+        const totalPrice = parseFloat(rawPrice.replace('₹', '').trim());
+    
+        fetch("http://127.0.0.1:8000/create-order/", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Fetch order details using order_details_api
+            fetch(`/api/order/${data['order_id']}/`) // Replace with your correct URL
+                .then(response => response.json())
+                .then(orderDetails => {
+                    // Your logic to handle order details
+                    console.log(orderDetails);
+                    // ... Update UI with order details ...
+                })
+                .catch(error => {
+                    console.error('Error fetching order details:', error);
+                });
+    
+            // ... rest of your payment handling logic ...
+        })
+        .catch(error => {
+            console.error('Error creating order:', error);
+            alert('There was an issue initiating your order. Please try again.');
+        });
+    });    
+    </script>
+</body>
+</html>

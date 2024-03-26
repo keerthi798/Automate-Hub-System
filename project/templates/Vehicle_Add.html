@@ -1,0 +1,998 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible"
+		content="IE=edge">
+	<meta name="viewport"
+		content="width=device-width, 
+				initial-scale=1.0">
+	<title>spartx motors</title>
+	<link rel="stylesheet"
+		href="style.css">
+	<link rel="stylesheet"
+		href="responsive.css">
+
+<style>
+    /* Main CSS Here */
+
+@import url(
+"https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: "Poppins", sans-serif;
+}
+:root {
+--background-color1: #fafaff;
+--background-color2: #ffffff;
+--background-color3: #ededed;
+--background-color4: #cad7fda4;
+--primary-color: #4b49ac;
+--secondary-color: #0c007d;
+--Border-color: #3f0097;
+--one-use-color: #3f0097;
+--two-use-color: #5500cb;
+}
+body {
+background-color: var(--background-color4);
+max-width: 100%;
+overflow-x: hidden;
+}
+
+header {
+height: 70px;
+width: 100vw;
+padding: 0 30px;
+background-color: var(--background-color1);
+position: fixed;
+z-index: 100;
+box-shadow: 1px 1px 15px rgba(161, 182, 253, 0.825);
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+font-size: 27px;
+font-weight: 600;
+color: rgb(47, 141, 70);
+}
+
+.icn {
+height: 30px;
+}
+.menuicn {
+cursor: pointer;
+}
+
+.searchbar,
+.message,
+.logosec {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.searchbar2 {
+display: none;
+}
+
+.logosec {
+gap: 60px;
+}
+
+.searchbar input {
+width: 250px;
+height: 42px;
+border-radius: 50px 0 0 50px;
+background-color: var(--background-color3);
+padding: 0 20px;
+font-size: 15px;
+outline: none;
+border: none;
+}
+.searchbtn {
+width: 50px;
+height: 42px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 0px 50px 50px 0px;
+background-color: var(--secondary-color);
+cursor: pointer;
+}
+
+.message {
+gap: 40px;
+position: relative;
+cursor: pointer;
+}
+.circle {
+height: 7px;
+width: 7px;
+position: absolute;
+background-color: #fa7bb4;
+border-radius: 50%;
+left: 19px;
+top: 8px;
+}
+.dp {
+height: 40px;
+width: 40px;
+background-color: #626262;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+}
+.main-container {
+display: flex;
+width: 100vw;
+position: relative;
+top: 70px;
+z-index: 1;
+}
+.dpicn {
+height: 42px;
+}
+
+.main {
+height: calc(100vh - 70px);
+width: 100%;
+overflow-y: scroll;
+overflow-x: hidden;
+padding: 40px 30px 30px 30px;
+}
+
+.main::-webkit-scrollbar-thumb {
+background-image: 
+		linear-gradient(to bottom, rgb(0, 0, 85), rgb(0, 0, 50));
+}
+.main::-webkit-scrollbar {
+width: 5px;
+}
+.main::-webkit-scrollbar-track {
+background-color: #9e9e9eb2;
+}
+
+.box-container {
+display: flex;
+justify-content: space-evenly;
+align-items: center;
+flex-wrap: wrap;
+gap: 50px;
+}
+.nav {
+min-height: 91vh;
+width: 250px;
+background-color: var(--background-color2);
+position: absolute;
+top: 0px;
+left: 00;
+box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+overflow: hidden;
+padding: 30px 0 20px 10px;
+}
+.navcontainer {
+height: calc(100vh - 70px);
+width: 250px;
+position: relative;
+overflow-y: scroll;
+overflow-x: hidden;
+transition: all 0.5s ease-in-out;
+}
+.navcontainer::-webkit-scrollbar {
+display: none;
+}
+.navclose {
+width: 80px;
+}
+.nav-option {
+width: 250px;
+height: 60px;
+display: flex;
+align-items: center;
+padding: 0 30px 0 20px;
+gap: 20px;
+transition: all 0.1s ease-in-out;
+}
+.nav-option:hover {
+border-left: 5px solid #a2a2a2;
+background-color: #dadada;
+cursor: pointer;
+}
+.nav-img {
+height: 30px;
+}
+
+.nav-upper-options {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 30px;
+}
+
+.option1 {
+border-left: 5px solid #010058af;
+background-color: var(--Border-color);
+color: white;
+cursor: pointer;
+}
+.option1:hover {
+border-left: 5px solid #010058af;
+background-color: var(--Border-color);
+}
+.box {
+height: 130px;
+width: 230px;
+border-radius: 20px;
+box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+padding: 20px;
+display: flex;
+align-items: center;
+justify-content: space-around;
+cursor: pointer;
+transition: transform 0.3s ease-in-out;
+}
+.box:hover {
+transform: scale(1.08);
+}
+
+.box:nth-child(1) {
+background-color: var(--one-use-color);
+}
+.box:nth-child(2) {
+background-color: var(--two-use-color);
+}
+.box:nth-child(3) {
+background-color: var(--one-use-color);
+}
+.box:nth-child(4) {
+background-color: var(--two-use-color);
+}
+
+.box img {
+height: 50px;
+}
+.box .text {
+color: white;
+}
+.topic {
+font-size: 13px;
+font-weight: 400;
+letter-spacing: 1px;
+}
+
+.topic-heading {
+font-size: 30px;
+letter-spacing: 3px;
+}
+
+.report-container {
+min-height: 300px;
+max-width: 1200px;
+margin: 70px auto 0px auto;
+background-color: #ffffff;
+border-radius: 30px;
+box-shadow: 3px 3px 10px rgb(188, 188, 188);
+padding: 0px 20px 20px 20px;
+}
+.report-header {
+height: 80px;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 20px 20px 10px 20px;
+border-bottom: 2px solid rgba(0, 20, 151, 0.59);
+}
+
+.recent-Articles {
+font-size: 30px;
+font-weight: 600;
+color: #5500cb;
+}
+
+.view {
+height: 35px;
+width: 90px;
+border-radius: 8px;
+background-color: #5500cb;
+color: white;
+font-size: 15px;
+border: none;
+cursor: pointer;
+}
+
+.report-body {
+max-width: 1160px;
+overflow-x: auto;
+padding: 20px;
+}
+.report-topic-heading,
+.item1 {
+width: 1120px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.t-op {
+font-size: 18px;
+letter-spacing: 0px;
+}
+
+.items {
+width: 1120px;
+margin-top: 15px;
+}
+
+.item1 {
+margin-top: 20px;
+}
+.t-op-nextlvl {
+font-size: 14px;
+letter-spacing: 0px;
+font-weight: 600;
+}
+
+.label-tag {
+width: 100px;
+text-align: center;
+background-color: rgb(0, 177, 0);
+color: white;
+border-radius: 4px;
+}
+/* Responsive CSS Here */
+@media screen and (max-width: 950px) {
+.nav-img {
+	height: 25px;
+}
+.nav-option {
+	gap: 30px;
+}
+.nav-option h3 {
+	font-size: 15px;
+}
+.report-topic-heading,
+.item1,
+.items {
+	width: 800px;
+}
+}
+
+@media screen and (max-width: 850px) {
+.nav-img {
+	height: 30px;
+}
+.nav-option {
+	gap: 30px;
+}
+.nav-option h3 {
+	font-size: 20px;
+}
+.report-topic-heading,
+.item1,
+.items {
+	width: 700px;
+}
+.navcontainer {
+	width: 100vw;
+	position: absolute;
+	transition: all 0.6s ease-in-out;
+	top: 0;
+	left: -100vw;
+}
+.nav {
+	width: 100%;
+	position: absolute;
+}
+.navclose {
+	left: 00px;
+}
+.searchbar {
+	display: none;
+}
+.main {
+	padding: 40px 30px 30px 30px;
+}
+.searchbar2 {
+	width: 100%;
+	display: flex;
+	margin: 0 0 40px 0;
+	justify-content: center;
+}
+.searchbar2 input {
+	width: 250px;
+	height: 42px;
+	border-radius: 50px 0 0 50px;
+	background-color: var(--background-color3);
+	padding: 0 20px;
+	font-size: 15px;
+	border: 2px solid var(--secondary-color);
+}
+}
+
+@media screen and (max-width: 490px) {
+.message {
+	display: none;
+}
+.logosec {
+	width: 100%;
+	justify-content: space-between;
+}
+.logo {
+	font-size: 20px;
+}
+.menuicn {
+	height: 25px;
+}
+.nav-img {
+	height: 25px;
+}
+.nav-option {
+	gap: 25px;
+}
+.nav-option h3 {
+	font-size: 12px;
+}
+.nav-upper-options {
+	gap: 15px;
+}
+.recent-Articles {
+	font-size: 20px;
+}
+.report-topic-heading,
+.item1,
+.items {
+	width: 550px;
+}
+}
+
+@media screen and (max-width: 400px) {
+.recent-Articles {
+	font-size: 17px;
+}
+.view {
+	width: 60px;
+	font-size: 10px;
+	height: 27px;
+}
+.report-header {
+	height: 60px;
+	padding: 10px 10px 5px 10px;
+}
+.searchbtn img {
+	height: 20px;
+}
+}
+
+@media screen and (max-width: 320px) {
+.recent-Articles {
+	font-size: 12px;
+}
+.view {
+	width: 50px;
+	font-size: 8px;
+	height: 27px;
+}
+.report-header {
+	height: 60px;
+	padding: 10px 5px 5px 5px;
+}
+.t-op {
+	font-size: 12px;
+}
+.t-op-nextlvl {
+	font-size: 10px;
+}
+.report-topic-heading,
+.item1,
+.items {
+	width: 300px;
+}
+.report-body {
+	padding: 10px;
+}
+.label-tag {
+	width: 70px;
+}
+.searchbtn {
+	width: 40px;
+}
+.searchbar2 input {
+	width: 180px;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+	<!-- for header part -->
+	<header>
+
+		<div class="logosec">
+			<div class="logo">Sparx Motors</div>
+			<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+				class="icn menuicn"
+				id="menuicn"
+				alt="menu-icon">
+		</div>
+
+		<div class="searchbar">
+			<input type="text"
+				placeholder="Search">
+			<div class="searchbtn">
+			<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
+					class="icn srchicn"
+					alt="search-icon">
+			</div>
+		</div>
+
+		<div class="message">
+			<div class="circle"></div>
+			<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/8.png"
+				class="icn"
+				alt="">
+			<strong style="font-weight: bold;">{{ user.username }}</strong>
+			<div class="dp">
+			<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
+					class="dpicn"
+					alt="dp">
+			</div>
+		</div>
+
+	</header>
+
+	<div class="main-container">
+		<div class="navcontainer">
+			<nav class="nav">
+				<div class="nav-upper-options">
+					<div class="nav-option option1">
+						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
+							class="nav-img"
+							alt="dashboard"></a>
+						<h3> Dashboard</h3>
+					</div>
+
+					<div class="option2 nav-option" onclick="window.location.href={% url 'userprofile' %}">
+						<img src="https://cdn0.iconfinder.com/data/icons/business-dual-color-glyph-set-6/128/profile_rank-512.png"
+							class="nav-img"
+							alt="articles">
+						<h3> User profile</h3>
+					</div>
+
+					<div class="nav-option option3"  onclick="window.location.href={% url 'service_branch' %}">
+						<img src="https://thumbs.dreamstime.com/z/repair-sign-auto-service-truck-spanner-silhouette-vector-icon-flat-solid-isolated-black-eps-108961367.jpg"
+							class="nav-img"
+							alt="blog">
+						<h3> Branches</h3>
+					</div>
+
+					<div class="nav-option option4" onclick="window.location.href={% url 'parts_managers' %}">
+						<img src="https://cdn-icons-png.flaticon.com/512/4974/4974985.png"
+							class="nav-img"
+							alt="institution">
+						<h3> Staff profile</h3>
+					</div>
+					<div class="nav-option option5" onclick="window.location.href={% url 'Vehicle_Add' %}">
+						<img src="https://cdn-icons-png.flaticon.com/512/4974/4974985.png" class="nav-img" alt="institution">
+						<h3> Vehicle Add</h3>
+					</div>
+					
+
+
+                    
+					 
+                    
+					<div class="nav-option option6" onclick="window.location.href={% url 'add_worker' %}">
+						<img src="https://static.thenounproject.com/png/1699941-200.png"
+							class="nav-img"
+							alt="settings">
+						<h3>Add workers</h3>
+					</div>
+					<div class="nav-option option7" onclick="window.location.href={% url 'vehicle_list' %}">
+						<img src="https://static.thenounproject.com/png/1699941-200.png"
+							class="nav-img"
+							alt="settings">
+						<h3>Vehicle List</h3>
+					</div>
+
+					<div class="nav-option logout" id="adminLogoutBtn">
+						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
+							class="nav-img"
+							alt="logout">
+						<h3>Logout</h3>
+					</div>
+
+				</div>
+			</nav>
+		</div>
+		<div class="main">
+
+			<div class="searchbar2">
+				<input type="text"
+					name=""
+					id=""
+					placeholder="Search">
+				<div class="searchbtn">
+				<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
+						class="icn srchicn"
+						alt="search-button">
+				</div>
+			</div>
+
+			{% comment %} <div class="box-container">
+
+				<div class="box box1">
+					<div class="text">
+						<h2 class="topic-heading">{{ user_count }}</h2>
+						<h2 class="topic">Users</h2>
+					</div>
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv9Mizj0nNWMqNIKO-5BCVypUX-qgZKl2y4Q&usqp=CAU" alt="Users">
+				</div>
+
+				<div class="box box2">
+					<div class="text">
+						<h2 class="topic-heading">{{ service_center_count }}</h2>
+						<h2 class="topic">Branches</h2>
+					</div>
+					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210185030/14.png" alt="Branches">
+				</div>
+
+				<div class="box box3">
+					<div class="text">
+						<h2 class="topic-heading">320</h2>
+						<h2 class="topic">Comments</h2>
+					</div>
+
+					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(32).png"
+						alt="comments">
+				</div>
+
+				<div class="box box4">
+					<div class="text">
+						<h2 class="topic-heading">70</h2>
+						<h2 class="topic">Published</h2>
+					</div>
+
+					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210185029/13.png" alt="published">
+				</div>
+			</div> {% endcomment %}
+
+			
+
+	<script src="./index.js"></script>
+    <script>
+    let menuicn = document.querySelector(".menuicn");
+    let nav = document.querySelector(".navcontainer");
+
+    menuicn.addEventListener("click", () => {
+	nav.classList.toggle("navclose");
+})
+
+const profileOption = document.querySelector('.option2');
+const reportOption = document.querySelector('.option3');
+const branchOption = document.querySelector('.option4');
+const vehicleOption = document.querySelector('.option5');
+const workerOption = document.querySelector('.option6');
+const ListOption = document.querySelector('.option7');
+// Get the URL using Django template syntax and set it as a data attribute
+profileOption.dataset.url = '{% url "userprofile" %}';
+reportOption.dataset.url = '{% url "service_branch" %}';
+branchOption.dataset.url = '{% url "parts_managers" %}';
+workerOption.dataset.url = '{% url "add_worker" %}';
+vehicleOption.dataset.url = '{% url "Vehicle_Add" %}';
+ListOption.dataset.url = '{% url "vehicle_list" %}';
+// Add click event listeners
+profileOption.addEventListener('click', function() {
+    navigateTo(this.dataset.url);
+});
+
+reportOption.addEventListener('click', function() {
+    navigateTo(this.dataset.url);
+});
+branchOption.addEventListener('click', function() {
+    navigateTo(this.dataset.url);
+});
+workerOption.addEventListener('click', function() {
+    navigateTo(this.dataset.url);
+});
+vehicleOption.addEventListener('click', function() {
+    navigateTo(this.dataset.url);
+});
+ListOption.addEventListener('click', function() {
+    navigateTo(this.dataset.url);
+});
+// Function to navigate to the specified URL
+function navigateTo(url) {
+    window.location.href = url;
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+    if (adminLogoutBtn) {
+        adminLogoutBtn.addEventListener('click', function() {
+            // Redirect to the admin logout URL '/admin/logout/' when the button is clicked
+            window.location.href = '/admin/logout/';
+        });
+    }
+});
+
+
+</script>
+</body>
+</html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Add Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        input[type="color"] {
+            height: 36px;
+            padding: 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Vehicle Add Form</h2>
+    <form method="post" action="{% url 'Vehicle_Add' %}" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <!-- Basic Information -->
+        <label for="vehiclename">Vehicle Name:</label>
+        <input type="text" id="vehiclename" name="vehiclename" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+
+        <label for="image">Images:</label>
+        <input type="file" id="image" name="image" accept="image/*" multiple required>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required>
+
+        {% comment %} <label for="discount">Discount Percentage:</label>
+        <input type="number" id="discount" name="discount" min="0" max="100"> {% endcomment %}
+
+        <!-- Vehicle Details -->
+        <label for="vehiclemodel">Vehicle Model:</label >
+        <select id="vehiclemodel" name="vehiclemodel">
+            <option value="lightvehicle">Light Vehicle</option>
+            <option value="trucks">Trucks</option>
+            <option value="buses">Buses</option>
+        </select>
+
+        <label for="vehicleusage">Vehicle Usage:</label>
+        <select id="vehicleusage" name="vehicleusage">
+            <option value="goodscarriers">Goods Carriers</option>
+            <option value="passenger">Passenger</option>
+        </select>
+
+        <label for="vehicleapplication">Vehicle Application:</label>
+        <select id="vehicleapplication" name="vehicleapplication">
+            
+            <option value="buildingmaterial">Building Material</option>
+            <option value="constructionhardware">Construction and Hardware</option>
+            <option value="fishery">Fishery</option>
+            <option value="fruits_vegetables">Fruits and Vegetables</option>
+            <option value="industrial_goods">Industrial Goods</option>
+            <option value="lpg_distribution">LPG Distribution</option>
+            <option value="school_transport">School Transport</option>
+            <option value="tours_travels">Tours and Travels</option>
+
+        </select>
+
+        <label for="fueltype">Fuel Type:</label>
+        <select id="fueltype" name="fueltype">
+            <option value="petrol">Petrol</option>
+            <option value="diesel">Diesel</option>
+            <option value="cng">CNG</option>
+            <option value="electric">Electric</option>
+        </select>
+
+        <label for="transmissiontype">Transmission Type:</label>
+        <select id="transmissiontype" name="transmissiontype" required>
+            <option value="manual">Manual</option>
+            <option value="automatic">Automatic</option>
+            <option value="semiautomatic">Semi-Automatic</option>
+        </select>
+
+        <label for="enginesize">Engine Size (cc):</label>
+        <input type="number" id="enginesize" name="enginesize" required>
+
+        <label for="mileage">Mileage (km/l):</label>
+        <input type="number" id="mileage" name="mileage" required>
+
+        <label for="warranty">Warranty:</label>
+        <input type="text" id="warranty" name="warranty" required>
+
+        <label for="seatingcapacity">Seating Capacity:</label>
+        <input type="number" id="seatingcapacity" name="seatingcapacity" required>
+
+        <label for="fueltankcapacity">Fuel Tank Capacity (liters):</label>
+        <input type="number" id="fueltankcapacity" name="fueltankcapacity" required>
+
+        {% comment %} <label for="vehiclecolors">Vehicle Colors:</label>
+        <select id="vehiclecolors" name="vehiclecolors[]" multiple>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+        </select> {% endcomment %}
+
+        <label for="vehiclestock">Vehicle Stock:</label>
+        <input type="number" id="vehiclestock" name="vehiclestock" required>
+        <label for="brochure">Brochure PDF:</label>
+        <input type="file" id="brochure" name="brochure" accept=".pdf" required>
+        <label for="booking_amount">Booking Amount:</label>
+        <input type="number" id="booking_amount" name="booking_amount" required>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var form = document.querySelector('form');
+
+        form.addEventListener('submit', function (event) {
+            // Validate Vehicle Name
+            var vehicleName = document.getElementById('vehiclename').value.trim();
+            if (vehicleName === '') {
+                alert('Vehicle Name is required.');
+                event.preventDefault();
+                return;
+            }
+
+            // Validate Description
+            var description = document.getElementById('description').value.trim();
+            if (description === '') {
+                alert('Description is required.');
+                event.preventDefault();
+                return;
+            }
+
+            // Validate Image (only png or jpg)
+            var image = document.getElementById('image').value.toLowerCase();
+            if (!image.endsWith('.png') && !image.endsWith('.jpg')) {
+                alert('Invalid image format. Please upload a PNG or JPG file.');
+                event.preventDefault();
+                return;
+            }
+
+            // Validate Price (positive value)
+            var price = parseFloat(document.getElementById('price').value);
+            if (isNaN(price) || price <= 0) {
+                alert('Price must be a positive value.');
+                event.preventDefault();
+                return;
+            }
+
+            // Validate Engine Size (positive value)
+            var engineSize = parseFloat(document.getElementById('enginesize').value);
+            if (isNaN(engineSize) || engineSize <= 0) {
+                alert('Engine Size must be a positive value.');
+                event.preventDefault();
+                return;
+            }
+
+            // Validate Mileage (positive value)
+            var mileage = parseFloat(document.getElementById('mileage').value);
+            if (isNaN(mileage) || mileage <= 0) {
+                alert('Mileage must be a positive value.');
+                event.preventDefault();
+                return;
+            }
+
+            // Validate Seating Capacity (positive value)
+            var seatingCapacity = parseInt(document.getElementById('seatingcapacity').value, 10);
+            if (isNaN(seatingCapacity) || seatingCapacity <= 0) {
+                alert('Seating Capacity must be a positive value.');
+                event.preventDefault();
+                return;
+            }
+
+            // Validate Fuel Tank Capacity (positive value)
+            var fuelTankCapacity = parseFloat(document.getElementById('fueltankcapacity').value);
+            if (isNaN(fuelTankCapacity) || fuelTankCapacity <= 0) {
+                alert('Fuel Tank Capacity must be a positive value.');
+                event.preventDefault();
+                return;
+            }
+
+            // Validate Vehicle Stock (positive value)
+            var vehicleStock = parseInt(document.getElementById('vehiclestock').value, 10);
+            if (isNaN(vehicleStock) || vehicleStock < 0) {
+                alert('Vehicle Stock must be a non-negative value.');
+                event.preventDefault();
+                return;
+            }
+
+            // Validate Booking Amount (positive value)
+            var bookingAmount = parseFloat(document.getElementById('booking_amount').value);
+            if (isNaN(bookingAmount) || bookingAmount <= 0) {
+                alert('Booking Amount must be a positive value.');
+                event.preventDefault();
+                return;
+            }
+            alert('Form submitted successfully!');
+        });
+    });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

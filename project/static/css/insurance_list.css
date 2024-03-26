@@ -1,0 +1,19 @@
+/* Add your CSS styling for the insurance list table here */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 6px;
+    text-align: left;
+}
+
+th {
+    background-color: hsla(0, 0%, 100%, 0.941);
+}

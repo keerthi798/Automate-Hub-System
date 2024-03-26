@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Buy Now</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+    <style>
+        /* Sample CSS styles */
+        .quantity-adjustment button {
+            background-color: #eee;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="buy-now-page">
+        <!-- Product details -->
+        <div class="selected-product-details">
+            <h2 id="product-name">Product Name</h2>
+            <p id="product-price">Price: $X</p>
+            <div class="quantity-adjustment">
+                <button class="quantity-decrease">-</button>
+                <span id="quantity" class="quantity">1</span>
+                <button class="quantity-increase">+</button>
+            </div>
+        </div>
+
+        <!-- User details and login -->
+        <div class="user-details">
+            <!-- User login form or information -->
+            <input type="text" id="user-details" placeholder="Enter your details">
+        </div>
+
+        <!-- Proceed to payment -->
+        <button class="proceed-to-payment-button">Proceed to Payment</button>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Sample product data
+            var productName = "Sample Product";
+            var productPrice = 50; // Replace with actual price
+
+            // Display initial product details
+            $('#product-name').text(productName);
+            $('#product-price').text('Price: $' + productPrice);
+
+            // Quantity adjustment
+            var quantity = 1;
+            $('.quantity-decrease').on('click', function() {
+                if (quantity > 1) {
+                    quantity--;
+                    $('#quantity').text(quantity);
+                }
+            });
+
+            $('.quantity-increase').on('click', function() {
+                quantity++;
+                $('#quantity').text(quantity);
+            });
+
+            // Proceed to payment
+            $('.proceed-to-payment-button').on('click', function() {
+                var userDetails = $('#user-details').val(); // Get user details
+
+                // You can perform further actions here, such as processing payment, etc.
+                // For example, if using AJAX to send data to the server:
+                $.ajax({
+                    type: 'POST',
+                    url: '/process_payment', // Replace with your payment processing endpoint
+                    data: {
+                        productName: productName,
+                        productPrice: productPrice,
+                        quantity: quantity,
+                        userDetails: userDetails
+                    },
+                    success: function(response) {
+                        // Handle success response
+                    },
+                    error: function(error) {
+                        // Handle error
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

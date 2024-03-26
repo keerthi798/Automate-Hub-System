@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wishlist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        li::before {
+            content: "\25B6";
+            color: #333;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background-color: #f0f0f0;
+        }
+
+        li:hover::before {
+            content: "\25BC";
+        }
+    </style>
+</head>
+<body>
+    <h1>Wishlist</h1>
+    <ul>
+        {% for item in wishlist_items %}
+            <li>
+                <div class="wishlist-item">
+                    <img src="{{ item.product.parts_image.url }}" alt="{{ item.product.partsname }} Image" width="100">
+                    <h2>{{ item.product.partsname }}</h2>
+                    <p>{{ item.product.description }}</p>
+                    <p>Price: ${{ item.product.price }}</p>
+                    <button class="remove-from-wishlist" data-product-id="{{ item.product.id }}">Remove from Wishlist</button>
+                </div>
+            </li>
+        {% empty %}
+            <li>Your wishlist is empty.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

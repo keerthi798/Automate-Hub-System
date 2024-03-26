@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Invoice</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #3498db;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Bill Invoice</h1>
+
+    {% if order %}
+        <table>
+            <tr>
+                <th>Order Number</th>
+                <td>{{ order.id }}</td>
+            </tr>
+            <tr>
+                <th>Total Amount</th>
+                <td>{{ order.total_amount }}</td>
+            </tr>
+            <tr>
+                <th>Payment Status</th>
+                <td>{% if order.payment_status %}Paid{% else %}Pending{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Order Date</th>
+                <td>{{ order.created_at }}</td>
+            </tr>
+        </table>
+
+        <h2>Order Details</h2>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Item Total</th>
+            </tr>
+            {% for item in order.orderitem_set.all %}
+                <tr>
+                    <td>{{ item.product.partsname }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.item_total }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Customer Details</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>{{ order.user.username }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ order.user.email }}</td>
+            </tr>
+            <tr>
+                <th>Phone Number</th>
+                <td>{{ order.user.userprofile.phone_number }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ order.user.userprofile.address }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ order.user.userprofile.city }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ order.user.userprofile.state }}</td>
+            </tr>
+            <tr>
+                <th>Pincode</th>
+                <td>{{ order.user.userprofile.pincode }}</td>
+            </tr>
+        </table>
+    {% else %}
+        <p>No order details found.</p>
+    {% endif %}
+    <center><button onclick="window.print()">Print</button></center>
+
+    <!-- Add any additional styling or scripts if necessary -->
+</body>
+</html>

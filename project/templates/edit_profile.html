@@ -1,0 +1,513 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>sparx motors light vehicles</title>
+    <style>
+        .user-profile {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-image {
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        /* Styles for the dropdown menu */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            display: block;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Show the dropdown menu when hovering over the user profile */
+        .user-profile:hover .dropdown-menu {
+            display: block;
+        }
+        
+        /* Style the user dropdown */
+#user-dropdown {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+#user-dropdown:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+}
+
+/* Style the dropdown arrow icon (a small triangle) */
+#user-dropdown::before {
+    content: "\25BE"; /* Unicode character for a down-pointing triangle */
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Style the user name and user icon */
+#user-dropdown > strong {
+    font-weight: bold;
+}
+
+#user-dropdown img {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+/* Style the dropdown content */
+#user-dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+#user-dropdown-content .dropdown-item {
+    padding: 8px 15px;
+    font-weight: normal;
+}
+
+#user-dropdown-content .dropdown-item:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+}
+/* Style the dropdown items */
+#user-dropdown-content .dropdown-item {
+    padding: 8px 15px;
+    font-weight: normal;
+    text-decoration: none; /* To remove underline on links */
+    display: block; /* Ensure the items are displayed as blocks */
+    color: #333; /* Text color for the items */
+    transition: background-color 0.3s; /* Add a smooth transition on hover */
+}
+
+#user-dropdown-content .dropdown-item:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+    color: #000; /* Change text color on hover if needed */
+}
+
+/* Additional styles for the "My Profile" item */
+#user-dropdown-content .dropdown-item:last-child {
+    font-weight: bold;
+    background-color: #007bff; /* Change background color for the last item */
+    color: #fff; /* Text color for the last item */
+}
+   
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40vh;
+    }
+
+    .container {
+        max-width: 80%;
+        display: flex;
+        
+       {% comment %} min-height: 70vh; {% endcomment %}
+    }
+
+    .left-panel {
+        width: 20%;
+        padding: 10px;
+        background-color: #343a40;
+        color: #fff;
+        text-align: center;
+    }
+
+    .round-box {
+        width: 150px;
+        height: 150px;
+        background-color: #fff;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .round-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .right-panel {
+        width: 60%;
+        padding: 20px;
+        height: 70%;
+         {% comment %} display: flex;
+        flex-direction: column;  {% endcomment %}
+
+        {% comment %} justify-content: center; {% endcomment %}
+        align-items: center;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 30px;
+    }
+
+    .label {
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+        margin-left: 80px;
+        position: relative;
+    }
+
+    .form-control {
+        width: 80%;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.9rem;
+        line-height: 1.2;
+        border-radius: 0.25rem;
+        margin-top: 8px;
+    }
+
+    
+
+     hr {
+        width: 65%;
+        margin: 20px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin-left: 80px;
+    } 
+    /* Styles for the cart icon */
+.cart-icon {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px; /* Adjust spacing as needed */
+}
+
+/* Style for the cart image */
+.cart-icon img {
+  width: 40px; /* Set the width of the cart image */
+  height: auto; /* Maintain aspect ratio */
+  vertical-align: middle;
+}
+
+/* Style for the cart count */
+.cart-count {
+  position: absolute;
+  top: -8px; /* Adjust positioning as needed */
+  right: -8px; /* Adjust positioning as needed */
+  background-color: red; /* Change the background color */
+  color: white;
+  border-radius: 50%; /* To create a circular shape */
+  padding: 4px 8px; /* Adjust padding as needed */
+  font-size: 20px; /* Adjust font size */
+}
+</style>
+
+
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Include Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <!-- icons-->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+
+
+    <!-- TOP NAV -->
+    <div class="top-nav" id="home">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-auto">
+                    <p> <i class='bx bxs-envelope'></i> keerthi@gmail.com</p>
+                    <p> <i class='bx bxs-phone-call'></i> 9947601695</p>
+                </div>
+                <div class="col-auto social-icons">
+                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-instagram'></i></a>
+                    <a href="#"><i class='bx bxl-pinterest'></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Sparx motors<span class="dot">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">vehicles</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'booking' %}">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="partsorder.html">Spare parts</a>
+                    </li>
+                    <li class="nav-item" style="display: flex; align-items: center;">
+                        <div id="user-dropdown" class="user-profile">
+                            {% if request.session.profile_image_updated %}
+                                <!-- Use the updated profile image -->
+                                <img src="{{ user_profile.image.url }}" alt="" class="profile-image">
+                            {% else %}
+                                <!-- Use the default image -->
+                                <img src="{% static 'img/img2.png' %}" alt="" class="profile-image">
+                            {% endif %}
+                            <strong style="font-weight: bold;">{{ user.username }}</strong>
+                            <div id="user-dropdown-content" class="dropdown" style="position: absolute; top: 100%; left: 0; display: none;">
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{% url 'view_wishlist' %}">wishlist</a>
+                                    <a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile</a>
+                                    <a class="dropdown-item" href="{% url 'logout' %}" onclick="confirmLogout()">Logout</a>
+                                    {% csrf_token %}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <div class="cart-icon">
+                    <a href="{% url 'view_cart' %}" class="view-cart-link">
+                    <img src="{% static 'img/cart.png' %}" alt="Cart">
+                </a>
+                    {% if cart_count == 0 %}
+                        <span></span>
+                    {% else %}
+                     <span class="cart-count">{{ cart_count }}</span>
+                    {% endif %}
+                </div>
+                {% endif %}
+                    {% comment %} <li class="nav-item">
+                        <a class="btn btn-outline-light ms-3" href="{% url 'logout' %}" onclick="confirmLogout()">Logout</a>
+                    </li> {% endcomment %}
+                    <script>
+                        function confirmLogout() {
+                            if (confirm("Are you sure you want to log out?")) {
+                                window.location.href = "{% url 'logout' %}";  // Redirect to the logout URL
+                            }
+                        }
+                        
+
+                        const userDropdown = document.getElementById("user-dropdown");
+                        const userDropdownContent = document.getElementById("user-dropdown-content");
+                    
+                        userDropdown.addEventListener("click", () => {
+                            userDropdownContent.style.display = userDropdownContent.style.display === "block" ? "none" : "block";
+                        });
+                        document.addEventListener("DOMContentLoaded", function () {
+                            // Disable the back button
+                            window.history.pushState(null, null, location.href);
+                            window.onpopstate = function () {
+                                window.history.go(0);
+                            };
+                        });
+                       
+                    </script>
+                    
+                    
+                    
+                    {% else %}
+                    
+                    <li class="nav-item">
+                        <a class="btn btn-brand" href="{% url 'login' %}">signin</a>
+                    </li>
+                  
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light ms-3" href="{% url 'signup' %}">signup</a>
+                    </li>
+                
+                {% endif %}
+                </ul>
+                
+            </div>
+        </div>
+    </nav>
+{% comment %} </body>
+</html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> {% endcomment %}
+    {% comment %} <title>User Dashboard</title> {% endcomment %}
+
+
+
+       
+    {% comment %} <div class="container">
+        <div class="left-panel">
+            <div class="round-box" id="uploaded-image-box">
+                {% if user_profile.image %}
+                    <img id="uploaded-image" src="{{ user_profile.image.url }}" alt="User Image">
+                {% else %}
+                    <img id="uploaded-image" src="#" alt="User Image">
+                {% endif %}
+            </div>
+            <br>
+            <h4><b>{{user_profile.first_name}}  {{user_profile.last_name}}</b></h4>
+            <label>Email: {{ user.email }}</label>
+        </div> {% endcomment %}
+
+        <div class="right-panel">
+            <div class="card">
+                <div class="card-body">
+                
+                    <div class="round-box" id="uploaded-image-box">
+                        {% if user_profile.image %}
+                            <img id="uploaded-image" src="{{ user_profile.image.url }}" alt="User Image">
+                            <h4><b>{{user_profile.first_name}}  {{user_profile.last_name}}</b></h4>
+                            <label>Email: {{ user.email }}</label>
+                        {% else %}
+                            <img id="uploaded-image" src="#" alt="User Image">
+                        {% endif %}
+                    </div>
+                    <br>
+                   
+                    <div class="form-group">
+                        <form method="post" action="" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label for="user-image" class="label">Upload Profile Image</label>
+                            <input type="file" name="image" id="user-image" class="form-control" accept="image/*" onchange="updateImageLabel()" {% if not user_profile.image %}required{% endif %} readonly>
+                            <span id="image-label">{% if user_profile.image %}{{ user_profile.image.name }}{% else %}No file chosen{% endif %}</span>
+
+                            <hr>
+
+                            <label for="first-name" class="label">First Name</label>
+                            <input type="text" name="first_name" id="first-name" class="form-control" value="{% if user_profile.first_name %}{{ user_profile.first_name }}{% endif %}" {% if not user_profile.first_name %}required{% endif %} readonly>
+                            <hr>
+
+                            <label for="last-name" class="label">Last Name</label>
+                            <input type="text" name="last_name" id="last-name" class="form-control" value="{% if user_profile.last_name %}{{ user_profile.last_name }}{% endif %}" {% if not user_profile.last_name %}required{% endif %} readonly>
+                            <hr>
+
+                            <label for="phone_number" class="label">Phone Number</label>
+                            <input type="text" name="phone_number" id="phone_number" class="form-control" value="{% if user_profile.phone_number %}{{ user_profile.phone_number }}{% endif %}" {% if not user_profile.phone_number %}required{% endif %} readonly>
+                            <hr>
+
+                            <label for="address" class="label">Address</label>
+                            <input type="text" name="address" id="address" class="form-control" value="{% if user_profile.address %}{{ user_profile.address }}{% endif %}" {% if not user_profile.address %}required{% endif %} readonly>
+                            <hr>
+
+                            <label for="pincode" class="label">Pincode</label>
+                            <input type="text" name="pincode" id="pincode" class="form-control" value="{% if user_profile.pincode %}{{ user_profile.pincode }}{% endif %}" {% if not user_profile.pincode %}required{% endif %} readonly>
+                            <hr>
+
+                            <label for="city" class="label">City</label>
+                            <input type="text" name="city" id="city" class="form-control" value="{% if user_profile.city %}{{ user_profile.city }}{% endif %}" {% if not user_profile.address %}required{% endif %} readonly>
+                            <hr>
+
+                            <label for="state" class="label">State</label>
+                            <input type="text" name="state" id="state" class="form-control" value="{% if user_profile.state %}{{ user_profile.state }}{% endif %}" {% if not user_profile.address %}required{% endif %} readonly>
+                            <hr>
+
+                            <div class="form-group">
+                                {% if created %}
+                                    <button type="submit" class="btn btn-lg btn-success" id="save-button">Save</button>
+                                {% else %}
+                                    <button type="button" class="btn btn-lg btn-primary" id="edit-button">Edit</button>
+                                    <button type="submit" class="btn btn-lg btn-success" id="save-button" style="display: none;">Save</button>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+    <!-- Add this div where it makes sense, for example, at the end of the body -->
+    <div id="hasDetails" style="display:none;" data-has-details="{% if user_profile.first_name or user_profile.last_name or user_profile.phone_number or user_profile.address or user_profile.pincode or user_profile.city or user_profile.state %}true{% else %}false{% endif %}"></div>
+
+    <!-- Your existing scripts -->
+    <script>
+        var hasDetails = document.getElementById('hasDetails').getAttribute('data-has-details') === 'true';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleReadOnly(hasDetails);
+        });
+
+        document.getElementById('edit-button').addEventListener('click', function() {
+            toggleReadOnly(false);
+        });
+
+        function toggleReadOnly(readOnly) {
+            var formFields = document.querySelectorAll('.form-control');
+            formFields.forEach(function(field) {
+                field.readOnly = readOnly;
+            });
+
+            document.getElementById('save-button').style.display = readOnly ? 'none' : 'block';
+            document.getElementById('edit-button').style.display = readOnly ? 'block' : 'none';
+        }
+    </script>
+</body>
+
+
+</html>

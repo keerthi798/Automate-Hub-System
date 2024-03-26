@@ -1,0 +1,485 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>sparx motors light vehicles</title>
+    <style>
+        .user-profile {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-image {
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        /* Styles for the dropdown menu */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            display: block;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Show the dropdown menu when hovering over the user profile */
+        .user-profile:hover .dropdown-menu {
+            display: block;
+        }
+        
+        /* Style the user dropdown */
+#user-dropdown {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+#user-dropdown:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+}
+
+/* Style the dropdown arrow icon (a small triangle) */
+#user-dropdown::before {
+    content: "\25BE"; /* Unicode character for a down-pointing triangle */
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Style the user name and user icon */
+#user-dropdown > strong {
+    font-weight: bold;
+}
+
+#user-dropdown img {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+/* Style the dropdown content */
+#user-dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+#user-dropdown-content .dropdown-item {
+    padding: 8px 15px;
+    font-weight: normal;
+}
+
+#user-dropdown-content .dropdown-item:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+}
+/* Style the dropdown items */
+#user-dropdown-content .dropdown-item {
+    padding: 8px 15px;
+    font-weight: normal;
+    text-decoration: none; /* To remove underline on links */
+    display: block; /* Ensure the items are displayed as blocks */
+    color: #333; /* Text color for the items */
+    transition: background-color 0.3s; /* Add a smooth transition on hover */
+}
+
+#user-dropdown-content .dropdown-item:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+    color: #000; /* Change text color on hover if needed */
+}
+
+/* Additional styles for the "My Profile" item */
+#user-dropdown-content .dropdown-item:last-child {
+    font-weight: bold;
+    background-color: #007bff; /* Change background color for the last item */
+    color: #fff; /* Text color for the last item */
+}
+/* Styles for the cart icon */
+.cart-icon {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px; /* Adjust spacing as needed */
+}
+
+/* Style for the cart image */
+.cart-icon img {
+  width: 40px; /* Set the width of the cart image */
+  height: auto; /* Maintain aspect ratio */
+  vertical-align: middle;
+}
+
+/* Style for the cart count */
+.cart-count {
+  position: absolute;
+  top: -8px; /* Adjust positioning as needed */
+  right: -8px; /* Adjust positioning as needed */
+  background-color: red; /* Change the background color */
+  color: white;
+  border-radius: 50%; /* To create a circular shape */
+  padding: 4px 8px; /* Adjust padding as needed */
+  font-size: 20px; /* Adjust font size */
+}
+/* Show the dropdown menu when hovering over the parent */
+.nav-item:hover .dropdown-menu {
+  display: block;
+}
+    </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+
+
+    <!-- TOP NAV -->
+    <div class="top-nav" id="home">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-auto">
+                    <p> <i class='bx bxs-envelope'></i> keerthi@gmail.com</p>
+                    <p> <i class='bx bxs-phone-call'></i> 9947601695</p>
+                </div>
+                <div class="col-auto social-icons">
+                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-instagram'></i></a>
+                    <a href="#"><i class='bx bxl-pinterest'></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Sparx motors<span class="dot">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">vehicles</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'booking' %}">Services</a>
+                    </li>
+                    {% comment %} <li class="nav-item">
+                        <a class="nav-link" href="partsorder.html">Spare parts</a>
+                    </li>  {% endcomment %}
+                    
+                    <li class="nav-item">
+                        <a class="nav-link">Spare parts</a>
+                        <div class="dropdown">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'parts_order_category' 'Dost+' %}">Dost+</a>
+                                <a class="dropdown-item" href="{% url 'parts_order_category' 'Dost strong' %}">Dost strong</a>
+                                <a class="dropdown-item" href="{% url 'parts_order_category' 'Partner' %}">Partner</a>
+                                <a class="dropdown-item" href="{% url 'parts_order_category' 'Dost CNG' %}">Dost CNG</a>
+                                <a class="dropdown-item" href="{% url 'parts_order_category' 'MITR Staff Bus' %}">MITR Staff Bus</a>
+                                <a class="dropdown-item" href="{% url 'parts_order_category' 'Dost Express' %}">Dost Express</a>
+                                <!-- Add more vehicle models as needed -->
+                            </div>
+                            
+                        </div>
+                    </li>
+
+
+                    <li class="nav-item" style="display: flex; align-items: center;">
+                        <div id="user-dropdown" class="user-profile">
+                            {% if request.session.profile_image_updated %}
+                                <!-- Use the updated profile image -->
+                                <img src="{{ user_profile.image.url }}" alt="" class="profile-image">
+                            {% else %}
+                                <!-- Use the default image -->
+                                <img src="{% static 'img/img2.png' %}" alt="" class="profile-image">
+                            {% endif %}
+                            <strong style="font-weight: bold;">{{ user.username }}</strong>
+                            <div id="user-dropdown-content" class="dropdown" style="position: absolute; top: 100%; left: 0; display: none;">
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="">My Profile</a>
+                                    <a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile</a>
+                                    <a class="dropdown-item" href="{% url 'logout' %}" onclick="confirmLogout()">Logout</a>
+                                    {% csrf_token %}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <div class="cart-icon">
+                    <a href="{% url 'view_cart' %}" class="view-cart-link">
+                    <img src="{% static 'img/cart.png' %}" alt="Cart">
+                </a>
+                    {% if cart_count == 0 %}
+                        <span></span>
+                    {% else %}
+                     <span class="cart-count">{{ cart_count }}</span>
+                    {% endif %}
+                </div>
+                {% endif %}
+                    {% comment %} <li class="nav-item">
+                        <a class="btn btn-outline-light ms-3" href="{% url 'logout' %}" onclick="confirmLogout()">Logout</a>
+                    </li> {% endcomment %}
+                    <script>
+                        function confirmLogout() {
+                            if (confirm("Are you sure you want to log out?")) {
+                                window.location.href = "{% url 'logout' %}";  // Redirect to the logout URL
+                            }
+                        }
+                        
+
+                        const userDropdown = document.getElementById("user-dropdown");
+                        const userDropdownContent = document.getElementById("user-dropdown-content");
+                    
+                        userDropdown.addEventListener("click", () => {
+                            userDropdownContent.style.display = userDropdownContent.style.display === "block" ? "none" : "block";
+                        });
+                        document.addEventListener("DOMContentLoaded", function () {
+                            // Disable the back button
+                            window.history.pushState(null, null, location.href);
+                            window.onpopstate = function () {
+                                window.history.go(0);
+                            };
+                        });
+                       
+                    </script>
+                    
+                    
+                    
+                    {% else %}
+                    
+                    <li class="nav-item">
+                        <a class="btn btn-brand" href="{% url 'login' %}">signin</a>
+                    </li>
+                  
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light ms-3" href="{% url 'signup' %}">signup</a>
+                    </li>
+                
+                {% endif %}
+                </ul>
+                
+            </div>
+        </div>
+    </nav>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>User Service Booking</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                background-image: url({% static 'img/Untitled_design.jpg' %});
+            }
+    
+            .container {
+                display: flex;
+                justify-content: space-between;
+                max-width: 1200px;
+                width: 100%;
+            }
+    
+            #form-container,
+            #table-container {
+                flex: 1;
+            }
+    
+            h2 {
+                text-align: center;
+            }
+    
+            form {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+    
+            .form-group {
+                width: calc(50% - 10px);
+                margin-bottom: 20px;
+            }
+    
+            label {
+                font-weight: bold;
+            }
+    
+            input[type="text"],
+            select,
+            input[type="date"] {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
+    
+            input[type="radio"] {
+                margin-right: 5px;
+            }
+    
+            button {
+                background-color: #007BFF;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 3px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+    
+            button:hover {
+                background-color: #0056b3;
+            }
+    
+            input:invalid {
+                border-color: red;
+                color: red;
+            }
+    
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin-top: 20px;
+            }
+    
+            table, th, td {
+                border: 2px solid black;
+            }
+    
+            th, td {
+                padding: 15px;
+                text-align: center;
+                height: 50px;
+            }
+    
+            th.selected,
+            td.selected {
+                background-color: green;
+                color: white;
+            }
+    
+            
+            .container {
+                display: flex;
+                justify-content: space-around; /* Provides space between the form and the table */
+            }
+            
+            {% comment %} #slotTable td[data-booking-status="Not Available"] {
+                color: green; /* Display not available slots in red */
+            }
+            
+            #slotTable td[data-booking-status="Available"] {
+                color: red; /* Display available slots in green */
+            } {% endcomment %}
+            .available {
+                background-color: #ffffff; /* Default color for available slots */
+            }
+            .booked {
+                background-color: #00ff00; /* Color for booked slots */
+            }
+            table {
+                border-collapse: collapse;
+            }
+            td {
+                border: 1px solid #000;
+                padding: 10px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+
+
+    <div id="table-container">
+        <table id="slotTable">
+
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="slot1" data-slot-number="1" data-booking-status="Available">09:00 AM</td>
+                    <td id="slot2" data-slot-number="2" data-booking-status="Available">09:30 AM</td>
+                    <td id="slot3" data-slot-number="3" data-booking-status="Available">10:00 AM</td>
+                   
+                    <!-- Add more cells for columns 6 to 15 -->
+                </tr>
+                <!-- Add more rows as needed -->
+           
+            <tr>
+                <td id="slot4" data-slot-number="4" data-booking-status="Available">10:30 AM</td>
+                <td id="slot5" data-slot-number="5" data-booking-status="Available">11:00 AM</td>
+                <td id="slot6" data-slot-number="6" data-booking-status="Available">11:30 AM</td>  
+            </tr>
+            <tr>
+                <td id="slot7" data-slot-number="7" data-booking-status="Available">12:00 PM</td>
+                <td id="slot8" data-slot-number="8" data-booking-status="Available">12:30 PM</td>
+                <td id="slot9" data-slot-number="9" data-booking-status="Available">01:00 PM</td>  
+            </tr>
+            <tr>
+                <td id="slot10" data-slot-number="10" data-booking-status="Available">12:00 PM</td>
+                <td id="slot11" data-slot-number="11" data-booking-status="Available">12:30 PM</td>
+                <td id="slot12" data-slot-number="12" data-booking-status="Available">01:00 PM</td>  
+            </tr>
+            <tr>
+                <td id="slot13" data-slot-number="13" data-booking-status="Available">02:00 PM</td>
+                <td id="slot14" data-slot-number="14" data-booking-status="Available">02:30 PM</td>
+                <td id="slot15" data-slot-number="15" data-booking-status="Available">03:00 PM</td>  
+            </tr>
+
+            </tbody>
+            <!-- Add table body content here -->
+        </table>
+    </div>
+    
+
+    </script>
+    </html>

@@ -1,0 +1,191 @@
+/* Common CSS styles for both pages */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+	
+}
+
+
+/*nav bar css */
+.top-nav {
+    background-color: var(--brand);
+    color: #fff;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.top-nav p {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+.top-nav span,
+.top-nav i {
+    vertical-align: middle;
+}
+
+.navbar {
+    box-shadow: var(--shadow);
+}
+
+
+.social-icons a {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.25);
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+}
+
+.social-icons a:hover {
+    background-color: #fff;
+    color: var(--brand);
+}
+.conditions-section{
+    margin: 20px 0;
+}
+.conditions-section a{
+   color: #fff;
+   margin: 0 10px;
+}
+
+.navbar .navbar-nav .nav-link {
+    color: var(--dark);
+}
+
+.navbar .navbar-nav .nav-link:hover {
+    color: var(--brand);
+}
+
+.navbar .navbar-nav .nav-link.active {
+    color: var(--brand);
+}
+
+.navbar-brand {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.navbar-brand .dot {
+    color: var(--brand);
+}
+
+/* nsv bsr end */
+
+
+
+.container {
+    background-color: rgb(255, 255, 255);
+    padding: 120px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+input {
+    width: 120%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    width: 130%;
+    padding: 10px;
+    background-color:red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+.google-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4285F4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+	width: 120%;
+    padding: 8px;
+}
+
+.google-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    background-image: url('D:\google.png'); /* Replace with the actual path to your Google icon image */
+    background-size: cover; /* Adjust the background size as needed */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    background-position: center; /* Center the background image */
+}
+
+    /* You can set the background image for the Google icon here */
+	
+
+.or-separator {
+    margin: 30px 0;
+    color: #777;
+}
+
+/* Specific styles for the signup.html page */
+.container.signup {
+    /* Your specific styles for the sign-up page container */
+    background-color: #f9f9f9; /* Change background color */
+    padding: 30px; /* Increase padding for more spacing */
+	background-image:url('D:\google.png');
+}
+
+.container.signup h2 {
+    color: #007BFF; /* Change title color */
+}
+
+.container.signup input[type="text"],
+.container.signup input[type="email"],
+.container.signup input[type="password"] {
+    background-color: #f2f2f2; /* Change input field background color */
+    border: 1px solid #ccc; /* Change input field border style */
+	
+}
+
+.container.signup button[type="submit"] {
+    background-color: #007BFF; /* Change submit button background color */
+    color: #fff; /* Change submit button text color */
+	
+}
+
+.container.signup .google-login {
+    background-color: #4285F4; /* Change Google login button background color */
+    color: #fff; /* Change Google login button text color */
+}

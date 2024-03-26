@@ -1,0 +1,374 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>Prixima BS5 Template</title>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+
+
+    <!-- TOP NAV -->
+    <div class="top-nav" id="home">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-auto">
+                    <p> <i class='bx bxs-envelope'></i> info@example.com</p>
+                    <p> <i class='bx bxs-phone-call'></i> 123 456-7890</p>
+                </div>
+                <div class="col-auto social-icons">
+                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-instagram'></i></a>
+                    <a href="#"><i class='bx bxl-pinterest'></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Sparx motors<span class="dot">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href=""></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">vehicles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'booking' %}">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Spare parts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-brand"  href="{% url 'logout' %}" id="logout-link">Logout</a>
+                    </li>
+                    
+                        <li><a><strong> Welcome, {{ user.email }}</strong></a></li>
+                         
+                 
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="btn btn-brand" href="{% url 'login' %}">signin</a>
+                    </li>
+                  
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light ms-3" href="{% url 'signup' %}">signup</a>
+                    </li>
+                
+                {% endif %}         
+                </ul>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- SLIDER -->
+    <div class="owl-carousel owl-theme hero-slider">
+        <div class="slide slide1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center text-white">
+                        <h6 class="text-white text-uppercase"></h6>
+                        <h1 class="display-3 my-4">Commercial vehicle sales<br/>service platform</h1>
+                        <a href="#" class="btn btn-brand">Get Started</a>
+                        <a href="#" class="btn btn-outline-light ms-3">Our work</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide slide2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-10 offset-lg-1 text-white">
+                        <h6 class="text-white text-uppercase"></h6>
+                        <h1 class="display-3 my-4">Commercial vehicle sales <br />service platform</h1>
+                        <a href="#" class="btn btn-brand">Get Started</a>
+                        <a href="#" class="btn btn-outline-light ms-3">Our work</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% comment %} 
+    <section id="services" class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="intro">
+                        <h6>Our Services</h6>
+                        <h1>What We Do?</h1>
+                        <p class="mx-auto">Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+                            roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service">
+                        <img src="img/icon1.png" alt="">
+                        <h5>Digital Marketing</h5>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service">
+                        <img src="img/icon2.png" alt="">
+                        <h5>Logo Designing</h5>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service">
+                        <img src="img/icon3.png" alt="">
+                        <h5>Buisness consulting</h5>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service">
+                        <img src="img/icon4.png" alt="">
+                        <h5>Videography</h5>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service">
+                        <img src="img/icon5.png" alt="">
+                        <h5>Brand Identity</h5>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service">
+                        <img src="img/icon6.png" alt="">
+                        <h5>Ethical Hacking</h5>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+
+    <section class="bg-light" id="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="intro">
+                        <h6>Work</h6>
+                        <h1>OUR SERVICES</h1>
+                        <p class="mx-auto">Welcome to sparx motors, your one-stop destination for sparx periodic maintenance services in Kerala . Our team of experienced technicians is dedicated to ensuring your vehicle runs smoothly and efficiently with our comprehensive maintenance services.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="projects-slider" class="owl-theme owl-carousel">
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="img/project1.jpg" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="img/project2.jpg" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="img/project3.jpg" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="img/project4.jpg" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="img/project5.jpg" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="footer-top text-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <h4 class="navbar-brand">Prixima<span class="dot">.</span></h4>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                        <div class="col-auto social-icons">
+                            <a href="#"><i class='bx bxl-facebook'></i></a>
+                            <a href="#"><i class='bx bxl-twitter'></i></a>
+                            <a href="#"><i class='bx bxl-instagram'></i></a>
+                            <a href="#"><i class='bx bxl-pinterest'></i></a>
+                        </div>
+                        <div class="col-auto conditions-section">
+                            <a href="#">privacy</a>
+                            <a href="#">terms</a>
+                            <a href="#">disclaimer</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p class="mb-0">Copyright vicpra 2022. All rights Reserved</p> Distributed By <a
+                hrefs="https://themewagon.com">ThemeWagon</a>
+        </div>
+    </footer>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="container-fluid">
+                        <div class="row gy-4">
+                            <div class="col-lg-4 col-sm-12 bg-cover"
+                                style="background-image: url(img/c2.jpg); min-height:300px;">
+                                <div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <form class="p-lg-5 col-12 row g-3">
+                                    <div>
+                                        <h1>Get in touch</h1>
+                                        <p>Fell free to contact us and we will get back to you as soon as possible</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="userName" class="form-label">First name</label>
+                                        <input type="text" class="form-control" placeholder="Jon" id="userName"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="userName" class="form-label">Last name</label>
+                                        <input type="text" class="form-control" placeholder="Doe" id="userName"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="userName" class="form-label">Email address</label>
+                                        <input type="email" class="form-control" placeholder="Johndoe@example.com"
+                                            id="userName" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="exampleInputEmail1" class="form-label">Enter Message</label>
+                                        <textarea name="" placeholder="This is looking great and nice."
+                                            class="form-control" id="" rows="4"></textarea>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-brand">Send Message</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var logoutButton = document.getElementById("logout-link");
+            logoutButton.addEventListener("click", function () {
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
+            });
+        });
+    </script>
+    <script>
+        {% comment %} function confirmLogout() {
+            if (confirm("Are you sure you want to log out?")) {
+                window.location.href = "{% url 'logout' %}";  // Redirect to the logout URL
+            }
+        } {% endcomment %}
+        
+        function showLogoutMessage() {
+            alert('You have been logged out successfully.');
+        }
+        const userDropdown = document.getElementById("user-dropdown");
+        const userDropdownContent = document.getElementById("user-dropdown-content");
+    
+        userDropdown.addEventListener("click", () => {
+            userDropdownContent.style.display = userDropdownContent.style.display === "block" ? "none" : "block";
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            // Disable the back button
+            window.history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                window.history.go(0);
+            };
+        });
+       
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Disable the back button
+            window.history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                window.history.go(0);
+            };
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,572 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>sparx motors light vehicles</title>
+    <style>
+        .user-profile {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-image {
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        /* Styles for the dropdown menu */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            display: block;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Show the dropdown menu when hovering over the user profile */
+        .user-profile:hover .dropdown-menu {
+            display: block;
+        }
+        
+        /* Style the user dropdown */
+#user-dropdown {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+#user-dropdown:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+}
+
+/* Style the dropdown arrow icon (a small triangle) */
+#user-dropdown::before {
+    content: "\25BE"; /* Unicode character for a down-pointing triangle */
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Style the user name and user icon */
+#user-dropdown > strong {
+    font-weight: bold;
+}
+
+#user-dropdown img {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+/* Style the dropdown content */
+#user-dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+#user-dropdown-content .dropdown-item {
+    padding: 8px 15px;
+    font-weight: normal;
+}
+
+#user-dropdown-content .dropdown-item:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+}
+/* Style the dropdown items */
+#user-dropdown-content .dropdown-item {
+    padding: 8px 15px;
+    font-weight: normal;
+    text-decoration: none; /* To remove underline on links */
+    display: block; /* Ensure the items are displayed as blocks */
+    color: #333; /* Text color for the items */
+    transition: background-color 0.3s; /* Add a smooth transition on hover */
+}
+
+#user-dropdown-content .dropdown-item:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+    color: #000; /* Change text color on hover if needed */
+}
+
+/* Additional styles for the "My Profile" item */
+#user-dropdown-content .dropdown-item:last-child {
+    font-weight: bold;
+    background-color: #007bff; /* Change background color for the last item */
+    color: #fff; /* Text color for the last item */
+}
+/* Styles for the dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff; /* Change as needed */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Change as needed */
+}
+
+/* Show the dropdown menu when hovering over the parent */
+.nav-item:hover .dropdown-menu {
+  display: block;
+}
+{% comment %} .cart-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-count {
+    
+    top: -8px; 
+    right: -8px; 
+    background-color: red;
+    color: white;
+    border-radius: 10%;
+    width: 5px;
+    height: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3px;
+} {% endcomment %}
+
+
+/* Styles for the cart icon */
+.cart-icon {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px; /* Adjust spacing as needed */
+}
+
+/* Style for the cart image */
+.cart-icon img {
+  width: 40px; /* Set the width of the cart image */
+  height: auto; /* Maintain aspect ratio */
+  vertical-align: middle;
+}
+
+/* Style for the cart count */
+.cart-count {
+  position: absolute;
+  top: -8px; /* Adjust positioning as needed */
+  right: -8px; /* Adjust positioning as needed */
+  background-color: red; /* Change the background color */
+  color: white;
+  border-radius: 50%; /* To create a circular shape */
+  padding: 4px 8px; /* Adjust padding as needed */
+  font-size: 20px; /* Adjust font size */
+}
+
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+
+
+    <!-- TOP NAV -->
+    <div class="top-nav" id="home">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-auto">
+                    <p> <i class='bx bxs-envelope'></i> keerthi@gmail.com</p>
+                    <p> <i class='bx bxs-phone-call'></i> 9947601695</p>
+                </div>
+                <div class="col-auto social-icons">
+                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-instagram'></i></a>
+                    <a href="#"><i class='bx bxl-pinterest'></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">AutoMate HUB<span class="dot">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">vehicles</a>
+                        <div class="dropdown">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'vehicle_order_model' 'lightvehicle' %}">Light Vehicle</a>
+                                <a class="dropdown-item" href="{% url 'vehicle_order_model' 'trucks' %}">Trucks</a>
+                                <a class="dropdown-item" href="{% url 'vehicle_order_model' 'buses' %}">Passenger</a>
+                                
+                                <!-- Add more vehicle models as needed -->
+                            </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Services</a>
+                        <div class="dropdown">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'booking' %}">Service Booking</a>
+                                <a class="dropdown-item" href="{% url 'booking_history' %}">Booking History</a>
+                                {% comment %} <a class="dropdown-item" href="{% url 'insurance_renewal' %}">Insurance</a> {% endcomment %}
+                                 
+                                
+                                <!-- Add more vehicle models as needed -->
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Insurance</a>
+                        <div class="dropdown">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'insurance_renewal' %}">Renewal</a>
+                                <a class="dropdown-item" href="#">New Insurance</a>
+                                
+                                <!-- Add more insurance-related links as needed -->
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link">Spare parts</a>
+                        <div class="dropdown">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'parts_order_category' 'Dost+' %}">Dost+</a>
+                                <a class="dropdown-item" href="{% url 'parts_order_category' 'Dost strong' %}">Dost strong</a>
+                                <a class="dropdown-item" href="{% url 'parts_order_category' 'Partner' %}">Partner</a>
+                                <a class="dropdown-item" href="{% url 'parts_order_category' 'Dost CNG' %}">Dost CNG</a>
+                                <a class="dropdown-item" href="{% url 'parts_order_category' 'MITR Staff Bus' %}">MITR Staff Bus</a>
+                                <a class="dropdown-item" href="{% url 'parts_order_category' 'Dost Express' %}">Dost Express</a>
+                                <!-- Add more vehicle models as needed -->
+                            </div>
+                            
+                        </div>
+                    </li>
+                   
+
+                    
+                    <li class="nav-item" style="display: flex; align-items: center;">
+                        <div id="user-dropdown" class="user-profile">
+                            {% if request.session.profile_image_updated %}
+                                <!-- Use the updated profile image -->
+                                <img src="{{ user_profile.image.url }}" alt="" class="profile-image">
+                            {% else %}
+                                <!-- Use the default image -->
+                                <img src="{% static 'img/img2.png' %}" alt="" class="profile-image">
+                            {% endif %}
+                            <strong style="font-weight: bold;">{{ user.username }}</strong>
+                            <div id="user-dropdown-content" class="dropdown" style="position: absolute; top: 100%; left: 0; display: none;">
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    
+                                    <a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile</a>
+                                    <a class="dropdown-item" href="{% url 'change_password' %}">change password</a>
+                
+                                    {% comment %} <a class="dropdown-item" href="" >Logout</a> {% endcomment %}
+                                    <a class="dropdown-item" href="{% url 'logout' %}" onclick="showLogoutMessage()">Logout</a>
+
+                                    {% csrf_token %}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    {% if user.is_authenticated %}
+                    <div class="cart-icon">
+                    <a href="{% url 'view_cart' %}" class="view-cart-link">
+                    <img src="{% static 'img/cart.png' %}" alt="Cart">
+                </a>
+                    {% if cart_count == 0 %}
+                        <span></span>
+                    {% else %}
+                     <span class="cart-count">{{ cart_count }}</span>
+                    {% endif %}
+                </div>
+                {% endif %}
+                    {% comment %} <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_cart.html' %}">
+                            <i class="fas fa-shopping-cart"></i> <!-- Assuming you're using Font Awesome for icons -->
+                            Cart
+                        </a>
+                    </li>  {% endcomment %}
+                    
+               
+                    {% comment %} <li class="nav-item">
+                        <a class="btn btn-outline-light ms-3" href="{% url 'logout' %}" onclick="confirmLogout()">Logout</a>
+                    </li> {% endcomment %}
+                    <script>
+                        {% comment %} function confirmLogout() {
+                            if (confirm("Are you sure you want to log out?")) {
+                                window.location.href = "{% url 'logout' %}";  // Redirect to the logout URL
+                            }
+                        } {% endcomment %}
+                        
+                        function showLogoutMessage() {
+                            alert('You have been logged out successfully.');
+                        }
+                        const userDropdown = document.getElementById("user-dropdown");
+                        const userDropdownContent = document.getElementById("user-dropdown-content");
+                    
+                        userDropdown.addEventListener("click", () => {
+                            userDropdownContent.style.display = userDropdownContent.style.display === "block" ? "none" : "block";
+                        });
+                        document.addEventListener("DOMContentLoaded", function () {
+                            // Disable the back button
+                            window.history.pushState(null, null, location.href);
+                            window.onpopstate = function () {
+                                window.history.go(0);
+                            };
+                        });
+                       
+                    </script>
+                    
+                    
+                    
+                    {% else %}
+                    
+                    <li class="nav-item">
+                        <a class="btn btn-brand" href="{% url 'login' %}">signin</a>
+                    </li>
+                  
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light ms-3" href="{% url 'signup' %}">signup</a>
+                    </li>
+                
+                {% endif %}
+                </ul>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- SLIDER -->
+    <div class="owl-carousel owl-theme hero-slider">
+        <div class="slide slide1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center text-white">
+                        <h6 class="text-white text-uppercase"></h6>
+                        <h1 class="display-3 my-4">AutoMate HUB<br/>service platform</h1>
+                        <a href="#" class="btn btn-brand">Get Started</a>
+                        <a href="#" class="btn btn-outline-light ms-3">Our work</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="slide slide2"> 
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-10 offset-lg-1 text-white">
+                        <h6 class="text-white text-uppercase"></h6>
+                        <h1 class="display-3 my-4">AutoMate HUB <br />service platform</h1>
+                        <a href="#" class=""></a>
+                        <a href="#" class=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <section class="bg-light" id="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="intro">
+                        <h6>Work</h6>
+                        <h1>Successful projects</h1>
+                        <p class="mx-auto">Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+                            roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="projects-slider" class="owl-theme owl-carousel">
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="img/project1.jpg" alt="">
+                <div class="content">
+                    <h2>Breakdown Assistance</h2>
+                    <h6></h6>
+                </div>
+            </div>
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="img/project2.jpg" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="img/project3.jpg" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="img/project4.jpg" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="img/project5.jpg" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+
+    <footer>
+        <div class="footer-top text-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <h4 class="navbar-brand">Sparx motors<span class="dot">.</span></h4>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                        <div class="col-auto social-icons">
+                            <a href="#"><i class='bx bxl-facebook'></i></a>
+                            <a href="#"><i class='bx bxl-twitter'></i></a>
+                            <a href="#"><i class='bx bxl-instagram'></i></a>
+                            <a href="#"><i class='bx bxl-pinterest'></i></a>
+                        </div>
+                        <div class="col-auto conditions-section">
+                            <a href="#">privacy</a>
+                            <a href="#">terms</a>
+                            <a href="#">disclaimer</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p class="mb-0">Copyright vicpra 2022. All rights Reserved</p> Distributed By <a
+                hrefs="https://themewagon.com">ThemeWagon</a>
+        </div>
+    </footer>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="container-fluid">
+                        <div class="row gy-4">
+                            <div class="col-lg-4 col-sm-12 bg-cover"
+                                style="background-image: url(img/c2.jpg); min-height:300px;">
+                                <div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <form class="p-lg-5 col-12 row g-3">
+                                    <div>
+                                        <h1>Get in touch</h1>
+                                        <p>Fell free to contact us and we will get back to you as soon as possible</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="userName" class="form-label">First name</label>
+                                        <input type="text" class="form-control" placeholder="Jon" id="userName"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="userName" class="form-label">Last name</label>
+                                        <input type="text" class="form-control" placeholder="Doe" id="userName"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="userName" class="form-label">Email address</label>
+                                        <input type="email" class="form-control" placeholder="Johndoe@example.com"
+                                            id="userName" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="exampleInputEmail1" class="form-label">Enter Message</label>
+                                        <textarea name="" placeholder="This is looking great and nice."
+                                            class="form-control" id="" rows="4"></textarea>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-brand">Send Message</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        {% if success_message %}
+            alert("{{ success_message }}");
+        {% endif %}
+    </script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    
+</body>
+
+</html>

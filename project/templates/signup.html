@@ -1,0 +1,390 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <!-- Design by foolishdeveloper.com -->
+    {% comment %} <title>Glassmorphism login Form Tutorial in html css</title>
+ 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet"> {% endcomment %}
+    <!--Stylesheet-->
+   <style> 
+    body {
+        /* Set background properties for the entire page */
+        background-image: url({% static 'img/Untitled_design.jpg' %}); /* Replace 'path_to_your_image.jpg' with the actual path to your image */
+        background-size: cover; /* Adjust the background size */
+        /* Add other necessary properties */
+    }
+
+    /* Style for the form */
+    #myForm {
+        /* Adjust form position and other properties */
+        /* Example styles */
+        width: 30%;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.8); /* Background color for better readability */
+        padding: 20px;
+        border-radius: 10px;
+    }
+    form {
+        margin: 20px;
+        border: 2px solid #007bff; /* Add a blue border around the form */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a slight shadow */
+        width: 30%; /* Reduce the width to 60% of the parent container */
+        margin: 0 auto;
+        {% comment %} background-image: url({% static 'img/bg_banner1.jpg' %}); /* Add your image path here */ {% endcomment %}
+        background-size: cover; /* Make the background cover the entire form */
+        background-repeat: no-repeat;
+    }
+    
+    label {
+        font-weight: bold;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    select {
+        width: 100%;
+        padding: 5px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        
+    }
+    
+    /* Add styles for error messages or other custom styles */
+    span {
+        color: red;
+    }
+
+    .hide-on-login {
+        display: none;
+    }
+    </style>   
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var addressInput = document.getElementById("address");
+            var phoneNumberInput = document.getElementById("phone_number");
+            var roleSection = document.getElementById("role-section");
+
+            addressInput.addEventListener("input", function () {
+                validateAddress();
+            });
+
+            phoneNumberInput.addEventListener("input", function () {
+                validatePhoneNumber();
+            });
+            var isSignupPage = window.location.pathname.includes("signup");
+            if (isSignupPage && roleSection) {
+                roleSection.classList.add('hide-on-login');
+            }
+
+            function validateAddress() {
+                var addressValue = addressInput.value.trim();
+                var addressErrorSpan = document.getElementById("Address");
+
+                // Check if address starts with a capital letter
+                if (/^[A-Z]/.test(addressValue)) {
+                    addressErrorSpan.textContent = "";
+                } else {
+                    addressErrorSpan.textContent = "Address must start with a capital letter.";
+                }
+            }
+
+            function validatePhoneNumber() {
+                var phoneNumberValue = phoneNumberInput.value.trim();
+                var phoneNumberErrorSpan = document.getElementById("phoneNumberError");
+
+                // Check if the phone number includes 10 digits and does not start with a negative sign
+                if (/^\d{10}$/.test(phoneNumberValue) && !/^-/.test(phoneNumberValue)) {
+                    phoneNumberErrorSpan.textContent = "";
+                } else {
+                    phoneNumberErrorSpan.textContent = "Phone number must include 10 digits and should not be negative.";
+                }
+            }
+        
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            var roleSelect = document.getElementById('role');
+            roleSelect.style.display = 'none';
+        });
+        
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Sparx Motors<span class="dot">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">vehicle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Spare parts</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="btn btn-brand" href="{% url 'login' %}">login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="" href=""></a> 
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-brand" href="{% url 'signup' %}">signup</a>
+                    </li>
+                {% endif %}
+                </ul>
+               
+            </div>
+        </div>
+    </nav>
+         
+        <form id="myForm" method="POST" action="{% url 'signup' %}">
+         {% csrf_token %}
+         <h2 align="center"><b>Sign up</b></h2>
+     
+        <label for="username">Username</label>
+         <input type="text" name="username" placeholder="Username" id="username" required>
+         <span id="usernameError" style="color: red;"></span>  
+
+         <label for="email">Email</label>
+         <input type="email" name="email" placeholder="Email" id="email" required>
+         <span id="emailError" style="color: red;"></span>
+     
+         <label for="address">Address</label>
+         <input type="text" name="address" placeholder="Address" id="address" required>
+         <span id="Address" style="color: red;"></span>
+     
+         <label for="phone_number">Phone Number</label>
+         <input type="tel" name="phone_number" placeholder="Phone Number" id="phone_number" required>
+         <span id="phoneNumberError" style="color: red;"></span>
+         <label for="password">Password</label>
+         <input type="password" name="password" placeholder="Password" id="password" required>
+         <span id="passwordError" style="color: red;"></span>
+     
+         <label for="confirm_password">Confirm Password</label>
+         <input type="password" name="confirm_password" placeholder="Confirm Password" id="confirm_password" required>
+         <span id="confirmPasswordError" style="color: red;"></span>
+     
+         <label for="role"></label>
+         <select name="role" id="role" class="hide-on-login">
+             <option value="user">User</option>
+         </select>
+     
+         <button type="submit" id="submitBtn" style="background-color: #007bff; color: white;">Sign Up</button>
+          <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+         {% if error_message %}
+             <div style="color: red;">
+                 {{ error_message }}
+             </div>
+         {% endif %}
+        
+     </form>
+     
+
+   <script>
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm_password');
+    const submitBtn = document.getElementById('submitBtn');
+    document.getElementById("role").style.display = "block"; // or "inline"
+
+    usernameInput.addEventListener('input', validateUsername);
+    emailInput.addEventListener('input', validateEmail);
+    passwordInput.addEventListener('input', validatePassword);
+    confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+    
+    function validateUsername() {
+        const username = usernameInput.value;
+        const usernameError = document.getElementById('usernameError');
+    
+        // Check if the username starts with a capital letter
+        if (!/^[A-Z].*$/.test(username)) {
+            usernameError.textContent = 'Username must start with a capital letter.';
+        } else if (!/^[A-Z][a-zA-Z0-12]{0,13}$/.test(username)) {
+            // Check if the username contains characters other than uppercase letters, lowercase letters, and numbers
+            usernameError.textContent = 'Username can only contain uppercase letters followed by lowercase letters and numbers (maximum 11 characters).';
+        } else if (/\s/.test(username)) {
+            // Check if the username contains white spaces
+            usernameError.textContent = 'Username cannot contain white spaces.';
+        } else {
+            usernameError.textContent = 'Valid username.';
+        }
+    
+        checkFormValidity();
+    }
+    
+    {% comment %} function validateEmail() {
+        const email = emailInput.value;
+        const emailError = document.getElementById('emailError');
+        if (!isValidEmail(email)) {
+            emailError.textContent = 'Invalid email address.';
+        } else {
+            emailError.textContent = '';
+        }
+        checkFormValidity();
+    } {% endcomment %}
+    function validateEmail() {
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const emailValue = emailInput.value.trim().toLowerCase(); // Convert to lowercase
+    
+        if (emailValue === '') {
+            emailError.textContent = 'Email cannot be empty.';
+            emailError.style.color = 'red';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+            emailError.textContent = 'Invalid email format.';
+            emailError.style.color = 'red';
+        } else {
+            emailError.textContent = '';
+        }
+        checkFormValidity();
+    }
+    
+    function validatePassword() {
+        const password = passwordInput.value;
+        const passwordError = document.getElementById('passwordError');
+        if (!/^[A-Z].{4,}$/.test(password)) {
+            passwordError.textContent = 'Password must start with a capital letter and be at least 5 characters long and include special characters.';
+        } else {
+            passwordError.textContent = '';
+        }
+        checkFormValidity();
+    }
+    var addressInput = document.getElementById("address");
+    var addressError = document.getElementById("addressError");
+  
+    // Add an event listener to the input field to check its value when it changes
+    addressInput.addEventListener("input", function () {
+      var addressValue = addressInput.value.trim();
+  
+      if (addressValue === "") {
+        addressError.textContent = "Address is required";
+      } else {
+        addressError.textContent = ""; // Clear the error message if the input is valid
+      }
+    });
+    var customernameInput = document.getElementById("customername");
+  var usernameError = document.getElementById("usernameError");
+
+  // Add an event listener to the input field to check its value when it changes
+  customernameInput.addEventListener("input", function () {
+    var customernameValue = customernameInput.value.trim();
+
+    if (customernameValue === "") {
+      usernameError.textContent = "FullName is required";
+    } else {
+      usernameError.textContent = ""; // Clear the error message if the input is valid
+    }
+  });
+    function validateConfirmPassword() {
+        const confirmPassword = confirmPasswordInput.value;
+        const password = passwordInput.value;
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+        if (password !== confirmPassword) {
+            confirmPasswordError.textContent = 'Passwords do not match.';
+        } else {
+            confirmPasswordError.textContent = '';
+        }
+        checkFormValidity();
+    }
+
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function checkFormValidity() {
+        if (
+            usernameInput.validity.valid &&
+            emailInput.validity.valid &&
+            passwordInput.validity.valid &&
+            confirmPasswordInput.validity.valid &&
+            passwordInput.value === confirmPasswordInput.value
+            
+        ) {
+            submitBtn.removeAttribute('disabled');
+        } else {
+            submitBtn.setAttribute('disabled', 'disabled');
+        
+        }
+    }
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+        var address = document.getElementById('address').value;
+        var phone_number = document.getElementById('phone_number').value;
+
+        // Validate the address (required field and start with a capital letter)
+        if (address.trim() === '' || address[0] !== address[0].toUpperCase()) {
+            document.getElementById('addressError').textContent = 'Address is required and should start with a capital letter.';
+            event.preventDefault(); // Prevent form submission
+        } else {
+            document.getElementById('addressError').textContent = '';
+        }
+
+        // Validate the phone number (10-digit numeric input only)
+        if (!/^\d{10}$/.test(phone_number)) {
+            document.getElementById('phoneNumberError').textContent = 'Phone number must be 10 digits and contain only numbers.';
+            event.preventDefault(); // Prevent form submission
+        } else {
+            document.getElementById('phoneNumberError').textContent = '';
+        }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        let form = document.getElementById('myForm');
+        form.addEventListener('submit', function() {
+            alert('Registration successful. Account details have been sent to your email.');
+        });
+    });
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting immediately
+        
+        // Your form submission logic goes here if needed
+        
+        // Alert message to the user
+        alert('Registration successful. Account details have been sent to your email.');
+
+        // Submit the form after the alert is shown
+        this.submit();
+    });
+    </script>
+
+</body>
+</html>
+
