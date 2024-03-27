@@ -155,7 +155,7 @@ def logout_confirm(request):
 def logout_view(request):
     logout(request)
     # Redirect to the homepage or any other desired page after logout
-    return redirect('dashboard')
+    return redirect('index')
 
 
 def dashboard(request):

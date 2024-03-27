@@ -312,7 +312,7 @@
                                     <a class="dropdown-item" href="{% url 'change_password' %}">change password</a>
                 
                                     {% comment %} <a class="dropdown-item" href="" >Logout</a> {% endcomment %}
-                                    <a class="dropdown-item" href="{% url 'logout' %}" onclick="showLogoutMessage()">Logout</a>
+                                    <a class="dropdown-item" href="{% url 'logout' %}" onclick="showLogoutMessage()" id="logout-link">Logout</a>
 
                                     {% csrf_token %}
                                 </div>
@@ -396,8 +396,8 @@
                     <div class="col-12 text-center text-white">
                         <h6 class="text-white text-uppercase"></h6>
                         <h1 class="display-3 my-4">AutoMate HUB<br/>service platform</h1>
-                        <a href="#" class="btn btn-brand">Get Started</a>
-                        <a href="#" class="btn btn-outline-light ms-3">Our work</a>
+                        <a href="#" class="btn btn-brand">Login</a>
+                        <a href="#" class="btn btn-outline-light ms-3">Register</a>
                     </div>
                 </div>
             </div>
@@ -420,14 +420,7 @@
     <section class="bg-light" id="portfolio">
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    <div class="intro">
-                        <h6>Work</h6>
-                        <h1>Successful projects</h1>
-                        <p class="mx-auto">Contrary to popular belief, Lorem Ipsum is not simply random text. It has
-                            roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old</p>
-                    </div>
-                </div>
+                
             </div>
         </div>
         <div id="projects-slider" class="owl-theme owl-carousel">
@@ -473,7 +466,7 @@
             </div>
         </div>
     </section> 
-
+    
 
     <footer>
         <div class="footer-top text-center">
@@ -498,10 +491,10 @@
                 </div>
             </div>
         </div>
-        <div class="footer-bottom text-center">
+        {% comment %} <div class="footer-bottom text-center">
             <p class="mb-0">Copyright vicpra 2022. All rights Reserved</p> Distributed By <a
                 hrefs="https://themewagon.com">ThemeWagon</a>
-        </div>
+        </div> {% endcomment %}
     </footer>
 
 
@@ -566,7 +559,50 @@
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var logoutButton = document.getElementById("logout-link");
+            logoutButton.addEventListener("click", function () {
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
+            });
+        });
+    </script>
+    <script>
+        {% comment %} function confirmLogout() {
+            if (confirm("Are you sure you want to log out?")) {
+                window.location.href = "{% url 'logout' %}";  // Redirect to the logout URL
+            }
+        } {% endcomment %}
+        
+        function showLogoutMessage() {
+            alert('You have been logged out successfully.');
+        }
+        const userDropdown = document.getElementById("user-dropdown");
+        const userDropdownContent = document.getElementById("user-dropdown-content");
     
+        userDropdown.addEventListener("click", () => {
+            userDropdownContent.style.display = userDropdownContent.style.display === "block" ? "none" : "block";
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            // Disable the back button
+            window.history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                window.history.go(0);
+            };
+        });
+       
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Disable the back button
+            window.history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                window.history.go(0);
+            };
+        });
+    </script>
 </body>
 
 </html>
