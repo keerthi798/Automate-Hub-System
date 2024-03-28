@@ -237,7 +237,7 @@
                 <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link">vehicles</a>
@@ -396,8 +396,8 @@
                     <div class="col-12 text-center text-white">
                         <h6 class="text-white text-uppercase"></h6>
                         <h1 class="display-3 my-4">AutoMate HUB<br/>service platform</h1>
-                        <a href="#" class="btn btn-brand">Login</a>
-                        <a href="#" class="btn btn-outline-light ms-3">Register</a>
+                        <a href="{% url 'login' %}" class="btn btn-brand">Login</a>
+                        <a href="{% url 'signup' %}" class="btn btn-outline-light ms-3">Register</a>
                     </div>
                 </div>
             </div>
@@ -570,11 +570,7 @@
         });
     </script>
     <script>
-        {% comment %} function confirmLogout() {
-            if (confirm("Are you sure you want to log out?")) {
-                window.location.href = "{% url 'logout' %}";  // Redirect to the logout URL
-            }
-        } {% endcomment %}
+        
         
         function showLogoutMessage() {
             alert('You have been logged out successfully.');

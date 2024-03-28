@@ -160,6 +160,24 @@
   padding: 4px 8px; /* Adjust padding as needed */
   font-size: 20px; /* Adjust font size */
 }
+/* Styles for the dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff; /* Change as needed */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Change as needed */
+}
+
+/* Show the dropdown menu when hovering over the parent */
+.nav-item:hover .dropdown-menu {
+  display: block;
+}
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
@@ -197,10 +215,18 @@
                 <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">vehicles</a>
+                        <a class="nav-link">vehicles</a>
+                        <div class="dropdown">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'vehicle_order_model' 'lightvehicle' %}">Light Vehicle</a>
+                                <a class="dropdown-item" href="{% url 'vehicle_order_model' 'trucks' %}">Trucks</a>
+                                <a class="dropdown-item" href="{% url 'vehicle_order_model' 'buses' %}">Passenger</a>
+                                
+                                <!-- Add more vehicle models as needed -->
+                            </div>
                     </li>
 
                     <li class="nav-item">
