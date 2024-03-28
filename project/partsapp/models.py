@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from datetime import datetime
 
+
 from django.db import models
 
 class CustomUser(AbstractUser):
@@ -62,9 +63,7 @@ class CartItem(models.Model):
     product = models.ForeignKey(Parts, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
-class WishlistItem(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    product = models.ForeignKey(Parts, on_delete=models.CASCADE)
+
 class UserProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
@@ -229,3 +228,5 @@ class PreviousInsurance(models.Model):
 
     def __str__(self):
         return f"Previous data for {self.vehicle_model} - {self.vehicle_usage} - {self.insurance_type}"
+    
+    

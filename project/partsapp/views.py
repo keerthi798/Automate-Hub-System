@@ -26,7 +26,7 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
 from .models import ServiceBooking
 from .forms import PartForm
 from .models import UserProfile  # Adjust the import from forms to models
-from .models import Parts,CartItem,WishlistItem
+from .models import Parts,CartItem
 from .models import CustomUser
 import re
 from django.core.exceptions import ObjectDoesNotExist
@@ -387,25 +387,25 @@ def download_parts_list(request):
 #     total_price = sum(item.product.price * item.quantity for item in cart_items)
 
 #     return render(request, 'view_cart.html', {'cart_items': cart_items, 'total_price': total_price})
-@login_required
-def view_wishlist(request):
-    user = request.user
-    wishlist_items = WishlistItem.objects.filter(user=user)
-    return render(request, 'view_wishlist.html', {'wishlist_items': wishlist_items})
-def add_to_wishlist(request, product_id):
-    try:
-        product = Parts.objects.get(pk=product_id)
-    except Parts.DoesNotExist:
-        return JsonResponse({'success': False, 'message': 'Product not found'})
+# @login_required
+# def view_wishlist(request):
+#     user = request.user
+#     wishlist_items = WishlistItem.objects.filter(user=user)
+#     return render(request, 'view_wishlist.html', {'wishlist_items': wishlist_items})
+# def add_to_wishlist(request, product_id):
+#     try:
+#         product = Parts.objects.get(pk=product_id)
+#     except Parts.DoesNotExist:
+#         return JsonResponse({'success': False, 'message': 'Product not found'})
 
-    # Check if the product is already in the user's wishlist
-    if WishlistItem.objects.filter(user=request.user, product=product).exists():
-        return JsonResponse({'success': False, 'message': 'Product is already in your wishlist'})
+#     # Check if the product is already in the user's wishlist
+#     if WishlistItem.objects.filter(user=request.user, product=product).exists():
+#         return JsonResponse({'success': False, 'message': 'Product is already in your wishlist'})
 
-    # If the product is not in the wishlist, add it
-    WishlistItem.objects.create(user=request.user, product=product)
+#     # If the product is not in the wishlist, add it
+#     WishlistItem.objects.create(user=request.user, product=product)
 
-    return JsonResponse({'success': True, 'message': 'Product added to your wishlist'})
+#     return JsonResponse({'success': True, 'message': 'Product added to your wishlist'})
   # Redirect to your cart view
 def all_products(request):
     products = products.objects.all()  # Retrieve all products
@@ -1289,6 +1289,7 @@ def checkout_process(request):
 def insurance_success_payment(request):
    
     return render(request, 'insurance_success_payment.html')
+
 
 
 

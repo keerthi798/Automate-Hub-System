@@ -11,6 +11,7 @@ from .views import vehicleorder
 from .views import generate_pdf
 from .views import servicebranchdashboard, deliveryboydashboard, partsmanagerdashboard, insurancecompanydashboard
 from .views import add_insurance, insurance_list
+
 urlpatterns = [
    path('',views.index,name="index"),
    path('signup/',views.signup, name="signup"),
@@ -54,10 +55,10 @@ urlpatterns = [
     path('parts_managers/', views.parts_managers, name='parts_managers'),
 
    
-    path('add_to_wishlist/<int:product_id>/', views.add_to_wishlist, name='add_to_wishlist'),
+    # path('add_to_wishlist/<int:product_id>/', views.add_to_wishlist, name='add_to_wishlist'),
 
     
-    path('view_wishlist/', views.view_wishlist, name='view_wishlist'),
+    # path('view_wishlist/', views.view_wishlist, name='view_wishlist'),
    
     path('all_products/', views.all_products, name='all_products'),
 
@@ -135,6 +136,8 @@ urlpatterns = [
     path('checkout_process/', views.checkout_process, name='checkout_process'),
 
     path('insurance_success_payment/', views.insurance_success_payment, name='insurance_success_payment'),
-
+   
+    
+       
     
 ]

@@ -653,7 +653,9 @@
                     </div>
                     <div class="vehicle-info">
                         <h2>{{ vehicle.name }}</h2>
-                        <p>Description: {{ vehicle.description }}</p>
+                        
+                        {% comment %} <p>Description: {{ vehicle.description }}</p>  {% endcomment %}
+                        <p>Booking Amount:{{ vehicle.booking_amount }}</p>
                         <p>Price: {{ vehicle.price }}</p>
                         <p>Fuel Type: {{ vehicle.fuel_type }}   Transmission:{{ vehicle.transmission_type }}</p> 
     
@@ -665,6 +667,8 @@
                             <button class="add-to-cart-button">
                                 <a href="{% url 'vehicle_details' vehicle.id %}">View More</a>
                             </button>
+                            
+                            
                         </form>
                     </div>
                 </div>
@@ -730,6 +734,8 @@
                 searchVehicles();
             });
         </script>
+        
+        
     </body>
     </html>
     
