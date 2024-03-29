@@ -1289,8 +1289,5 @@ def checkout_process(request):
 def insurance_success_payment(request):
    
     return render(request, 'insurance_success_payment.html')
-
-
-
-
+from .models import Wishlist
 

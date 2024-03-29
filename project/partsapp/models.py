@@ -229,4 +229,11 @@ class PreviousInsurance(models.Model):
     def __str__(self):
         return f"Previous data for {self.vehicle_model} - {self.vehicle_usage} - {self.insurance_type}"
     
-    
+    User = get_user_model()
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    vehicles = models.ManyToManyField(Vehicle)
+
+    def __str__(self):
+        return f'Wishlist of {self.user.username}'

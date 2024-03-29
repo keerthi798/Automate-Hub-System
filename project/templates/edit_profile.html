@@ -322,7 +322,7 @@
                             <strong style="font-weight: bold;">{{ user.username }}</strong>
                             <div id="user-dropdown-content" class="dropdown" style="position: absolute; top: 100%; left: 0; display: none;">
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="{% url 'view_wishlist' %}">wishlist</a>
+                                    {% comment %} <a class="dropdown-item" href="{% url 'view_wishlist' %}">wishlist</a> {% endcomment %}
                                     <a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile</a>
                                     <a class="dropdown-item" href="{% url 'logout' %}" onclick="confirmLogout()">Logout</a>
                                     {% csrf_token %}

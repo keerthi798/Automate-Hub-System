@@ -586,6 +586,91 @@
             button:hover {
                 background-color: #45a049;
             }
+            .wishlist-button {
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+            
+            /* Style for the heart icon */
+            .wishlist-button i {
+                color: red; /* Change the color of the heart icon */
+                font-size: 24px; /* Adjust the size of the heart icon */
+                transition: color 0.3s; /* Add a smooth color transition effect */
+            }
+            
+            /* Change color on hover */
+            .wishlist-button:hover i {
+                color: darkred; /* Change the color of the heart icon on hover */
+            }
+            .vehicle-card {
+                width: 280px;
+                margin: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                overflow: hidden;
+                transition: transform 0.3s;
+                background-color: #fff;
+                cursor: pointer;
+            }
+            
+            .vehicle-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            }
+            
+            .vehicle-image {
+                overflow: hidden;
+                height: 200px;
+            }
+            
+            .vehicle-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s;
+            }
+            
+            .vehicle-card:hover .vehicle-image img {
+                transform: scale(1.1);
+            }
+            
+            .vehicle-info {
+                padding: 15px;
+            }
+            
+            .vehicle-info h2 {
+                font-size: 1.2em;
+                margin-bottom: 10px;
+                color: #333;
+            }
+            
+            .vehicle-info p {
+                margin-bottom: 8px;
+                color: #555;
+            }
+            
+            /* Button styles */
+            .action-button {
+                padding: 10px 20px;
+                background-color: #3498db;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                text-decoration: none;
+            }
+            
+            .action-button:hover {
+                background-color: #2980b9;
+            }
+            .vehicle-info p i {
+                margin-right: 5px; /* Add spacing between the icon and text */
+                color: #3498db; /* Change the color of the icon */
+                font-size: 16px; /* Adjust the size of the icon */
+            }
+        </style>
         </style>
     </head>
     <body> 
@@ -653,28 +738,19 @@
                     </div>
                     <div class="vehicle-info">
                         <h2>{{ vehicle.name }}</h2>
-                        
-                        {% comment %} <p>Description: {{ vehicle.description }}</p>  {% endcomment %}
-                        <p>Booking Amount:{{ vehicle.booking_amount }}</p>
-                        <p>Price: {{ vehicle.price }}</p>
-                        <p>Fuel Type: {{ vehicle.fuel_type }}   Transmission:{{ vehicle.transmission_type }}</p> 
-    
-                        <form action="" method="post" class="add-to-cart-form">
-                            {% csrf_token %}
-                            <button class="add-to-cart-button">
-                                <a href="{% url 'book_now' vehicle.id %}">Book Now</a>
-                            </button>
-                            <button class="add-to-cart-button">
-                                <a href="{% url 'vehicle_details' vehicle.id %}">View More</a>
-                            </button>
-                            
-                            
-                        </form>
+                        <p><i class="fas fa-money-bill-wave"></i> Booking Amount: {{ vehicle.booking_amount }}</p>
+                        <p><i class="fas fa-dollar-sign"></i> Price: {{ vehicle.price }}</p>
+                        <p><i class="fas fa-gas-pump"></i> Fuel Type: {{ vehicle.fuel_type }}</p>
+                        <p><i class="fas fa-cog"></i> Transmission: {{ vehicle.transmission_type }}</p>
+                        <a href="{% url 'book_now' vehicle.id %}" class="action-button">Book Now</a>
+                        <a href="{% url 'vehicle_details' vehicle.id %}" class="action-button">View Details</a>
                     </div>
                 </div>
                 {% empty %}
                 <p>No vehicles available.</p>
                 {% endfor %}
+            </section>
+        </div>
                 <script>
                     function viewDetails(vehicleId) {
                         // Redirect to the vehicle details page with the selected vehicle's ID

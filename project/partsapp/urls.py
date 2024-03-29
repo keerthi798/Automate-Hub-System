@@ -138,6 +138,8 @@ urlpatterns = [
     path('insurance_success_payment/', views.insurance_success_payment, name='insurance_success_payment'),
    
     
+
+     
+]
        
     
-]
