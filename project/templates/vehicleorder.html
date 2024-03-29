@@ -218,7 +218,10 @@
 .main-content {
     padding-top: 80px; /* Adjust the top padding to match the navbar height */
 }
-
+.nav-link .fa-star {
+    color: red; /* Change the color to pink */
+    font-size: 28px; /* Change the size */
+}
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
@@ -324,7 +327,12 @@
                             </div>
                         </div>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'wishlist' %}">
+                            <i class="fas fa-star"></i> <!-- Font Awesome star icon -->
+                            Wishlist
+                        </a>
+                    </li>
                     {% comment %} {% if user.is_authenticated %}
                     <div class="cart-icon">
                     <a href="{% url 'view_cart' %}" class="view-cart-link">
@@ -401,6 +409,7 @@
        
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <style>
             /* Reset some default styles */
             body, h1, h2, p, ul, li {
@@ -416,7 +425,7 @@
             }
     
             .sidebar {
-                width: 300px;
+                width: 500px;
                 height: 200vh;
                 background-color: #543c4b;
                 padding-top: 100px;
@@ -592,20 +601,10 @@
                 cursor: pointer;
             }
             
-            /* Style for the heart icon */
-            .wishlist-button i {
-                color: red; /* Change the color of the heart icon */
-                font-size: 24px; /* Adjust the size of the heart icon */
-                transition: color 0.3s; /* Add a smooth color transition effect */
-            }
-            
-            /* Change color on hover */
-            .wishlist-button:hover i {
-                color: darkred; /* Change the color of the heart icon on hover */
-            }
+          
             .vehicle-card {
                 width: 280px;
-                margin: 20px;
+                margin: 10px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 border-radius: 10px;
                 overflow: hidden;
@@ -670,6 +669,10 @@
                 color: #3498db; /* Change the color of the icon */
                 font-size: 16px; /* Adjust the size of the icon */
             }
+            .wishlist-icon {
+                color: red; /* Change the color to pink */
+                font-size: 24px; /* Increase the size of the icon */
+            }
         </style>
         </style>
     </head>
@@ -724,16 +727,15 @@
                 <button type="submit">Apply Filters</button>
             </form>
         </div>
-    
-    
         <div class="main-content">
             <section class="vehicle-list" id="vehicle-list">
                 {% for vehicle in vehicles %}
-                <div class="vehicle-card">
+                <div class="vehicle-card" data-vehicle-id="{{ vehicle.id }}">
+                    <i class="far fa-heart wishlist-icon" data-vehicle-id="{{ vehicle.id }}"></i>
                     <div class="vehicle-image">
                         <img src="{{ vehicle.images.first.image.url }}" alt="{{ vehicle.name }} Image">
                         {% if vehicle.stock == 0 %}
-                            <div class="out-of-stock-overlay">Out of Stock</div>
+                        <div class="out-of-stock-overlay">Out of Stock</div>
                         {% endif %}
                     </div>
                     <div class="vehicle-info">
@@ -751,6 +753,9 @@
                 {% endfor %}
             </section>
         </div>
+
+
+
                 <script>
                     function viewDetails(vehicleId) {
                         // Redirect to the vehicle details page with the selected vehicle's ID
@@ -810,8 +815,61 @@
                 searchVehicles();
             });
         </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Function to handle toggling wishlist items
+                $('.wishlist-icon').click(function(e) {
+                    e.preventDefault();
+                    var vehicleId = $(this).closest('.vehicle-card').data('vehicle-id');
+                    var icon = $(this);
         
-        
+                    // Make AJAX request to toggle wishlist
+                    $.ajax({
+                        type: 'POST',
+                        url: '/wishlist/toggle/',
+                        data: {'vehicle_id': vehicleId},
+                        success: function(data) {
+                            // Check the status returned by the server
+                            if (data.status === 'added') {
+                                // Item added to wishlist, change icon to filled heart
+                                icon.removeClass('far').addClass('fas');
+                            } else if (data.status === 'removed') {
+                                // Item removed from wishlist, change icon to empty heart
+                                icon.removeClass('fas').addClass('far');
+                            }
+                        },
+                        error: function(error) {
+                            console.log('Error:', error);
+                        }
+                    });
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.wishlist-icon').click(function(e) {
+                    e.preventDefault();
+                    var vehicleId = $(this).data('vehicle-id');
+                    var icon = $(this);
+                
+                    $.ajax({
+                        type: 'GET',
+                        url: `/wishlist/toggle/${vehicleId}/`,
+                        success: function(data) {
+                            if (data.status === 'added') {
+                                icon.removeClass('far').addClass('fas');
+                            } else if (data.status === 'removed') {
+                                icon.removeClass('fas').addClass('far');
+                            }
+                        },
+                        error: function(error) {
+                            console.log('Error:', error);
+                        }
+                    });
+                });
+            });
+            </script>
     </body>
     </html>
     

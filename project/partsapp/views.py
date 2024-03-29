@@ -1289,5 +1289,36 @@ def checkout_process(request):
 def insurance_success_payment(request):
    
     return render(request, 'insurance_success_payment.html')
-from .models import Wishlist
 
+from .models import  WishlistItem
+
+@login_required
+def toggle_wishlist(request, vehicle_id):
+    try:
+        vehicle = Vehicle.objects.get(id=vehicle_id)
+        wishlist_item, created = WishlistItem.objects.get_or_create(user=request.user, vehicle=vehicle)
+        if created:
+            status = 'added'
+        else:
+            wishlist_item.delete()
+            status = 'removed'
+        return JsonResponse({'status': status})
+    except Vehicle.DoesNotExist:
+        return JsonResponse({'error': 'Vehicle not found'}, status=404)
+
+@login_required
+def wishlist(request):
+    wishlist_items = WishlistItem.objects.filter(user=request.user)
+    return render(request, 'wishlist.html', {'wishlist_items': wishlist_items})
+
+@login_required
+def remove_from_wishlist(request):
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        try:
+            wishlist_item = WishlistItem.objects.get(id=item_id, user=request.user)
+            wishlist_item.delete()
+            return JsonResponse({'success': True})
+        except WishlistItem.DoesNotExist:
+            return JsonResponse({'error': 'Wishlist item not found'}, status=404)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)

@@ -228,12 +228,11 @@ class PreviousInsurance(models.Model):
 
     def __str__(self):
         return f"Previous data for {self.vehicle_model} - {self.vehicle_usage} - {self.insurance_type}"
+from django.utils.translation import gettext_lazy as _
     
-    User = get_user_model()
+class WishlistItem(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
 
-class Wishlist(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    vehicles = models.ManyToManyField(Vehicle)
-
-    def __str__(self):
-        return f'Wishlist of {self.user.username}'
+    class Meta:
+        unique_together = ('user', 'vehicle')

@@ -137,8 +137,9 @@ urlpatterns = [
 
     path('insurance_success_payment/', views.insurance_success_payment, name='insurance_success_payment'),
    
-    
-
+    path('wishlist/', views.wishlist, name='wishlist'),
+    path('wishlist/toggle/<int:vehicle_id>/', views.toggle_wishlist, name='toggle_wishlist'),
+    path('wishlist/remove/', views.remove_from_wishlist, name='remove_from_wishlist'),
      
 ]
        
