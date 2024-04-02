@@ -631,77 +631,8 @@ border-radius: 4px;
 				</div>
 			</div>
 
-			<div class="box-container">
-
-				<div class="box box1">
-					<div class="text">
-						<h2 class="topic-heading">60.5k</h2>
-						<h2 class="topic">Users Views</h2>
-					</div>
-
-					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(31).png"
-						alt="Views">
-				</div>
-
-				<div class="box box2">
-					<div class="text">
-						<h2 class="topic-heading">150</h2>
-						<h2 class="topic">Likes</h2>
-					</div>
-
-					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210185030/14.png"
-						alt="likes">
-				</div>
-
-				<div class="box box3">
-					<div class="text">
-						<h2 class="topic-heading">320</h2>
-						<h2 class="topic">Comments</h2>
-					</div>
-
-					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(32).png"
-						alt="comments">
-				</div>
-
-				<div class="box box4">
-					<div class="text">
-						<h2 class="topic-heading">70</h2>
-						<h2 class="topic">Published</h2>
-					</div>
-
-					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210185029/13.png" alt="published">
-				</div>
-			</div>
-
-			{% comment %} <div class="report-container">
-                <div class="report-header">
-                    <h1 class="recent-Articles">User details</h1>
-                    <button class="view">View All</button>
-                </div>
-            
-                <div class="report-body">
-                    <div class="report-topic-heading">
-                        <h3 class="t-op">Username</h3>
-                        <h3 class="t-op">Email</h3>
-                        <h3 class="t-op">Role</h3>
-                        <h3 class="t-op">Action</h3>
-                    </div>
-            
-                    {% for user in users %}
-                    <div class="items">
-                        <div class="item1">
-                            <h3 class="t-op-nextlvl">{{ user.username }}</h3>
-                            <h3 class="t-op-nextlvl">{{ user.email }}</h3>
-                            <h3 class="t-op-nextlvl">{{ user.role }}</h3>
-                            <div class="action-buttons">
-                                <button class="delete-button" onclick="deleteUser({{ user.id }})">Delete</button>
-                                <button class="update-button" onclick="updateUser({{ user.id }})">Update</button>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div> {% endcomment %}
+			
+			
 
 	<script src="./index.js"></script>
     <script>
@@ -743,5 +674,75 @@ function navigateTo(url) {
 }
 
 </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmed Vehicle Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Confirmed Vehicle Details</h1>
+    <table>
+        <thead>
+            <tr>
+                
+                <th>Vehicle Name</th>
+                <th>User</th>
+                <th>Booking Amount</th>
+                <th>Booking Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vehicle in confirmed_vehicles %}
+            <tr>
+                
+                <td>{{ vehicle.vehicle_name }}</td>
+                <td>{{ vehicle.user.username }}</td>
+                <td>{{ vehicle.booking_amount }}</td>
+                <td>{{ vehicle.booking_time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>

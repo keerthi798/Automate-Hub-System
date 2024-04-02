@@ -1020,6 +1020,73 @@ def book_now(request, vehicle_id):
 
     return render(request, 'book_now.html', context)
 
+def booking_uservehicle(request):
+    # Retrieve booking details
+    bookings = Booking.objects.all()
+
+    context = {
+        'bookings': bookings,
+    }
+    return render(request, 'booking_uservehicle.html', context)
+
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+from .models import Booking
+from .models import ConfirmedVehicle
+
+def confirm_booking_vehicle(request, booking_id):
+    booking = Booking.objects.get(pk=booking_id)
+
+    if booking.status == 'Pending':
+        # Create an instance of ConfirmedVehicle model and save the confirmed vehicle details
+        confirmed_vehicle = ConfirmedVehicle.objects.create(
+            vehicle_name=booking.vehicle.name,
+            user=booking.user,
+            booking_amount=booking.booking_amount,
+            booking_time=booking.booking_time
+        )
+
+        # Update booking status
+        booking.status = 'Confirmed'
+        booking.save()
+
+         # Send email to the customer
+        subject = 'Your Booking Confirmation'
+        message = 'Booking confirmed successfully and registration number sent to your email.'
+        html_message = render_to_string('booking_confirmation_email.html', {'booking': booking})
+        from_email = 'ava.mi2001@gmail.com'  
+        to_email = booking.user.email
+        send_mail(subject, message, from_email, [to_email], html_message=html_message)
+
+
+        # Send confirmation message
+        messages.success(request, 'Booking confirmed successfully.')
+    else:
+        messages.error(request, 'Booking is not pending.')
+
+    return HttpResponseRedirect('/booking_uservehicle/')
+
+def mark_as_delivered_vehicle(request, booking_id):
+    # Retrieve the booking object
+    booking = Booking.objects.get(pk=booking_id)
+    
+    # Update the booking status to 'Delivered'
+    booking.status = 'Delivered'
+    booking.save()
+    
+    # Add a success message
+    messages.success(request, 'Booking marked as delivered successfully.')
+    
+    # Redirect back to the booking user vehicle page
+    return redirect('booking_uservehicle')
+
+from .models import ConfirmedVehicle
+
+def confirmed_vehicle_details(request):
+    confirmed_vehicles = ConfirmedVehicle.objects.all()
+    return render(request, 'confirmed_vehicle_details.html', {'confirmed_vehicles': confirmed_vehicles})
 
 
 def payment_success(request):
@@ -1074,30 +1141,12 @@ def booking_history(request):
 
     return render(request, 'booking_history.html', context)
 
-
-
-def insurance_process(request):
-   
-    return render(request, 'insurance_process.html')
 from .models import Booking
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 def payment_success(request):
-    # Assuming you have access to booking details in the context
-    booking_id = request.GET.get('booking_id')  # Replace with actual parameter name
-    booking_amount = request.GET.get('booking_amount')  # Replace with actual parameter name
-    username = request.GET.get('username')  # Replace with actual parameter name
-
-    # Send an email to the user
-    subject = 'Payment Successful - AutoMate Hub'
-    message_html = render_to_string('payment_success.html', {'booking_id': booking_id, 'booking_amount': booking_amount, 'username': username})
-    message_plain = strip_tags(message_html)
-    from_email = 'ava.mi2001@gmail.com'  # Replace with your email
-    to_email = [request.user.email]  # Replace with the user's email
     
-
-    send_mail(subject, message_plain, from_email, to_email, html_message=message_html)
 
     return render(request, 'payment_success.html')
 

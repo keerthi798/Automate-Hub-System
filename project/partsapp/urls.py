@@ -140,6 +140,14 @@ urlpatterns = [
     path('wishlist/', views.wishlist, name='wishlist'),
     path('wishlist/toggle/<int:vehicle_id>/', views.toggle_wishlist, name='toggle_wishlist'),
     path('wishlist/remove/', views.remove_from_wishlist, name='remove_from_wishlist'),
+
+    path('booking_uservehicle/', views.booking_uservehicle, name='booking_uservehicle'),
+
+    path('confirm_booking/<int:booking_id>/', views.confirm_booking_vehicle, name='confirm_booking_vehicle'),
+
+    path('mark_as_delivered/<int:booking_id>/', views.mark_as_delivered_vehicle, name='mark_as_delivered_vehicle'),
+    
+     path('confirmed_vehicle_details/', views.confirmed_vehicle_details, name='confirmed_vehicle_details'),
      
 ]
        

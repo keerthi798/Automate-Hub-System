@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <style>
+        /* Define your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff;
+            margin-top: 0;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        .booking-details {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .thank-you {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Booking Confirmation</h1>
+        <p>Dear {{ booking.user.username }},</p>
+        <div class="booking-details">
+            <p>Your booking with ID <strong>{{ booking.id }}</strong> has been confirmed successfully.</p>
+            <p>Here are the details:</p>
+            <ul>
+                <li><strong>Vehicle:</strong> {{ booking.vehicle.name }}</li>
+                <li><strong>Booking Time:</strong> {{ booking.booking_time }}</li>
+                <li><strong>Registration Number:</strong> {{ registration_number }}</li>
+            </ul>
+        </div>
+        <p class="thank-you">Thank you for choosing our service!</p>
+    </div>
+</body>
+</html>

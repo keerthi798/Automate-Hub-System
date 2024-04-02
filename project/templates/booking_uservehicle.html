@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking User Vehicle</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+         h1 {
+            color: #007bff;
+            text-align: center;
+        }  
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        
+
+        .btn-primary {
+            background-color: #007bff; /* Primary color */
+            color: #fff; /* Text color */
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-success {
+            background-color: #28a745; /* Success color */
+            color: #fff; /* Text color */
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover,
+        .btn-success:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    
+        
+        <table>
+            <thead>
+                <tr>
+                   
+                    <th>Vehicle</th>
+                    <th>User</th>
+                    <th>Price</th>
+                    <th>Booking Amount</th>
+                    <th>Booking Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                   
+                    <td>{{ booking.vehicle.name }}</td>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.vehicle.price }}</td>
+                    <td>{{ booking.booking_amount }}</td>
+                    <td>{{ booking.booking_time }}</td>
+                    <td>{{ booking.status }}</td>
+                    <td>
+                        {% if booking.status == 'Pending' %}
+                            <form action="{% url 'confirm_booking_vehicle' booking.id %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn-primary" type="submit">Confirm</button>
+                            </form>
+                        {% elif booking.status == 'Confirmed' %}
+                            <form action="{% url 'mark_as_delivered_vehicle' booking.id %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn-success" type="submit">Mark as Delivered</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+</body>
+</html>

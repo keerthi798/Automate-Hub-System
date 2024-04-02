@@ -188,6 +188,7 @@ class Booking(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     booking_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     booking_time = models.DateTimeField(default=datetime.now, blank=True)
+    status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Confirmed', 'Confirmed'), ('Delivered', 'Delivered')], default='Pending')
     
 #insurance
 class Insurance(models.Model):
@@ -236,3 +237,12 @@ class WishlistItem(models.Model):
 
     class Meta:
         unique_together = ('user', 'vehicle')
+
+
+class ConfirmedVehicle(models.Model):
+    
+    vehicle_name = models.CharField(max_length=100)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    booking_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    booking_time = models.DateTimeField()
+    
