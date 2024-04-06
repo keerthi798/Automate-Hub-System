@@ -115,8 +115,10 @@ urlpatterns = [
     path('payment_success/', views.payment_success, name='payment_success'),
     
     path('insurance_renewal/', views.insurance_renewal, name='insurance_renewal'),
+    path('insurance_new/', views.insurance_new, name='insurance_new'),
 
     path('insurance_process/', views.insurance_process, name='insurance_process'),
+    path('insurance_package/', views.insurance_package, name='insurance_package'),
 
 
     path('booking_history/', views.booking_history, name='booking_history'),
@@ -148,6 +150,9 @@ urlpatterns = [
     path('mark_as_delivered/<int:booking_id>/', views.mark_as_delivered_vehicle, name='mark_as_delivered_vehicle'),
     
      path('confirmed_vehicle_details/', views.confirmed_vehicle_details, name='confirmed_vehicle_details'),
+
+     path('generate_registration_numbers/', views.generate_registration_numbers, name='generate_registration_numbers'),
+
      
 ]
        

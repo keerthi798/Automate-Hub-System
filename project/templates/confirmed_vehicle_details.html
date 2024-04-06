@@ -725,21 +725,26 @@ function navigateTo(url) {
     <table>
         <thead>
             <tr>
-                
+                <th>Vehicle ID</th>
                 <th>Vehicle Name</th>
                 <th>User</th>
                 <th>Booking Amount</th>
                 <th>Booking Time</th>
+				
             </tr>
         </thead>
         <tbody>
             {% for vehicle in confirmed_vehicles %}
             <tr>
-                
+                <td>{{ vehicle.id }}</td>
                 <td>{{ vehicle.vehicle_name }}</td>
                 <td>{{ vehicle.user.username }}</td>
                 <td>{{ vehicle.booking_amount }}</td>
                 <td>{{ vehicle.booking_time }}</td>
+				
+				</td>
+				
+    			
             </tr>
             {% endfor %}
         </tbody>

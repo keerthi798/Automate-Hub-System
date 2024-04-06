@@ -44,6 +44,13 @@ class InsuranceRenewal(models.Model):
     service_branch = models.CharField(max_length=50)
     id_proof = models.FileField(upload_to='id_proofs/', blank=True, null=True)
 
+
+class InsuranceNew(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    register_number = models.CharField(max_length=20)
+    state = models.CharField(max_length=50)
+    id_proof = models.FileField(upload_to='id_proofs/', blank=True, null=True)
+
 class Parts(models.Model):
     partsname = models.CharField(max_length=100)
     description = models.TextField()
@@ -245,4 +252,12 @@ class ConfirmedVehicle(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     booking_amount = models.DecimalField(max_digits=10, decimal_places=2)
     booking_time = models.DateTimeField()
+    registration = models.ForeignKey('VehicleRegistration', on_delete=models.SET_NULL, null=True, blank=True)
+
+class VehicleRegistration(models.Model):
+    registration_number = models.CharField(max_length=20)
     
+
+    def __str__(self):
+        return self.registration_number
+

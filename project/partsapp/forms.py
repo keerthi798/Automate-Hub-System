@@ -42,3 +42,4 @@ class VehicleForm(forms.ModelForm):
             'images': MultipleFileInput(),
             'vehicle_colors': forms.SelectMultiple(attrs={'class': 'form-control'}),
         }
+

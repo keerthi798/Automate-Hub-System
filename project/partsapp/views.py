@@ -948,6 +948,16 @@ def vehicleorder(request, model):
             Q(transmission_type__icontains=search_term)
         )
 
+    if request.method == 'POST' and request.FILES.get('image'):
+        # Handle image upload
+        uploaded_image = request.FILES['image']
+        # Process the uploaded image and find related images
+        related_images = VehicleImage.objects.filter(image__icontains=uploaded_image.name)
+        # Serialize the related images
+        related_images_data = serializers.serialize('json', related_images)
+        return JsonResponse({'related_images': related_images_data})
+    
+
     # If it's an AJAX request, return JSON data
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         data = serializers.serialize('json', vehicles)
@@ -956,13 +966,19 @@ def vehicleorder(request, model):
     return render(request, 'vehicleorder.html', {'model': model, 'vehicles': vehicles, 'user_profile': user_profile})
 
 
+def search_related_items(request):
+    if request.method == 'POST' and request.FILES.get('image'):
+        # Process the uploaded image and perform search for related items
+        uploaded_image = request.FILES['image']
 
+        # Implement your logic here to analyze the uploaded image and find related items
+        
+        # For demonstration, let's assume we found related items
+        related_items = [{'name': 'Related Item 1'}, {'name': 'Related Item 2'}]
 
-
-
-
-
-
+        return JsonResponse(related_items, safe=False)
+    else:
+        return JsonResponse({'error': 'Invalid request. Please upload an image.'})
 
 def vehicle_list(request):
     vehicles = Vehicle.objects.all()  # Fetch all vehicles, adjust the queryset as needed
@@ -1047,6 +1063,7 @@ def confirm_booking_vehicle(request, booking_id):
             booking_amount=booking.booking_amount,
             booking_time=booking.booking_time
         )
+        
 
         # Update booking status
         booking.status = 'Confirmed'
@@ -1087,6 +1104,10 @@ from .models import ConfirmedVehicle
 def confirmed_vehicle_details(request):
     confirmed_vehicles = ConfirmedVehicle.objects.all()
     return render(request, 'confirmed_vehicle_details.html', {'confirmed_vehicles': confirmed_vehicles})
+
+
+from django.shortcuts import render
+from .models import ConfirmedVehicle
 
 
 def payment_success(request):
@@ -1371,3 +1392,68 @@ def remove_from_wishlist(request):
         except WishlistItem.DoesNotExist:
             return JsonResponse({'error': 'Wishlist item not found'}, status=404)
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+from django.shortcuts import render
+from .models import VehicleRegistration
+import random
+import string
+
+def generate_registration_numbers(request):
+    # Generate and store 30 vehicle registration numbers
+    for _ in range(10):
+        registration_number = generate_registration_number()
+        VehicleRegistration.objects.create(registration_number=registration_number)
+    
+    # Retrieve stored registration numbers
+    registration_numbers = VehicleRegistration.objects.all()
+    
+    # Pass registration numbers to template for display
+    return render(request, 'generate_registration_numbers.html', {'registration_numbers': registration_numbers})
+
+def generate_registration_number():
+    state_code = "KL"  # Example state code (Kerala)
+    district_code = random.randint(1, 14)  # Example district codes for Kerala (1-14)
+    district_code_str = str(district_code).zfill(2)  # Zero-pad district code if needed
+    alphabet_letters = string.ascii_uppercase
+    vehicle_letters = ''.join(random.choices(alphabet_letters, k=2))  # Random 2 letters
+    unique_number = random.randint(1000, 9999)  # Random 4-digit number
+    registration_number = f"{state_code} {district_code_str} {vehicle_letters} {unique_number}"
+    return registration_number
+
+
+# views.py
+from django.shortcuts import render, redirect
+from .models import VehicleRegistration, InsuranceNew
+
+def insurance_new(request):
+    error_message = None 
+    if request.method == 'POST':
+        register_number = request.POST.get('register_number')
+        state = request.POST.get('state')
+
+        # Check if the registration number exists in VehicleRegistration table
+        if VehicleRegistration.objects.filter(registration_number=register_number).exists():
+            # If registration number exists, proceed with form submission
+            InsuranceNew.objects.create(
+                user=request.user,
+                register_number=register_number,
+                state=state,
+                id_proof=request.FILES.get('id_proof')
+            )
+            return redirect('insurance_package')  # Redirect to success page after successful submission
+        else:
+            # If registration number doesn't exist, show an error message
+            error_message = "Invalid registration number. Please enter a valid registration number."
+            return render(request, 'insurance_new.html', {'error_message': error_message})
+
+    return render(request, 'insurance_new.html')
+
+def insurance_package(request):
+    if request.method == 'POST':
+        selected_insurance_id = request.POST.get('selected_insurance')
+        selected_insurance = Insurance.objects.get(pk=selected_insurance_id)
+        return render(request, 'checkout_process.html', {'selected_insurance': selected_insurance})
+    
+    insurances = Insurance.objects.all()
+    return render(request, 'insurance_package.html', {'insurances': insurances})
+

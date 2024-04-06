@@ -722,12 +722,23 @@
                     <label for="max_price">Max Price:</label>
                     <input type="number" name="max_price" id="max_price" value="{{ request.GET.max_price }}" placeholder="Max Price">
                 </div>
+
+                
         
                 <!-- Apply Filters button and closing form tag -->
                 <button type="submit">Apply Filters</button>
             </form>
+            
         </div>
+       
         <div class="main-content">
+            <div class="filter-group">
+                <label for="image-upload-input">Upload Image:</label>
+                <input type="file" id="image-upload-input" accept="image/*">
+                <button id="image-search-button">Search</button>
+                <img src="#" alt="Uploaded Image" id="uploaded-image" style="display: none;">
+            </div>
+            
             <section class="vehicle-list" id="vehicle-list">
                 {% for vehicle in vehicles %}
                 <div class="vehicle-card" data-vehicle-id="{{ vehicle.id }}">
@@ -752,6 +763,7 @@
                 <p>No vehicles available.</p>
                 {% endfor %}
             </section>
+
         </div>
 
 
@@ -869,6 +881,54 @@
                     });
                 });
             });
+            </script>
+            <script>
+                $(document).ready(function () {
+                    // Function to handle image upload and search
+                    $('#image-search-button').click(function() {
+                        var formData = new FormData();
+                        var fileInput = document.getElementById('image-upload-input');
+                        var uploadedImage = document.getElementById('uploaded-image');
+                        
+                        // Check if a file is selected
+                        if (fileInput.files.length > 0) {
+                            var file = fileInput.files[0];
+                            formData.append('image', file);
+                
+                            // Display the uploaded image
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                uploadedImage.src = e.target.result;
+                                uploadedImage.style.display = 'block';
+                            };
+                            reader.readAsDataURL(file);
+                
+                            // Make AJAX request to search for related items
+                            $.ajax({
+                                type: 'POST',
+                                url: '/search_related_items/',  // Replace with your view URL
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(response) {
+                                    // Display related items based on search results
+                                    var relatedItemsDiv = $('#related-items');
+                                    relatedItemsDiv.empty();
+                                    response.forEach(function(item) {
+                                        relatedItemsDiv.append(`<div>${item.name}</div>`);
+                                        // You can customize how related items are displayed here
+                                    });
+                                },
+                                error: function(error) {
+                                    console.log('Error:', error);
+                                }
+                            });
+                        } else {
+                            alert('Please select an image.');
+                        }
+                    });
+                });
+                
             </script>
     </body>
     </html>

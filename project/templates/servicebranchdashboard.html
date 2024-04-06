@@ -591,7 +591,12 @@ border-radius: 4px;
 							alt="institution">
 						<h3> Booking confirm</h3>
 					</div>
-					
+					<div class="nav-option option6" onclick="window.location.href={% url 'generate_registration_numbers' %}">
+						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/6.png"
+							class="nav-img"
+							alt="institution">
+						<h3> Register number </h3>
+					</div>
                     
 					{% comment %} <div class="nav-option option5">
 						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/9.png"
@@ -717,12 +722,13 @@ const reportOption = document.querySelector('.option3');
 const bookingOption = document.querySelector('.option4');
 const confirmOption = document.querySelector('.option5');
 
-const workerOption = document.querySelector('.option6');
+const registerOption = document.querySelector('.option6');
 // Get the URL using Django template syntax and set it as a data attribute
 profileOption.dataset.url = '{% url "userdetails" %}';
 reportOption.dataset.url = '{% url "userprofile" %}';
 bookingOption.dataset.url = '{% url "booking_uservehicle" %}';
 confirmOption.dataset.url = '{% url "confirmed_vehicle_details" %}';
+registerOption.dataset.url = '{% url "generate_registration_numbers" %}';
 // Add click event listeners
 profileOption.addEventListener('click', function() {
     navigateTo(this.dataset.url);

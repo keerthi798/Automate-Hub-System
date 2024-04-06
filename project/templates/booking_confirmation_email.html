@@ -50,12 +50,12 @@
         <h1>Booking Confirmation</h1>
         <p>Dear {{ booking.user.username }},</p>
         <div class="booking-details">
-            <p>Your booking with ID <strong>{{ booking.id }}</strong> has been confirmed successfully.</p>
+            <p>Your booking  has been confirmed successfully.</p>
             <p>Here are the details:</p>
             <ul>
                 <li><strong>Vehicle:</strong> {{ booking.vehicle.name }}</li>
                 <li><strong>Booking Time:</strong> {{ booking.booking_time }}</li>
-                <li><strong>Registration Number:</strong> {{ registration_number }}</li>
+                
             </ul>
         </div>
         <p class="thank-you">Thank you for choosing our service!</p>
