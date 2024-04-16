@@ -153,6 +153,20 @@ urlpatterns = [
 
      path('generate_registration_numbers/', views.generate_registration_numbers, name='generate_registration_numbers'),
 
+     path('package_details/', views.package_details, name='package_details'),
+
+     path('insurance_success/', views.insurance_success, name='insurance_success'),
+
+     path('payment_records_list/', views.payment_records_list, name='payment_records_list'),
+
+     path('confirm_payment/', views.confirm_payment, name='confirm_payment'),
+     
+     path('generate_pdf_email_template/', views.render_generate_pdf_email_template, name='generate_pdf_email_template'),
+    path('generate_pdf_and_send_email/', views.generate_pdf_and_send_email, name='generate_pdf_and_send_email'),
+
+    path('policies/', views.policy_list, name='policy_list'),
+
+   
      
 ]
        

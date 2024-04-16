@@ -1320,10 +1320,7 @@ def update_insurance(request, entry_id):
 def previous_insurance_list(request):
     previous_insurance_entries = PreviousInsurance.objects.all()
     return render(request, 'previous_insurance_list.html', {'previous_insurance_entries': previous_insurance_entries})
-
-
-
-  
+ 
 
 def insurance_process(request):
     if request.method == 'POST':
@@ -1433,27 +1430,304 @@ def insurance_new(request):
 
         # Check if the registration number exists in VehicleRegistration table
         if VehicleRegistration.objects.filter(registration_number=register_number).exists():
-            # If registration number exists, proceed with form submission
-            InsuranceNew.objects.create(
-                user=request.user,
-                register_number=register_number,
-                state=state,
-                id_proof=request.FILES.get('id_proof')
-            )
-            return redirect('insurance_package')  # Redirect to success page after successful submission
+            # Check if the registration number is already associated with another user
+            if InsuranceNew.objects.filter(register_number=register_number).exists():
+                # If registration number is already associated with another user, show an error message
+                error_message = "The registration number is already associated with another user."
+            else:
+                # If registration number exists and is not associated with another user, proceed with form submission
+                InsuranceNew.objects.create(
+                    user=request.user,
+                    register_number=register_number,
+                    state=state,
+                    id_proof=request.FILES.get('id_proof')
+                )
+                return redirect('insurance_package')  # Redirect to success page after successful submission
         else:
             # If registration number doesn't exist, show an error message
             error_message = "Invalid registration number. Please enter a valid registration number."
-            return render(request, 'insurance_new.html', {'error_message': error_message})
 
-    return render(request, 'insurance_new.html')
+    return render(request, 'insurance_new.html', {'error_message': error_message})
 
 def insurance_package(request):
     if request.method == 'POST':
         selected_insurance_id = request.POST.get('selected_insurance')
         selected_insurance = Insurance.objects.get(pk=selected_insurance_id)
-        return render(request, 'checkout_process.html', {'selected_insurance': selected_insurance})
+        return render(request, 'package_details.html', {'selected_insurance': selected_insurance})
     
     insurances = Insurance.objects.all()
     return render(request, 'insurance_package.html', {'insurances': insurances})
+
+from .models import InsuranceNew, Insurance
+
+# def package_details(request):
+#     user_insurance_new = None
+#     try:
+#         user_insurance_new = InsuranceNew.objects.filter(user=request.user).first()
+#     except InsuranceNew.DoesNotExist:
+#         pass  # Handle the case where there are no insurance renewal details for the user
+
+#     if request.method == 'POST':
+#         selected_insurance_id = request.POST.get('selected_insurance')
+#         selected_insurance = get_object_or_404(Insurance, pk=selected_insurance_id)
+#         selected_insurance_price_in_paise = int(selected_insurance.renew_price * 100)
+#         return render(request, 'package_details.html', {'selected_insurance': selected_insurance, 'user_insurance_new': user_insurance_new, 'selected_insurance_price_in_paise': selected_insurance_price_in_paise})
+    
+#     return redirect('insurance_package')  
+# def package_details(request):
+#     user_insurance_new = None
+#     register_number = None
+#     state = None
+    
+#     try:
+#         user_insurance_new = InsuranceNew.objects.filter(user=request.user).first()
+#         if user_insurance_new:
+#             register_number = user_insurance_new.register_number
+#             state = user_insurance_new.state
+#     except InsuranceNew.DoesNotExist:
+#         pass  # Handle the case where there are no insurance renewal details for the user
+
+#     if request.method == 'POST':
+#         selected_insurance_id = request.POST.get('selected_insurance')
+#         selected_insurance = get_object_or_404(Insurance, pk=selected_insurance_id)
+#         selected_insurance_price_in_paise = int(selected_insurance.price * 100)
+#         return render(request, 'package_details.html', {
+#             'selected_insurance': selected_insurance, 
+#             'user_insurance_new': user_insurance_new, 
+#             'selected_insurance_price_in_paise': selected_insurance_price_in_paise,
+#             'register_number': register_number,
+#             'state': state,
+#         })
+    
+#     return redirect('insurance_success')
+
+
+from .models import PaymentRecord, Insurance, InsuranceNew
+
+def package_details(request):
+    user_insurance_new = None
+    register_number = None
+    state = None
+    
+    try:
+        user_insurance_new = InsuranceNew.objects.filter(user=request.user).first()
+        if user_insurance_new:
+            register_number = user_insurance_new.register_number
+            state = user_insurance_new.state
+    except InsuranceNew.MultipleObjectsReturned:
+        # If multiple InsuranceNew objects are returned, handle the situation here
+        pass
+    except InsuranceNew.DoesNotExist:
+        pass  # Handle the case where there are no insurance renewal details for the user
+
+    if request.method == 'POST':
+        selected_insurance_id = request.POST.get('selected_insurance')
+        selected_insurance = get_object_or_404(Insurance, pk=selected_insurance_id)
+        selected_insurance_price_in_paise = int(selected_insurance.price * 100)
+        return render(request, 'package_details.html', {
+            'selected_insurance': selected_insurance, 
+            'user_insurance_new': user_insurance_new, 
+            'selected_insurance_price_in_paise': selected_insurance_price_in_paise,
+            'register_number': register_number,
+            'state': state,
+        })
+    
+    return redirect('insurance_success')
+
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
+from django.utils import timezone
+from .models import PaymentRecord, Insurance
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
+from django.utils import timezone
+from .models import PaymentRecord, Insurance, InsuranceNew
+
+def insurance_success(request):
+    if request.method == 'POST':
+        selected_insurance_id = request.POST.get('selected_insurance_id')
+        selected_insurance_price_in_paise = int(request.POST.get('selected_insurance_price_in_paise'))
+
+        # Fetch selected insurance object
+        selected_insurance = get_object_or_404(Insurance, pk=selected_insurance_id)
+
+        # Retrieve vehicle register number and state for the user
+        try:
+            user_insurance_new_queryset = InsuranceNew.objects.filter(user=request.user)
+            if user_insurance_new_queryset.exists():
+                user_insurance_new = user_insurance_new_queryset.first()
+                register_number = user_insurance_new.register_number
+                state = user_insurance_new.state
+            else:
+                register_number = "N/A"
+                state = "N/A"
+        except InsuranceNew.MultipleObjectsReturned:
+            # Handle the case where multiple InsuranceNew objects are returned
+            register_number = "Multiple entries found"
+            state = "Multiple entries found"
+
+        # Create PaymentRecord object
+        payment_record = PaymentRecord.objects.create(
+            user=request.user,
+            insurance=selected_insurance,
+            amount_paid=selected_insurance_price_in_paise / 100,  # Convert back to rupees
+            payment_datetime=timezone.now(),
+            insurancenew=user_insurance_new  # Pass the InsuranceNew object if available
+        )
+
+        # Redirect to a success page with insurance details
+        return render(request, 'insurance_success.html', {
+            'payment_record': payment_record,
+            'register_number': register_number,
+            'state': state
+        })
+   
+    # Handle invalid requests
+    return HttpResponse("Invalid Request")
+
+from .models import CustomUser, Insurance, InsuranceNew 
+def payment_records_list(request):
+    # Fetch PaymentRecords along with associated InsuranceNew details
+    payment_records = PaymentRecord.objects.select_related('insurancenew').all()
+    
+    return render(request, 'payment_records_list.html', {'payment_records': payment_records})
+from datetime import datetime, timedelta
+
+
+def confirm_payment(request):
+    if request.method == 'POST':
+        # Extract payment record details from the form
+        payment_record_id = request.POST.get('payment_record_id')
+        payment_record = PaymentRecord.objects.select_related('insurancenew').get(id=payment_record_id)
+        
+        # Generate policy number, issued and expiry date (current date and 1 year from now)
+        policy_number = generate_policy_number()
+        issued_date = datetime.now()
+        expiry_date = issued_date + timedelta(days=365)
+
+        
+
+
+        # Create the email content
+        subject = 'Insurance Policy Confirmation'
+        html_message = render_to_string('confirm_payment.html', {'payment_record': payment_record, 'policy_number': policy_number, 'issued_date': issued_date, 'expiry_date': expiry_date})
+        plain_message = strip_tags(html_message)
+        from_email = 'ava.mi2000@gmail.com'
+        to_email = payment_record.user.email
+
+        # Send the email
+        send_mail(subject, plain_message, from_email, [to_email], html_message=html_message)
+
+        # Redirect or render success page
+        return render(request, 'confirm_payment.html', {'payment_record': payment_record, 'policy_number': policy_number, 'issued_date': issued_date, 'expiry_date': expiry_date})
+    else:
+        # Handle if it's not a POST request
+        pass
+import random
+import string
+from .models import Policy  # Import your Policy model here
+
+def generate_policy_number(length=8):
+    characters = string.ascii_uppercase + string.digits
+    while True:
+        policy_number = ''.join(random.choice(characters) for _ in range(length))
+        if not Policy.objects.filter(number=policy_number).exists():
+            break
+    return policy_number
+
+# views.py
+from .models import Policy
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.core.mail import EmailMessage
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
+from .models import PaymentRecord
+import tempfile
+
+# Define styles for the PDF document
+styles = getSampleStyleSheet()
+
+def generate_pdf_and_send_email(request):
+    # Fetch PaymentRecords along with associated InsuranceNew details
+    payment_records = PaymentRecord.objects.select_related('insurancenew').all()
+
+    # Create a buffer to store the PDF data
+    buffer = HttpResponse(content_type='application/pdf')
+    buffer['Content-Disposition'] = 'attachment; filename="insurance_details.pdf"'
+
+    # Create a PDF document
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
+    elements = []
+
+    # Add a title
+    elements.append(Paragraph("Insurance Details", styles['Title']))
+
+    # Add insurance details to the PDF
+    for payment_record in payment_records:
+        
+        
+
+        elements.append(Paragraph(f"User: {payment_record.user.username}", styles['Normal']))  # Include username
+        elements.append(Paragraph(f"Email: {payment_record.user.email}", styles['Normal']))  # Include email
+        elements.append(Paragraph(f"Phone Number: {payment_record.user.phone_number}", styles['Normal']))  # Include phone number
+        elements.append(Paragraph(f"Address: {payment_record.user.address}", styles['Normal']))  # Include address
+        elements.append(Paragraph(f"Register Number: {payment_record.insurancenew.register_number}", styles['Normal']))  # Include register number
+        elements.append(Paragraph(f"State: {payment_record.insurancenew.state}", styles['Normal']))  # Include state
+        elements.append(Paragraph(f"Vehicle Model: {payment_record.insurance.vehicle_model}", styles['Normal']))  # Include vehicle model
+        elements.append(Paragraph(f"Vehicle Usage: {payment_record.insurance.vehicle_usage}", styles['Normal']))  # Include vehicle usage
+        elements.append(Paragraph(f"Fuel Type: {payment_record.insurance.fuel_type}", styles['Normal']))  # Include fuel type
+        elements.append(Paragraph(f"Transmission Type: {payment_record.insurance.transmission_type}", styles['Normal']))  # Include transmission type
+        elements.append(Paragraph(f"Insurance Type: {payment_record.insurance.insurance_type}", styles['Normal']))  # Include insurance type
+        elements.append(Paragraph(f"Package: {payment_record.insurance.price}", styles['Normal']))  # Include package
+        elements.append(Paragraph(f"Amount Paid: {payment_record.amount_paid}", styles['Normal']))  # Include amount paid
+        elements.append(Paragraph(f"Payment Date: {payment_record.payment_datetime}", styles['Normal']))  # Include payment date
+       
+    # Create a table from the elements
+    data = [[element] for element in elements]
+    table = Table(data)
+
+    # Style the table
+    style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+                        ('GRID', (0, 0), (-1, -1), 1, colors.black)])
+
+    table.setStyle(style)
+
+    # Add the table to the PDF document
+    elements.append(table)
+    doc.build(elements)
+
+    # Send email with PDF attachment
+    subject = 'Insurance Details Report'
+    message = 'Please find attached the insurance details report.'
+    from_email = 'ava.mi2000@gmail.com'
+    to_email = payment_record.user.email
+
+    pdf_data = buffer.getvalue()
+
+    # Create a temporary file to store the PDF
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
+        tmp_file.write(pdf_data)
+        tmp_file.close()
+        email = EmailMessage(subject, message, from_email, [to_email])
+        email.attach_file(tmp_file.name)
+        email.send()
+
+    return HttpResponse("Email with PDF attachment sent successfully.")
+
+def render_generate_pdf_email_template(request):
+    return render(request, 'generate_pdf_email_template.html')
+
+def policy_list(request):
+    policies = Policy.objects.all()
+    return render(request, 'policies.html', {'policies': policies})
 

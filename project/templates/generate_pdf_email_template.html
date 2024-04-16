@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate PDF and Send Email</title>
+</head>
+<body>
+    <h1>Generate PDF and Send Email</h1>
+    <form action="{% url 'generate_pdf_and_send_email' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Generate PDF and Send Email</button>
+    </form>
+</body>
+</html>

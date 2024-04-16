@@ -412,7 +412,7 @@
 <body>
     <div class="container">
         <h2>Insurance Package</h2>
-        <form method="POST" action="{% url 'checkout_process' %}">
+        <form method="POST" action="{% url 'package_details' %}">
         {% csrf_token %}
         <div class="insurance-list">
             {% for insurance in insurances %}

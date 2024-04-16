@@ -260,4 +260,25 @@ class VehicleRegistration(models.Model):
 
     def __str__(self):
         return self.registration_number
+from django.utils import timezone 
+from django.db import models
+
+class PaymentRecord(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
+    insurancenew = models.ForeignKey(InsuranceNew, on_delete=models.CASCADE, null=True)
+    payment_datetime = models.DateTimeField(default=timezone.now)
+    
+    
+class Policy(models.Model):
+    number = models.CharField(max_length=20, unique=True)
+    issued_date = models.DateField()
+    expiry_date = models.DateField()
+    
+
+    def __str__(self):
+        return self.number
+    
+
 

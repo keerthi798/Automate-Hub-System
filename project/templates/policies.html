@@ -1,0 +1,28 @@
+<!-- policy_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Policy List</title>
+</head>
+<body>
+    <h1>Policy List</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Policy Number</th>
+                <th>Issued Date</th>
+                <th>Expiry Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for policy in policies %}
+            <tr>
+                <td>{{ policy.number }}</td>
+                <td>{{ policy.issued_date }}</td>
+                <td>{{ policy.expiry_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -584,6 +584,13 @@ border-radius: 4px;
 							alt="blog">
 						<h3>Previous Insurance Details</h3>
 					</div>
+
+					<div class="nav-option option5"  onclick="window.location.href={% url "payment_records_list" %}">
+						<img src="https://thumbs.dreamstime.com/z/repair-sign-auto-service-truck-spanner-silhouette-vector-icon-flat-solid-isolated-black-eps-108961367.jpg"
+							class="nav-img"
+							alt="blog">
+						<h3> Insurance New user</h3>
+					</div>
 					
 					
 
@@ -663,6 +670,8 @@ border-radius: 4px;
 const insuranceOption = document.querySelector('.option2');
 const insdetailstOption = document.querySelector('.option3');
 const previousOption = document.querySelector('.option4');
+const NewOption = document.querySelector('.option5');
+
 
 
 // Get the URL using Django template syntax and set it as a data attribute
@@ -671,6 +680,8 @@ insuranceOption.dataset.url = '{% url "insurance_add" %}';
 insdetailsOption.dataset.url = '{% url "insurance_list" %}';
 
 previousOption.dataset.url = '{% url "previous_insurance_list" %}';
+
+NewOption.dataset.url = '{% url "payment_records_list" %}';
 
 // Add click event listeners
 insdetailsOption.addEventListener('click', function() {
