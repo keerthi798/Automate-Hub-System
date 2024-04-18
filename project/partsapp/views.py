@@ -138,6 +138,8 @@ def login(request):
             
             elif user.role == "insurance_company":
                 return redirect("insurancecompanydashboard")
+            elif user.role == "delivery_boy":
+                return redirect("deliveryboydashboard")
           
         else:
             messages.error(request, "Incorrect username or password. Please try again.")
@@ -1609,7 +1611,6 @@ def confirm_payment(request):
 
         
 
-
         # Create the email content
         subject = 'Insurance Policy Confirmation'
         html_message = render_to_string('confirm_payment.html', {'payment_record': payment_record, 'policy_number': policy_number, 'issued_date': issued_date, 'expiry_date': expiry_date})
@@ -1731,3 +1732,105 @@ def policy_list(request):
     policies = Policy.objects.all()
     return render(request, 'policies.html', {'policies': policies})
 
+#delivery
+
+from django.shortcuts import render
+from .models import Order
+
+def available_orders(request):
+    # Query the database for all orders
+    all_orders = Order.objects.all()
+
+    # Pass all_orders data to the template
+    return render(request, 'availableorders.html', {'available_orders': all_orders})
+
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
+from .models import Order
+import random
+import logging
+
+logger = logging.getLogger(__name__)
+
+@login_required(login_url='login')
+def delivery_update_status(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+
+    if request.method == 'POST':
+        delivery_status = request.POST.get('delivery_status')
+
+        if delivery_status == 'Delivered':
+            otp = ''.join([str(random.randint(0, 9)) for _ in range(6)])
+            send_mail(
+                'Delivery Confirmation OTP',
+                f'Your OTP for order {order.id} is: {otp}',
+                settings.EMAIL_HOST_USER,
+                [order.user.email],
+                fail_silently=False,
+            )
+
+            # Store OTP and order ID in session for later verification
+            request.session['delivery_status_otp'] = otp
+            request.session['otp_order_id'] = str(order_id)
+
+            messages.info(request, 'OTP has been sent to the customer for delivery confirmation.')
+            return redirect('otp_verification', order_id=order_id)  # Redirect to OTP verification page with order_id
+
+        else:
+            order.delivery_status = delivery_status
+            order.save()
+            messages.success(request, 'Delivery status updated successfully.')
+            return redirect('available_orders')  # Redirect to the delivery boy dashboard
+
+    return render(request, "deliveryupdatestatus.html", {'order': order})
+
+@login_required(login_url='login')
+def otp_verification(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+
+    if request.method == 'POST':
+        submitted_otp = request.POST.get('otp')
+        session_order_id = request.session.get('otp_order_id')
+
+        if str(order_id) == session_order_id and submitted_otp == request.session.get('delivery_status_otp'):
+            # OTP is correct, update the delivery status
+            order.delivery_status = 'Delivered'
+            order.save()
+
+            # Clear OTP and order ID from session
+            del request.session['delivery_status_otp']
+            del request.session['otp_order_id']
+
+            # Redirect to a success page or the delivery details page
+            messages.success(request, 'Order marked as delivered successfully.')
+            return redirect('available_orders')
+        else:
+            # OTP is incorrect, render the OTP verification page with error message
+            messages.error(request, 'Incorrect OTP. Please try again.')
+            return render(request, 'otp_verification.html', {'order': order, 'error_message': 'Incorrect OTP. Please try again.'})
+
+    else:
+        return render(request, 'otp_verification.html', {'order':order})
+    
+def deliveryboy_dashboard(request):
+    # Retrieve the order object (example)
+    order = Order.objects.first()  # Replace this with your actual query to retrieve the order
+
+    context = {
+        'order': order,
+        # Other context data if needed
+    }
+
+    return render(request, 'deliveryboydashboard.html', context)
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def order_summary(request):
+
+    user_orders = Order.objects.filter(user=request.user)
+    return render(request, 'order_summary.html',{'orders':user_orders})

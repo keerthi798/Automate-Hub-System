@@ -768,6 +768,21 @@ document.addEventListener('DOMContentLoaded', function() {
         .pdf-button:hover {
             background-color: #0056b3;
         }
+		.confirm-button {
+			/* Common styles for both confirmed and unconfirmed buttons */
+			padding: 5px 10px;
+			border: none;
+			border-radius: 3px;
+			cursor: pointer;
+			font-size: 14px;
+			font-weight: bold;
+		}
+		
+		.confirmed {
+			/* Styles for the confirmed button */
+			background-color: green; /* Change to your desired color */
+			color: white;
+		}
     </style>
 </head>
 <body>
@@ -808,13 +823,25 @@ document.addEventListener('DOMContentLoaded', function() {
                         Package: {{ payment_record.insurance.price }} <br>
                     </td>
                     
-                    <td>
-                        <form method="post" action="{% url 'confirm_payment' %}">
+                    
+                        {% comment %} <form method="post" action="{% url 'confirm_payment' %}">
                             {% csrf_token %}
                             <input type="hidden" name="payment_record_id" value="{{ payment_record.id }}">
                             <button type="submit" class="confirm-button">Confirm</button>
-                        </form>
-                    </td>
+                        </form> {% endcomment %}
+
+						<td>
+							{% if payment_record.confirmed %}
+								<button type="button" class="confirm-button confirmed" disabled>Confirmed</button>
+							{% else %}
+								<form id="confirm-form-{{ payment_record.id }}" method="post" action="{% url 'confirm_payment' %}">
+									{% csrf_token %}
+									<input type="hidden" name="payment_record_id" value="{{ payment_record.id }}">
+									<button type="submit" class="confirm-button" onclick="disableButton({{ payment_record.id }})">Confirm</button>
+								</form>
+							{% endif %}
+						</td>
+						
                     <td>
                         <form action="{% url 'generate_pdf_and_send_email' %}" method="post">
                             {% csrf_token %}
@@ -827,5 +854,16 @@ document.addEventListener('DOMContentLoaded', function() {
         </table>
         
     </div>
+	<script>
+		function disableButton(payment_record_id) {
+			// Disable the button upon click
+			var formId = "confirm-form-" + payment_record_id;
+			var form = document.getElementById(formId);
+			var confirmButton = form.querySelector(".confirm-button");
+			confirmButton.disabled = true;
+			confirmButton.innerText = "Confirming..."; // Optionally change button text
+		}
+	</script>
+	
 </body>
 </html>

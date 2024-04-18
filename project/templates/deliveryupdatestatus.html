@@ -513,6 +513,48 @@ border-radius: 4px;
 }
 }
 
+    /* Style the form */
+    .update-form {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    /* Style form fields */
+    .form-group {
+        margin-bottom: 50px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    select.form-control {
+        width: 100%;
+    }
+
+    /* Style the submit button */
+    .btn-primary {
+        width: 100%;
+    }
+    .btn-primary {
+    width: 100%;
+    background-color: #007bff; /* Blue color for the button */
+    color: #fff; /* White text color for the button */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Add border radius */
+    padding: 10px 20px; /* Adjust padding */
+    cursor: pointer; /* Add cursor pointer */
+    transition: background-color 0.3s ease; /* Smooth transition for background color change */
+}
+
+/* Style the submit button on hover */
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover */
+}
 </style>
 </head>
 
@@ -605,43 +647,7 @@ border-radius: 4px;
 						alt="search-button">
 				</div>
 			</div>
-            <div class="box-container">
-
-				<div class="box box1">
-					<div class="text">
-						<h2 class="topic-heading">{{ user_count }}</h2>
-						<h2 class="topic">Users</h2>
-					</div>
-					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv9Mizj0nNWMqNIKO-5BCVypUX-qgZKl2y4Q&usqp=CAU" alt="Users">
-				</div>
-
-				<div class="box box2">
-					<div class="text">
-						<h2 class="topic-heading">{{ service_center_count }}</h2>
-						<h2 class="topic">Branches</h2>
-					</div>
-					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210185030/14.png" alt="Branches">
-				</div>
-
-				<div class="box box3">
-					<div class="text">
-						<h2 class="topic-heading">320</h2>
-						<h2 class="topic">Comments</h2>
-					</div>
-
-					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(32).png"
-						alt="comments">
-				</div>
-
-				<div class="box box4">
-					<div class="text">
-						<h2 class="topic-heading">70</h2>
-						<h2 class="topic">Published</h2>
-					</div>
-
-					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210185029/13.png" alt="published">
-				</div>
-			</div>
+            
 			
 			
 
@@ -702,7 +708,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
 </script>
+
+
+
+
+<div class="container">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <!-- Main content goes here -->
+        <form class="update-form" action="{% url 'delivery_update_status' order.id %}" method="post">
+            {% csrf_token %}
+            <!-- Other form fields -->
+            <input type="hidden" name="order_id" value="{{ order.id }}">
+            <!-- Delivery Status -->
+            <div class="form-group">
+                <label for="delivery_status">Delivery Status:</label>
+                <select class="form-control" name="delivery_status" id="delivery_status">
+                    <option value="Pending">Pending</option>
+                    <option value="Out for delivery">Out for delivery</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Delivery status</button>
+        </form>
+    </main>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

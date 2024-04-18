@@ -15,7 +15,7 @@
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    <title>sparx motors light vehicles</title>
+    <title>AutoMate Hub</title>
     <style>
         .user-profile {
             position: relative;
@@ -257,6 +257,7 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="{% url 'booking' %}">Service Booking</a>
                                 <a class="dropdown-item" href="{% url 'booking_history' %}">Booking History</a>
+                                <a class="dropdown-item" href="{% url 'order_summary' %}">Parts Summary</a>
                                 {% comment %} <a class="dropdown-item" href="{% url 'insurance_renewal' %}">Insurance</a> {% endcomment %}
                                  
                                 

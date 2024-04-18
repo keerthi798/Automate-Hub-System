@@ -166,6 +166,11 @@ urlpatterns = [
 
     path('policies/', views.policy_list, name='policy_list'),
 
+    path('availableorders/', views.available_orders, name='available_orders'),
+
+    path('deliveryupdatestatus/<int:order_id>/', views.delivery_update_status, name='delivery_update_status'),
+    path('otp-verification/<int:order_id>/', views.otp_verification, name='otp_verification'),
+    path('order-summary/', views.order_summary, name='order_summary'),
    
      
 ]

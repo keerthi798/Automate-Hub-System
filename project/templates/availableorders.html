@@ -605,43 +605,7 @@ border-radius: 4px;
 						alt="search-button">
 				</div>
 			</div>
-            <div class="box-container">
-
-				<div class="box box1">
-					<div class="text">
-						<h2 class="topic-heading">{{ user_count }}</h2>
-						<h2 class="topic">Users</h2>
-					</div>
-					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv9Mizj0nNWMqNIKO-5BCVypUX-qgZKl2y4Q&usqp=CAU" alt="Users">
-				</div>
-
-				<div class="box box2">
-					<div class="text">
-						<h2 class="topic-heading">{{ service_center_count }}</h2>
-						<h2 class="topic">Branches</h2>
-					</div>
-					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210185030/14.png" alt="Branches">
-				</div>
-
-				<div class="box box3">
-					<div class="text">
-						<h2 class="topic-heading">320</h2>
-						<h2 class="topic">Comments</h2>
-					</div>
-
-					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(32).png"
-						alt="comments">
-				</div>
-
-				<div class="box box4">
-					<div class="text">
-						<h2 class="topic-heading">70</h2>
-						<h2 class="topic">Published</h2>
-					</div>
-
-					<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210185029/13.png" alt="published">
-				</div>
-			</div>
+            
 			
 			
 
@@ -704,5 +668,120 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Styled Table</title>
+<style>
+    /* Style the table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    
+    /* Style the table header */
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-align: left;
+        padding: 8px;
+    }
+    
+    /* Style the table rows */
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    
+    /* Style the table cells */
+    td {
+        padding: 8px;
+    }
+    
+    /* Style the table cell with the button */
+    .btn-cell {
+        text-align: center;
+    }
+    
+    /* Style the button */
+    .btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    /* Style the button on hover */
+    .btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                {% comment %} <th>Order ID</th> {% endcomment %}
+                <th>Products</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Pincode</th>
+                <th>Total Amount</th>
+                <th>Delivery Status</th>
+                <th>Update Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through available_orders data -->
+            {% for order in available_orders %}
+            <tr>
+                {% comment %} <td>{{ order.id }}</td> {% endcomment %}
+                <td>
+                    <ul>
+                        {% for item in order.orderitem_set.all %}
+
+                        <li>{{ item.product.partsname }} x {{ item.quantity }}</li>
+                        
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ order.user.username }}</td>
+                <td>{{ order.user.email }}</td>
+                <td>{{ order.user.userprofile.phone_number }}</td>
+                <td>{{ order.user.userprofile.address }}</td>
+                <td>{{ order.user.userprofile.city }}</td>
+                <td>{{ order.user.userprofile.state }}</td>
+                <td>{{ order.total_amount }}</td>
+                <td>{{ order.delivery_status }}</td>
+                <td>{{ order.user.userprofile.pincode }}</td>
+                <td class="btn-cell">
+                    {% if order.id %}
+                        <a href="{% url 'delivery_update_status' order.id %}" class="btn">Update Status</a>
+                    {% else %}
+                        <span class="text-danger">Invalid Order ID</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>

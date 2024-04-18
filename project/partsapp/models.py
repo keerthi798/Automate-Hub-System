@@ -103,13 +103,20 @@ class Cart(models.Model):
     def __str__(self):
         return f"Cart for {self.user.username}"   
 class Order(models.Model):
+    DELIVERY_STATUS_CHOICES = [
+        ('PENDING', 'Pending'),
+        ('OUT_FOR_DELIVERY', 'Out for Delivery'),
+        ('DELIVERED', 'Delivered'),
+    ]
+
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     products = models.ManyToManyField(Parts, through='OrderItem')
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_id = models.CharField(max_length=100, null=True, blank=True)
     payment_status = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+    delivery_status = models.CharField(max_length=20, choices=DELIVERY_STATUS_CHOICES, default='PENDING')
+
     def __str__(self):
         return f"Order {self.id} by {self.user.username}"
 class OrderItem(models.Model):

@@ -15,7 +15,7 @@
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    <title>sparx motors light vehicles</title>
+    <title>Automate Hub</title>
     <style>
         .user-profile {
             position: relative;
@@ -228,7 +228,7 @@
     <!-- BOTTOM NAV -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Sparx motors<span class="dot">.</span></a>
+            <a class="navbar-brand" href="#">Automate Hub<span class="dot">.</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -240,11 +240,28 @@
                         <a class="nav-link" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">vehicles</a>
+                        <a class="nav-link">vehicles</a>
+                        <div class="dropdown">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'vehicle_order_model' 'lightvehicle' %}">Light Vehicle</a>
+                                <a class="dropdown-item" href="{% url 'vehicle_order_model' 'trucks' %}">Trucks</a>
+                                <a class="dropdown-item" href="{% url 'vehicle_order_model' 'buses' %}">Passenger</a>
+                                
+                                <!-- Add more vehicle models as needed -->
+                            </div>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'booking' %}">Services</a>
+                        <a class="nav-link" href="">Services</a>
+                        <div class="dropdown">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'booking' %}">Service Booking</a>
+                                <a class="dropdown-item" href="{% url 'booking_history' %}">Booking History</a>
+                                <a class="dropdown-item" href="">Insurance</a>
+                                
+                                <!-- Add more vehicle models as needed -->
+                            </div>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link">Spare parts</a>
@@ -276,18 +293,20 @@
                             <strong style="font-weight: bold;">{{ user.username }}</strong>
                             <div id="user-dropdown-content" class="dropdown" style="position: absolute; top: 100%; left: 0; display: none;">
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    {% comment %} <a class="dropdown-item" href="{% url 'view_wishlist' %}">wishlist</a> {% endcomment %}
+                                    
                                     <a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile</a>
                                     <a class="dropdown-item" href="{% url 'change_password' %}">change password</a>
                 
-                                    <a class="dropdown-item" href="{% url 'logout' %}" onclick="confirmLogout()">Logout</a>
+                                    {% comment %} <a class="dropdown-item" href="" >Logout</a> {% endcomment %}
+                                    <a class="dropdown-item" href="{% url 'logout' %}" onclick="showLogoutMessage()">Logout</a>
+
                                     {% csrf_token %}
                                 </div>
                             </div>
                         </div>
                     </li>
 
-                    {% if user.is_authenticated %}
+                    {% comment %} {% if user.is_authenticated %}
                     <div class="cart-icon">
                     <a href="{% url 'view_cart' %}" class="view-cart-link">
                     <img src="{% static 'img/cart.png' %}" alt="Cart">
@@ -298,7 +317,7 @@
                      <span class="cart-count">{{ cart_count }}</span>
                     {% endif %}
                 </div>
-                {% endif %}
+                {% endif %} {% endcomment %}
                     {% comment %} <li class="nav-item">
                         <a class="nav-link" href="{% url 'view_cart.html' %}">
                             <i class="fas fa-shopping-cart"></i> <!-- Assuming you're using Font Awesome for icons -->
@@ -311,13 +330,15 @@
                         <a class="btn btn-outline-light ms-3" href="{% url 'logout' %}" onclick="confirmLogout()">Logout</a>
                     </li> {% endcomment %}
                     <script>
-                        function confirmLogout() {
+                        {% comment %} function confirmLogout() {
                             if (confirm("Are you sure you want to log out?")) {
                                 window.location.href = "{% url 'logout' %}";  // Redirect to the logout URL
                             }
-                        }
+                        } {% endcomment %}
                         
-
+                        function showLogoutMessage() {
+                            alert('You have been logged out successfully.');
+                        }
                         const userDropdown = document.getElementById("user-dropdown");
                         const userDropdownContent = document.getElementById("user-dropdown-content");
                     
@@ -352,231 +373,61 @@
             </div>
         </div>
     </nav>
-
-
-
-{% load static %}
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<style>
-    {% comment %} .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #f4f4f4;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    } {% endcomment %}
-    
-    .cart-header {
-        text-align: center;
-        margin-bottom: 20px;
-    } 
-    
-     .cart-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-    } 
-    
-    .cart-item-details {
-        display: flex;
-        align-items: center;
-    } 
-    
-     .cart-item-name {
-        font-weight: bold;
-        margin-right: 10px;
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    } 
-    
-    .remove-from-cart-btn,
-    .quantity-btn {
-        background-color: #ff6347;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        padding: 5px 10px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    } 
-    
-     .remove-from-cart-btn:hover,
-    .quantity-btn:hover {
-        background-color: #e74c3c;
-    }
-     
-    .cart-item-quantity {
-        display: flex;
-        align-items: center;
-        margin-right: 30px;
-    }
-    
-     .cart-item-price {
-        font-weight: bold;
-    } 
-    
-    .continue-shopping-link {
-        display: inline-block;
-        margin-top: 20px;
-        text-decoration: none;
-        color: #3498db;
-        font-weight: bold;
-    } 
-    
-    .continue-shopping-link:hover {
-        text-decoration: underline;
-    }
-    
-    .checkout-button {
-        display: inline-block;
-        background-color: #28a745; 
-        color: white;
-        padding: 10px 20px;
-        border-radius: 4px;
-        margin-top: 20px;
-        margin-left: 400px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: background-color 0.3s;
-    } 
-    
-    .checkout-button:hover {
-        background-color: #218838;
-    }
-    li img {
-        width: 230px; /* Set the width of the image */
-        height: auto; /* Maintain aspect ratio */
-        /* Additional styles if needed */
-    }
-</style> 
-
-<body>
-
-<div class="container">
-
-    <div class="cart-header">
-        <h1>Your Cart</h1>
-    </div>
-
-    <ul>
-        {% for item in cart_items %}
-        <li class="cart-item">
-            <div class="cart-item-details">
-                <div class="cart-item-image">
-                    <img src="{{ item.product.parts_image.url }}" alt="{{ item.product.partsname }} Image">
-                </div>
-                
-                
-            <div class="cart-item-quantity">
-                <div class="cart-item-name">{{ item.product.partsname }}</div>
-                <form action="{% url 'remove_from_cart' item.product.id %}" method="post">
-                    {% csrf_token %}
-                    <button class="remove-from-cart-btn" type="submit">Remove</button>
-                </form>
-            </div>
-                <form action="{% url 'increase-cart-item' item.product.id %}" method="post">
-                    {% csrf_token %}
-                    <button class="quantity-btn increase-quantity" type="submit">+</button>
-                </form>
-                <span class="item-quantity">{{ item.quantity }}</span>
-                <form action="{% url 'decrease-cart-item' item.product.id %}" method="post">
-                    {% csrf_token %}
-                    <button class="quantity-btn decrease-quantity" type="submit">-</button>
-                </form>
-            </div>
-            <div class="cart-item-price" data-price="{{ item.product.price }}">
-                ${{ item.product.price }}
-            </div>
-            
-            
-        </li>
-        {% endfor %}
-    </ul>
-    <p class="total-price-data"><span id="total-price"></span></p>
-
-    <a class="continue-shopping-link" href="{% url 'partsorder' %}">Continue Shopping</a>
-
-    <a class="checkout-button" href="{% url 'checkout' %}">Checkout</a>
-</div>
-<script>
-    function updateCartCount() {
-    var cartCount = document.querySelector('.cart-count');
-    fetch('{% url "fetch-cart-count" %}')
-        .then(response => response.json())
-        .then(data => {
-            cartCount.textContent = data.cart_count;
-        });
-}
-
-updateCartCount();
-document.addEventListener("DOMContentLoaded", function () {
-
-
-    updateTotalPrice();
-
-const increaseButtons = document.querySelectorAll(".increase-quantity");
-const decreaseButtons = document.querySelectorAll(".decrease-quantity");
-const quantityElements = document.querySelectorAll(".item-quantity");
-const priceElements = document.querySelectorAll(".cart-item-price");
-
-increaseButtons.forEach((button, index) => {
-    button.addEventListener("click", (event) => {
-        event.preventDefault();
-        const currentItem = event.target.closest(".cart-item");
-        const quantityElement = currentItem.querySelector(".item-quantity");
-        const priceElement = currentItem.querySelector(".cart-item-price");
-        const pricePerItem = parseFloat(priceElement.getAttribute("data-price"));
-        const currentQuantity = parseInt(quantityElement.textContent);
-
-        quantityElement.textContent = currentQuantity + 1;
-        updateCartItemPrice(priceElement, pricePerItem, currentQuantity + 1);
-        updateTotalPrice();
-    });
-});
-
-decreaseButtons.forEach((button, index) => {
-    button.addEventListener("click", (event) => {
-        event.preventDefault();
-        const currentItem = event.target.closest(".cart-item");
-        const quantityElement = currentItem.querySelector(".item-quantity");
-        const priceElement = currentItem.querySelector(".cart-item-price");
-        const pricePerItem = parseFloat(priceElement.getAttribute("data-price"));
-        const currentQuantity = parseInt(quantityElement.textContent);
-
-        if (currentQuantity > 1) {
-            quantityElement.textContent = currentQuantity - 1;
-            updateCartItemPrice(priceElement, pricePerItem, currentQuantity - 1);
-            updateTotalPrice();
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <style>
+        /* Style for the container */
+        .order-container {
+            border: 2px solid #007bff; /* Border color */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Padding */
+            margin-bottom: 20px; /* Margin bottom to create space between orders */
+            background-color: #f8f9fa; /* Background color */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow */
         }
-    });
-});
 
-function updateCartItemPrice(priceElement, pricePerItem, quantity) {
-    const totalPrice = (pricePerItem * quantity).toFixed(2);
-    priceElement.textContent = "$" + totalPrice;
-}
+        /* Style for delivered container */
+        .delivered-container {
+            background-color: #dff0d8; /* Background color for delivered orders */
+        }
 
-function updateTotalPrice() {
-    const itemElements = document.querySelectorAll(".cart-item");
+        /* Style for the headings */
+        h1 {
+            text-align: center; /* Center align the heading */
+            color: #007bff; /* Heading color */
+        }
 
-    itemElements.forEach(function (itemElement) {
-        const price = parseFloat(itemElement.querySelector(".cart-item-price").getAttribute("data-price"));
-        const quantity = parseInt(itemElement.querySelector(".cart-item-quantity").textContent);
-        total += price * quantity;
-    });
-
-    const totalPriceElement = document.getElementById("total-price");
-    totalPriceElement.textContent = total.toFixed(2);
-}
-});
-
-
-</script>
+        /* Style for the smiley face */
+        .smiley {
+            font-size: 54px; /* Font size */
+            margin-top: 10px; /* Margin top */
+            text-align: center; /* Center align */
+            color: #28a745; /* Color for the smiley face */
+        }
+    </style>
+</head>
+<body>
+    <h1>Orders summary</h1>
+    {% for order in orders %}
+    <div class="order-container{% if order.delivery_status == 'Delivered' %} delivered-container{% endif %}">
+        <!-- Container for each order -->
+        <ul>
+            <li>
+                
+                Total Amount: {{ order.total_amount }}<br>
+                Payment Status: {% if order.payment_status %}Paid{% else %}Pending{% endif %}<br>
+                Delivery Status: {{ order.get_delivery_status_display }}<br>
+                Created At: {{ order.created_at }}
+            </li>
+        </ul>
+        {% if order.delivery_status == 'Delivered' %}
+        <div class="smiley">😊</div> <!-- Smiley face for delivered orders -->
+        {% endif %}
+    </div>
+    {% endfor %}
 </body>
 </html>
