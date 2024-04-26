@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Details Report</title>
+    <style>
+        /* Define your CSS styles for the email template here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 100%;
+            margin: auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .user-details, .vehicle-details, .insurance-details {
+            margin-bottom: 20px;
+        }
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .details-table th, .details-table td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .user-details th, .vehicle-details th, .insurance-details th {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Insurance Details Report</h1>
+        </div>
+        
+        <div class="user-details">
+            <h2>User Details</h2>
+            <table class="details-table">
+                <tbody>
+                    <tr>
+                        <th>User</th>
+                        <td>{{ record.insurancenew.user.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ record.insurancenew.user.email }}</td>
+                    </tr>
+                    <!-- Add more user details as needed -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="vehicle-details">
+            <h2>Vehicle Details</h2>
+            <table class="details-table">
+                <tbody>
+                    <tr>
+                        <th>Register Number</th>
+                        <td>{{ record.insurancenew.register_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>State</th>
+                        <td>{{ record.insurancenew.state }}</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="insurance-details">
+            <h2>Insurance Details</h2>
+            <table class="details-table">
+                <tbody>
+                    <tr>
+                        <th>Vehicle Model</th>
+                        <td>{{ record.insurance.vehicle_model }}</td>
+                    </tr>
+                    <tr>
+                        <th>Vehicle Usage</th>
+                        <td>{{ record.insurance.vehicle_usage }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fuel Type</th>
+                        <td>{{ record.insurance.fuel_type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Transmission Type</th>
+                        <td>{{ record.insurance.transmission_type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Insurance Type</th>
+                        <td>{{ record.insurance.insurance_type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Insurance Price</th>
+                        <td>{{ record.insurance.price }}</td>
+                    </tr>
+                    <tr>
+                        <th>Insurance Amount</th>
+                        <td>{{ record.amount_paid }}</td>
+                    </tr> 
+                    <tr>
+                        <th>Insurance Date</th>
+                        <td>{{ record.payment_datetime }}</td>
+                    </tr>  
+                        
+                        
+                        
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="footer">
+            <p>Thank you for choosing our insurance service.</p>
+        </div>
+    </div>
+</body>
+</html>

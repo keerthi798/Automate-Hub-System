@@ -276,7 +276,7 @@ class PaymentRecord(models.Model):
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
     insurancenew = models.ForeignKey(InsuranceNew, on_delete=models.CASCADE, null=True)
     payment_datetime = models.DateTimeField(default=timezone.now)
-    
+    confirmed = models.BooleanField(default=False)
     
 class Policy(models.Model):
     number = models.CharField(max_length=20, unique=True)
@@ -286,6 +286,18 @@ class Policy(models.Model):
 
     def __str__(self):
         return self.number
-    
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class ConfirmedInsurance(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    register_number = models.CharField(max_length=20)
+    policy_number = models.CharField(max_length=20)
+    start_date = models.DateField()
+    expire_date = models.DateField()
+
+    def __str__(self):
+        return f"{self.user.username}'s Confirmed Insurance"
 
 

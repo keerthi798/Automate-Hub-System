@@ -797,7 +797,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <th>Payment Date</th>
                     <th>Vehicle Related Details</th>
                     <th>Action</th>
-                    <th>Generate PDF</th>
+                  
                 </tr>
             </thead>
             <tbody>
@@ -823,47 +823,27 @@ document.addEventListener('DOMContentLoaded', function() {
                         Package: {{ payment_record.insurance.price }} <br>
                     </td>
                     
-                    
-                        {% comment %} <form method="post" action="{% url 'confirm_payment' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="payment_record_id" value="{{ payment_record.id }}">
-                            <button type="submit" class="confirm-button">Confirm</button>
-                        </form> {% endcomment %}
-
-						<td>
-							{% if payment_record.confirmed %}
-								<button type="button" class="confirm-button confirmed" disabled>Confirmed</button>
-							{% else %}
-								<form id="confirm-form-{{ payment_record.id }}" method="post" action="{% url 'confirm_payment' %}">
-									{% csrf_token %}
-									<input type="hidden" name="payment_record_id" value="{{ payment_record.id }}">
-									<button type="submit" class="confirm-button" onclick="disableButton({{ payment_record.id }})">Confirm</button>
-								</form>
-							{% endif %}
-						</td>
-						
                     <td>
-                        <form action="{% url 'generate_pdf_and_send_email' %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="pdf-button">Generate PDF and Send Email</button>
-                        </form>
-                    </td>
+						<form method="post" action="{% url 'confirm_payment' %}">
+							{% csrf_token %}
+							<input type="hidden" name="payment_record_id" value="{{ payment_record.id }}">
+							{% if not payment_record.confirmed %}
+								<button type="submit" class="confirm-button">Confirm</button>
+							{% else %}
+								<button type="button" class="confirm-button confirmed" disabled>Confirmed</button>
+							{% endif %}
+						</form>
+					</td>
+						
+						
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
         
+		
     </div>
-	<script>
-		function disableButton(payment_record_id) {
-			// Disable the button upon click
-			var formId = "confirm-form-" + payment_record_id;
-			var form = document.getElementById(formId);
-			var confirmButton = form.querySelector(".confirm-button");
-			confirmButton.disabled = true;
-			confirmButton.innerText = "Confirming..."; // Optionally change button text
-		}
-	</script>
+	
 	
 </body>
 </html>

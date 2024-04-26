@@ -703,5 +703,20 @@
             <button type="submit" name="submit">Submit</button>
         </form>
     </div>
+    <script>
+        function validateForm() {
+            var fileInput = document.getElementById('id_proof');
+            var filePath = fileInput.value;
+            var allowedExtensions = /(\.png|\.jpg|\.jpeg|\.pdf)$/i;
+
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Please upload file having extensions .png, .jpg, .jpeg, .pdf only.');
+                fileInput.value = '';
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
 </body>
 </html>
