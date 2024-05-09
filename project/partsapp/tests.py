@@ -19,7 +19,7 @@
 
 #         # Enter valid credentials
 #         username_input.send_keys("Sisira12")
-#         password_input.send_keys("Sisira@123")
+#         password_input.send_keys("Sisira@1234")
 
 #         # Click the login button
 #         login_button.click()
@@ -56,7 +56,7 @@
 #         login_button = self.driver.find_element(By.ID, "submitBtn")
 
 #         username_input.send_keys("Sisira12")
-#         password_input.send_keys("Sisira@123")
+#         password_input.send_keys("Sisira@1234")
 #         login_button.click()
 
 #         time.sleep(5)
@@ -96,7 +96,7 @@
 # if __name__ == "__main__":
 #     unittest.main()
 
-#change password working
+# change password working
 
 # import unittest
 # from selenium import webdriver
@@ -241,48 +241,6 @@
 # if __name__ == "__main__":
 #     unittest.main()
 
-# import unittest
-# from selenium import webdriver
-# from selenium.webdriver.common.by import By
-# import time
-
-# class NavigationTest(unittest.TestCase):
-#     def setUp(self):
-#         self.driver = webdriver.Chrome()
-#         self.driver.get("http://127.0.0.1:8000/login")  # Open the login page
-#         time.sleep(5)
-
-#         # Log in with valid credentials
-#         username_input = self.driver.find_element(By.ID, "username")
-#         password_input = self.driver.find_element(By.ID, "password")
-#         login_button = self.driver.find_element(By.ID, "submitBtn")
-
-#         username_input.send_keys("Sisira12")
-#         password_input.send_keys("Sisira@1234")
-#         login_button.click()
-#         time.sleep(7)  # Wait for login and redirect
-
-#     def test_navigation_to_light_vehicle(self):
-#         # Click on the "vehicles" dropdown
-#         vehicles_dropdown = self.driver.find_element(By.XPATH, "//a[contains(text(),'vehicles')]")
-#         vehicles_dropdown.click()
-#         time.sleep(4)  # Wait for dropdown to expand
-
-#         # Click on the "Light Vehicle" option
-#         light_vehicle_option = self.driver.find_element(By.XPATH, "//a[contains(text(),'Light Vehicle')]")
-#         light_vehicle_option.click()
-#         time.sleep(5)  # Wait for the page to load
-
-#         # Verify that the URL corresponds to the "Light Vehicle" page
-#         expected_url = "http://127.0.0.1:8000/vehicle_order_model/lightvehicle"  # Update with the actual URL
-#         self.assertEqual(self.driver.current_url, expected_url, "Did not navigate to the Light Vehicle page")
-
-#     def tearDown(self):
-#         self.driver.close()
-
-# if __name__ == "__main__":
-#     unittest.main()
-
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -319,27 +277,69 @@ class NavigationTest(unittest.TestCase):
         expected_url = "http://127.0.0.1:8000/vehicle_order_model/lightvehicle"  # Update with the actual URL
         self.assertEqual(self.driver.current_url, expected_url, "Did not navigate to the Light Vehicle page")
 
-    # def test_book_now_button_click(self):
-    #     # Click on the "Book Now" button of the first vehicle
-    #     book_now_button = self.driver.find_element(By.XPATH, "//section[@id='vehicle-list']/div[1]//a[contains(text(),'Book Now')]")
-    #     book_now_button.click()
-    #     time.sleep(5)  # Wait for the page to load
-
-    #     # Verify that the URL corresponds to the "Book Now" page or the expected page after clicking "Book Now"
-    #     expected_url = "http://127.0.0.1:8000/book_now"  # Update with the actual URL
-    #     self.assertEqual(self.driver.current_url, expected_url, "Did not navigate to the Book Now page")
-    def test_book_now_button_redirect(self):
-    # Click on the "Book Now" button of the first vehicle
-        book_now_button = self.driver.find_element(By.XPATH, "//section[@id='vehicle-list']/div[1]//a[contains(text(),'Book Now')]")
-        book_now_button.click()
-        time.sleep(5)  # Wait for the page to load
-
-    # Verify that the URL corresponds to the expected page after clicking "Book Now"
-        expected_url = "http://127.0.0.1:8000/book_now"  # Update with the actual URL
-        self.assertEqual(self.driver.current_url, expected_url, "Did not redirect to the Book Now page")
     def tearDown(self):
         self.driver.close()
 
 if __name__ == "__main__":
     unittest.main()
+
+# import unittest
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# import time
+
+# class NavigationTest(unittest.TestCase):
+#     def setUp(self):
+#         self.driver = webdriver.Chrome()
+#         self.driver.get("http://127.0.0.1:8000/login")  # Open the login page
+#         time.sleep(5)
+
+#         # Log in with valid credentials
+#         username_input = self.driver.find_element(By.ID, "username")
+#         password_input = self.driver.find_element(By.ID, "password")
+#         login_button = self.driver.find_element(By.ID, "submitBtn")
+
+#         username_input.send_keys("Sisira12")
+#         password_input.send_keys("Sisira@1234")
+#         login_button.click()
+#         time.sleep(7)  # Wait for login and redirect
+
+#     def test_navigation_to_light_vehicle(self):
+#         # Click on the "vehicles" dropdown
+#         vehicles_dropdown = self.driver.find_element(By.XPATH, "//a[contains(text(),'vehicles')]")
+#         vehicles_dropdown.click()
+#         time.sleep(4)  # Wait for dropdown to expand
+
+#         # Click on the "Light Vehicle" option
+#         light_vehicle_option = self.driver.find_element(By.XPATH, "//a[contains(text(),'Light Vehicle')]")
+#         light_vehicle_option.click()
+#         time.sleep(5)  # Wait for the page to load
+
+#         # Verify that the URL corresponds to the "Light Vehicle" page
+#         expected_url = "http://127.0.0.1:8000/vehicle_order_model/lightvehicle"  # Update with the actual URL
+#         self.assertEqual(self.driver.current_url, expected_url, "Did not navigate to the Light Vehicle page")
+
+#     # def test_book_now_button_click(self):
+#     #     # Click on the "Book Now" button of the first vehicle
+#     #     book_now_button = self.driver.find_element(By.XPATH, "//section[@id='vehicle-list']/div[1]//a[contains(text(),'Book Now')]")
+#     #     book_now_button.click()
+#     #     time.sleep(5)  # Wait for the page to load
+
+#     #     # Verify that the URL corresponds to the "Book Now" page or the expected page after clicking "Book Now"
+#     #     expected_url = "http://127.0.0.1:8000/book_now"  # Update with the actual URL
+#     #     self.assertEqual(self.driver.current_url, expected_url, "Did not navigate to the Book Now page")
+#     def test_book_now_button_redirect(self):
+#     # Click on the "Book Now" button of the first vehicle
+#         book_now_button = self.driver.find_element(By.XPATH, "//section[@id='vehicle-list']/div[1]//a[contains(text(),'Book Now')]")
+#         book_now_button.click()
+#         time.sleep(5)  # Wait for the page to load
+
+#     # Verify that the URL corresponds to the expected page after clicking "Book Now"
+#         expected_url = "http://127.0.0.1:8000/book_now"  # Update with the actual URL
+#         self.assertEqual(self.driver.current_url, expected_url, "Did not redirect to the Book Now page")
+#     def tearDown(self):
+#         self.driver.close()
+
+# if __name__ == "__main__":
+#     unittest.main()
 
