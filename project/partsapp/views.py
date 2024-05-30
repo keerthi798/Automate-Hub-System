@@ -576,7 +576,7 @@ def booking(request):
             booking.save()
 
         confirmation_message = "Booking completed successfully!"
-        return render(request, 'Timeslot.html', {'message': confirmation_message})
+        return render(request, 'booking.html', {'message': confirmation_message})
    
     else:
         return render(request, 'booking.html', {'user_profile': user_profile})

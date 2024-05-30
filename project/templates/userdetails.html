@@ -801,7 +801,6 @@ td form {
                 <th>Service Type</th>
 				
                 <th>Service Date</th>
-				<th>File Upload</th>
                 <th>Actions</th> <!-- Add a new column for actions -->
             </tr>
         </thead>
@@ -824,7 +823,7 @@ td form {
 							No File Uploaded
 						{% endif %}
 					</td> {% endcomment %}
-					<td>
+					{% comment %} <td>
 						{% if booking.file_upload %}
 							<!-- Display a link to view/download the PDF -->
 							<a href="{{ booking.file_upload.url }}" target="_blank">View PDF</a>
@@ -833,7 +832,7 @@ td form {
 							<!-- Display a message if no file is uploaded -->
 							No File Uploaded
 						{% endif %}
-					</td>
+					</td> {% endcomment %}
 	
                     <td>
                         <div class="button-container">

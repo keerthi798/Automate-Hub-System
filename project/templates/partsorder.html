@@ -319,295 +319,288 @@
             </div>
         </div>
     </nav>
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Booking Dashboard</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
-    <style>
-        /* Reset some default browser styles */
-        body, h1, h2, ul, li, p, button {
-            margin: 0;
-            padding: 0;
-        }
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Booking Dashboard</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+        <style>
+            /* Reset some default browser styles */
+            body, h1, h2, ul, li, p, button {
+                margin: 0;
+                padding: 0;
+            }
+            
+            body {
+                font-family: Arial, sans-serif;
+            }
+            
+            header {
+                background-color: #F65C2C;
+                color: #fff;
+                text-align: center;
+                padding: 10px 0;
+            }
+            
+            nav {
+                background-color: #F65C2C;
+            }
+            
+            nav ul {
+                list-style: none;
+                display: flex;
+                justify-content: center;
+                padding: 10px 0;
+            }
+            
+            nav li {
+                margin: 0 20px;
+            }
+            
+            nav a {
+                text-decoration: none;
+                color: #fff;
+            }
+            
+            nav .search-icon img {
+                width: 20px;
+            }
+            
+            main {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            
+            #search-bar {
+                width: 600px; /* Set the width of the search input */
+                padding: 8px; /* Add some padding for better appearance */
+                border: 1px solid #ccc; /* Add a border */
+                border-radius: 5px; /* Add rounded corners */
+                margin-right: 10px; /* Add some spacing between input and button */
+            }
+              
+            #search-button {
+                background-color: #007BFF; /* Set a background color for the button */
+                color: #fff; /* Set text color to white for better visibility */
+                border: none; /* Remove the button border */
+                border-radius: 5px; /* Add rounded corners */
+                padding: 8px 16px; /* Add padding for a better visual appearance */
+                cursor: pointer;
+            }
+              
+            #search-button:hover {
+                background-color: #0056b3; /* Change background color on hover */
+            }
+           
+            #services {
+                height: 100%; /* Set the height to 100% of its container */
+                max-height: 1500px; /* Increase the max-height as needed */
+                max-width: 2800px;
+                padding: 20px;
+                background-image: url('{% static "img/Bearings-thump.jpg" %}');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                color: #333;
+            }
+            
+            aside {
+                background-color: #f4f4f4;
+                padding: 20px;
+                border-radius: 5px;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+                margin-bottom: 15px;
+            }
+            
+            .sidebar-item {
+                margin-bottom: 20px;
+            }
+            
+            .sidebar-item h3 {
+                font-size: 1.2em;
+                margin-bottom: 10px;
+            }
+            
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+            
+            li a {
+                text-decoration: none;
+                color: #333;
+                display: block;
+                padding: 5px 0;
+                transition: color 0.3s ease;
+            }
+            
+            li a:hover {
+                color: #ff6347; /* Change color on hover */
+            }
+            
+            .product-card .out-of-stock-label {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(255, 0, 0, 0.7);
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+                z-index: 1;
+            }
+            .add-to-cart-button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                padding: 10px 20px;
+                margin: 4px 2px;
+                transition-duration: 0.4s;
+                cursor: pointer;
+                border-radius: 8px;
+            }
         
-        body {
-            font-family: Arial, sans-serif;
-        }
+            /* Styling for Buy Now button */
+            .buy-now-button {
+                background-color: #008CBA; /* Blue */
+                border: none;
+                color: white;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                padding: 10px 20px;
+                margin: 4px 2px;
+                transition-duration: 0.4s;
+                cursor: pointer;
+                border-radius: 8px;
+            }
         
-        header {
-            background-color: #F65C2C;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-        }
+            /* Hover effect */
+            .add-to-cart-button:hover,  .view-more-button:hover {
+                background-color: red; /* Darker green */
+            }
+            aside {
+                background-color: #f4f4f4;
+                padding: 20px;
+                border-radius: 5px;
+                width: 250px; /* Adjust width as needed */
+            }
+            
+            .sidebar-item {
+                margin-bottom: 20px;
+            }
+            
+            .sidebar-item h3 {
+                font-size: 1.2em;
+                margin-bottom: 10px;
+            }
+            
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+            
+            li a {
+                text-decoration: none;
+                color: #333;
+                display: block;
+                padding: 5px 0;
+                transition: color 0.3s ease;
+            }
+            
+            li a:hover {
+                color: #ff6347; /* Change color on hover */
+            }
         
-        nav {
-            background-color: #F65C2C;
-        }
+            button[type="submit"] {
+                padding: 8px 16px;
+                border: none;
+                background-color: #007BFF;
+                color: #fff;
+                border-radius: 5px;
+                cursor: pointer;
+            }
         
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-        }
+            button[type="submit"]:hover {
+                background-color: #0056b3;
+            }
         
-        nav li {
-            margin: 0 20px;
-        }
+            /* Additional styles can be added or modified based on your design preferences */
+            .container {
+                display: flex;
+                justify-content: space-between;
+            }
         
-        nav a {
-            text-decoration: none;
-            color: #fff;
-        }
+            .product-section {
+                width: 70%; /* Adjust the width of the product section */
+            }
         
-        nav .search-icon img {
-            width: 20px;
-        }
-        
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        
-        
-        #search-bar {
-            width: 600px; /* Set the width of the search input */
-            padding: 8px; /* Add some padding for better appearance */
-            border: 1px solid #ccc; /* Add a border */
-            border-radius: 5px; /* Add rounded corners */
-            margin-right: 10px; /* Add some spacing between input and button */
-          }
-          
-          #search-button {
-            background-color: #007BFF; /* Set a background color for the button */
-            color: #fff; /* Set text color to white for better visibility */
-            border: none; /* Remove the button border */
-            border-radius: 5px; /* Add rounded corners */
-            padding: 8px 16px; /* Add padding for a better visual appearance */
-            cursor: pointer;
-          }
-          
-          #search-button:hover {
-            background-color: #0056b3; /* Change background color on hover */
-          }
-         
-        #services {
-            height: 100%; /* Set the height to 100% of its container */
-            max-height: 1500px; /* Increase the max-height as needed */
-            max-width: 2800px;
-            padding: 20px;
-            background-image: url('{% static "img/Bearings-thump.jpg" %}');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: #333;
-        }
-        
-        aside {
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 5px;
-        }
-        
-        h2 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-        }
-        
-        .sidebar-item {
-            margin-bottom: 20px;
-        }
-        
-        .sidebar-item h3 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-        
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        li a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 5px 0;
-            transition: color 0.3s ease;
-        }
-        
-        li a:hover {
-            color: #ff6347; /* Change color on hover */
-        }
-        
-        
-    
-        .product-card .out-of-stock-label {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 0, 0, 0.7);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            z-index: 1;
-        }
-        .add-to-cart-button {
-            background-color: #4CAF50; /* Green */
-            border: none;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            padding: 10px 20px;
-            margin: 4px 2px;
-            transition-duration: 0.4s;
-            cursor: pointer;
-            border-radius: 8px;
-        }
-    
-        /* Styling for Buy Now button */
-        .buy-now-button {
-            background-color: #008CBA; /* Blue */
-            border: none;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            padding: 10px 20px;
-            margin: 4px 2px;
-            transition-duration: 0.4s;
-            cursor: pointer;
-            border-radius: 8px;
-        }
-    
-        /* Hover effect */
-        .add-to-cart-button:hover,  .view-more-button:hover {
-            background-color: red; /* Darker green */
-        }
-        aside {
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 5px;
-            width: 250px; /* Adjust width as needed */
-        }
-        
-        .sidebar-item {
-            margin-bottom: 20px;
-        }
-        
-        .sidebar-item h3 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-        
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        li a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 5px 0;
-            transition: color 0.3s ease;
-        }
-        
-        li a:hover {
-            color: #ff6347; /* Change color on hover */
-        }
-        
-        
-        button[type="submit"] {
-            padding: 8px 16px;
-            border: none;
-            background-color: #007BFF;
-            color: #fff;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        button[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-        
-        /* Additional styles can be added or modified based on your design preferences */
-        .container {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .product-section {
-            width: 70%; /* Adjust the width of the product section */
-        }
-
-        aside {
-            width: 25%; /* Adjust the width of the sidebar */
-        }
-        .search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* Add other styles as needed */
-        }
-        {% comment %} .content-container {
-            display: flex;
-            justify-content: flex-start;
-        } {% endcomment %}
-        
-        
-        .product-card {
-            width: calc(95.33% - 20px); /* Adjust the width as needed */
-            /* Other styles */
-        }
-        .product-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust as needed */
-            gap: 10px; /* Adjust spacing between cards */
-        }
-        .add-to-cart-form {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .out-of-stock-label {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 0, 0, 0.7);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            z-index: 1;
-        }
-        .product-image.out-of-stock {
-            position: relative;
-        }
-        
-        .out-of-stock-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 0, 0, 0.7); /* Red overlay, adjust as needed */
-            color: white;
-            padding: 5px;
-            border-radius: 5px;
-        }
+            aside {
+                width: 25%; /* Adjust the width of the sidebar */
+            }
+            .search-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                /* Add other styles as needed */
+            }
+            {% comment %} .content-container {
+                display: flex;
+                justify-content: flex-start;
+            } {% endcomment %}
+            
+            
+            .product-card {
+                width: calc(95.33% - 20px); /* Adjust the width as needed */
+                /* Other styles */
+            }
+            .product-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust as needed */
+                gap: 10px; /* Adjust spacing between cards */
+            }
+            .add-to-cart-form {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .out-of-stock-label {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(255, 0, 0, 0.7);
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+                z-index: 1;
+            }
+            .product-image.out-of-stock {
+                position: relative;
+            }
+            
+            .out-of-stock-overlay {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(255, 0, 0, 0.7); /* Red overlay, adjust as needed */
+                color: white;
+                padding: 5px;
+                border-radius: 5px;
+            }
         
             .product-card {
                 display: flex;
@@ -633,9 +626,9 @@
                 cursor: pointer;
             }
         
+                
             
-            
-       
+           
             .product-card {
                 display: flex;
                 flex-direction: column;
@@ -683,71 +676,73 @@
                 border-radius: 5px;
                 z-index: 1;
             }
-</style> 
-
-</head>
-<body>
-    
-    <div class="search-container">
-        <input type="text" id="search-bar" placeholder="Search products">
-        <button id="search-button">Search</button>
-    </div>
-
-    <section class="product-list" id="product-list">
-        {% for part in parts_orders %}
-        <div class="product-card">
-            <div class="product-image">
-                <img src="{{ part.parts_image.url }}" alt="{{ part.partsname }} Image">
-                {% if part.quantity == 0 %}
-                <div class="out-of-stock-overlay">Out of Stock</div>
-                {% endif %}
-            </div>
-            <div class="product-info">
-                <h2>{{ part.partsname }}</h2>
-                <p>Description: {{ part.description }}</p>
-                <p>Price: {{ part.price }}</p>
-
-                <form action="{% url 'add_to_cart' part.id %}" method="post" class="add-to-cart-form">
-                    {% csrf_token %}
-                    <button class="add-to-cart-button">Add to Cart</button>
-                </form>
-                <button class="view-more-button">
-                    <a href="{% url 'view_more' part.id %}">View More</a>
-                </button>
-            </div>
+        </style>
+        
+    </head>
+    <body>
+        
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search products">
+            <button id="search-button">Search</button>
         </div>
-        {% empty %}
-        <p>No parts orders yet.</p>
-        {% endfor %}
-    </section>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Function to filter vehicles based on the search query
-            function filterVehicles(searchQuery) {
-                const vehicleList = document.getElementById('vehicle-list');
-                const vehicles = vehicleList.getElementsByClassName('vehicle-card');
     
-                for (let i = 0; i < vehicles.length; i++) {
-                    const vehicleName = vehicles[i].querySelector('h2').textContent.toLowerCase();
-                    const displayStyle = vehicleName.includes(searchQuery.toLowerCase()) ? 'block' : 'none';
-                    vehicles[i].style.display = displayStyle;
+        <section class="product-list" id="product-list">
+            {% for part in parts_orders %}
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ part.parts_image.url }}" alt="{{ part.partsname }} Image">
+                    {% if part.quantity == 0 %}
+                    <div class="out-of-stock-overlay">Out of Stock</div>
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <h2>{{ part.partsname }}</h2>
+                    <p>Description: {{ part.description }}</p>
+                    <p>Price: {{ part.price }}</p>
+    
+                    <form action="{% url 'add_to_cart' part.id %}" method="post" class="add-to-cart-form">
+                        {% csrf_token %}
+                        <button class="add-to-cart-button">Add to Cart</button>
+                        <button class="view-more-button">
+                            <a href="{% url 'view_more' part.id %}">View More</a>
+                        </button>
+                    </form>
+                    
+                </div>
+            </div>
+            {% empty %}
+            <p>No parts orders yet.</p>
+            {% endfor %}
+        </section>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Function to filter vehicles based on the search query
+                function filterVehicles(searchQuery) {
+                    const vehicleList = document.getElementById('vehicle-list');
+                    const vehicles = vehicleList.getElementsByClassName('vehicle-card');
+        
+                    for (let i = 0; i < vehicles.length; i++) {
+                        const vehicleName = vehicles[i].querySelector('h2').textContent.toLowerCase();
+                        const displayStyle = vehicleName.includes(searchQuery.toLowerCase()) ? 'block' : 'none';
+                        vehicles[i].style.display = displayStyle;
+                    }
                 }
-            }
-    
-            // Event listener for the search button click
-            document.getElementById('search-button').addEventListener('click', function () {
-                const searchValue = document.getElementById('search-bar').value;
-                filterVehicles(searchValue);
+        
+                // Event listener for the search button click
+                document.getElementById('search-button').addEventListener('click', function () {
+                    const searchValue = document.getElementById('search-bar').value;
+                    filterVehicles(searchValue);
+                });
+        
+                // Event listener for typing into the search bar
+                document.getElementById('search-bar').addEventListener('input', function () {
+                    const searchValue = this.value;
+                    filterVehicles(searchValue);
+                });
             });
+        </script>
     
-            // Event listener for typing into the search bar
-            document.getElementById('search-bar').addEventListener('input', function () {
-                const searchValue = this.value;
-                filterVehicles(searchValue);
-            });
-        });
-    </script>
-
-</body>
-</html>
+    </body>
+    </html>
+    

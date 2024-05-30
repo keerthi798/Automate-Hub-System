@@ -436,13 +436,11 @@
             <div class="product-details">
                 <h2>{{ part.partsname }}</h2>
                 <p>{{ part.description }}</p>
-                <p>{{ part.price }}</p>
-                <p>Discount: {{ part.discount }}</p>
-    
+                
                 <!-- Additional Details -->
                 <p>Additional Details: {{ part.additional_details }}</p>
                 <!-- Add more details as needed -->
-    
+                <p>Price : {{ part.price }}</p>
                 <!-- Zoom in functionality using JavaScript -->
                 <script>
                     var zoomedImage = document.getElementById('zoomed-product-image');

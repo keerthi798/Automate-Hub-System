@@ -1,40 +1,39 @@
+import unittest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
 
-# import unittest
-# from selenium import webdriver
-# from selenium.webdriver.common.by import By
-# import time
+class LoginTest(unittest.TestCase):
+    def setUp(self):
+        # Start the Selenium WebDriver
+        self.driver = webdriver.Chrome()  # Adjust based on your WebDriver configuration
+        self.driver.get("http://127.0.0.1:8000/login")  # Replace with the actual URL of your login page
+        time.sleep(10)
 
-# class LoginTest(unittest.TestCase):
-#     def setUp(self):
-#         # Start the Selenium WebDriver
-#         self.driver = webdriver.Chrome()  # Adjust based on your WebDriver configuration
-#         self.driver.get("http://127.0.0.1:8000/login")  # Replace with the actual URL of your login page
-#         time.sleep(10)
+    def test_login_successful(self):
+        # Find the username, password, and login button elements
+        username_input = self.driver.find_element(By.ID, "username")
+        password_input = self.driver.find_element(By.ID, "password")
+        login_button = self.driver.find_element(By.ID, "submitBtn")
 
-#     def test_login_successful(self):
-#         # Find the username, password, and login button elements
-#         username_input = self.driver.find_element(By.ID, "username")
-#         password_input = self.driver.find_element(By.ID, "password")
-#         login_button = self.driver.find_element(By.ID, "submitBtn")
+        # Enter valid credentials
+        username_input.send_keys("Sisira12")
+        password_input.send_keys("Sisira@1234")
 
-#         # Enter valid credentials
-#         username_input.send_keys("Sisira12")
-#         password_input.send_keys("Sisira@1234")
+        # Click the login button
+        login_button.click()
 
-#         # Click the login button
-#         login_button.click()
+        # Wait for a while to see the result (you can adjust this based on your application's response time)
+        time.sleep(2)
+        # Assuming successful login redirects to the home page, you can add assertions accordingly
+        self.assertEqual(self.driver.current_url, 'http://127.0.0.1:8000/')  # Update with the expected URL after login
 
-#         # Wait for a while to see the result (you can adjust this based on your application's response time)
-#         time.sleep(2)
-#         # Assuming successful login redirects to the home page, you can add assertions accordingly
-#         self.assertEqual(self.driver.current_url, 'http://127.0.0.1:8000/')  # Update with the expected URL after login
+    def tearDown(self):
+        # Close the browser window
+        self.driver.close()
 
-#     def tearDown(self):
-#         # Close the browser window
-#         self.driver.close()
-
-# if __name__ == "__main__":
-#     unittest.main()
+if __name__ == "__main__":
+    unittest.main()
 
 #Booking testing
 
@@ -241,47 +240,47 @@
 # if __name__ == "__main__":
 #     unittest.main()
 
-import unittest
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-import time
+# import unittest
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# import time
 
-class NavigationTest(unittest.TestCase):
-    def setUp(self):
-        self.driver = webdriver.Chrome()
-        self.driver.get("http://127.0.0.1:8000/login")  # Open the login page
-        time.sleep(5)
+# class NavigationTest(unittest.TestCase):
+#     def setUp(self):
+#         self.driver = webdriver.Chrome()
+#         self.driver.get("http://127.0.0.1:8000/login")  # Open the login page
+#         time.sleep(5)
 
-        # Log in with valid credentials
-        username_input = self.driver.find_element(By.ID, "username")
-        password_input = self.driver.find_element(By.ID, "password")
-        login_button = self.driver.find_element(By.ID, "submitBtn")
+#         # Log in with valid credentials
+#         username_input = self.driver.find_element(By.ID, "username")
+#         password_input = self.driver.find_element(By.ID, "password")
+#         login_button = self.driver.find_element(By.ID, "submitBtn")
 
-        username_input.send_keys("Sisira12")
-        password_input.send_keys("Sisira@1234")
-        login_button.click()
-        time.sleep(7)  # Wait for login and redirect
+#         username_input.send_keys("Sisira12")
+#         password_input.send_keys("Sisira@1234")
+#         login_button.click()
+#         time.sleep(7)  # Wait for login and redirect
 
-    def test_navigation_to_light_vehicle(self):
-        # Click on the "vehicles" dropdown
-        vehicles_dropdown = self.driver.find_element(By.XPATH, "//a[contains(text(),'vehicles')]")
-        vehicles_dropdown.click()
-        time.sleep(4)  # Wait for dropdown to expand
+#     def test_navigation_to_light_vehicle(self):
+#         # Click on the "vehicles" dropdown
+#         vehicles_dropdown = self.driver.find_element(By.XPATH, "//a[contains(text(),'vehicles')]")
+#         vehicles_dropdown.click()
+#         time.sleep(4)  # Wait for dropdown to expand
 
-        # Click on the "Light Vehicle" option
-        light_vehicle_option = self.driver.find_element(By.XPATH, "//a[contains(text(),'Light Vehicle')]")
-        light_vehicle_option.click()
-        time.sleep(5)  # Wait for the page to load
+#         # Click on the "Light Vehicle" option
+#         light_vehicle_option = self.driver.find_element(By.XPATH, "//a[contains(text(),'Light Vehicle')]")
+#         light_vehicle_option.click()
+#         time.sleep(5)  # Wait for the page to load
 
-        # Verify that the URL corresponds to the "Light Vehicle" page
-        expected_url = "http://127.0.0.1:8000/vehicle_order_model/lightvehicle"  # Update with the actual URL
-        self.assertEqual(self.driver.current_url, expected_url, "Did not navigate to the Light Vehicle page")
+#         # Verify that the URL corresponds to the "Light Vehicle" page
+#         expected_url = "http://127.0.0.1:8000/vehicle_order_model/lightvehicle"  # Update with the actual URL
+#         self.assertEqual(self.driver.current_url, expected_url, "Did not navigate to the Light Vehicle page")
 
-    def tearDown(self):
-        self.driver.close()
+#     def tearDown(self):
+#         self.driver.close()
 
-if __name__ == "__main__":
-    unittest.main()
+# if __name__ == "__main__":
+#     unittest.main()
 
 # import unittest
 # from selenium import webdriver
