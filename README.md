@@ -37,16 +37,17 @@ New insurance, insurance renewal, Accident claim processing
 Manage spare parts delivery details, Track and update delivery status, Coordinate with users
 for timely delivery
 
+# Project Screenrecordings
+
+https://github.com/user-attachments/assets/66cef0c5-862e-4a5a-bcd0-9b12a5dd30f1
 # project Screenshot
-
-
 ![Screenshot 2024-03-01 154917](https://github.com/keerthi798/Automate-Hub-System/assets/120888435/c41ea25b-3901-450a-a598-463b178d7aab)
 
 ![Screenshot 2024-03-01 155223](https://github.com/keerthi798/Automate-Hub-System/assets/120888435/eb085842-4100-4596-b895-84544dc5669a)
 
 
 
- https://github.com/user-attachments/assets/66cef0c5-862e-4a5a-bcd0-9b12a5dd30f1
+
 
 
 ![Screenshot 2024-03-01 155430](https://github.com/keerthi798/Automate-Hub-System/assets/120888435/09294633-23f8-4fd9-9278-4128a1639b87)
